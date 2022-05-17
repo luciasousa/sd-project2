@@ -278,4 +278,8 @@ public class Message implements Serializable
               "\nName of logging file = " + fName +
               "\nNumber of iterations = " + nIter);
    }
+
+public int getWaiterState() {
+   return 0;
+}
 }

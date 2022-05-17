@@ -12,114 +12,116 @@ public class MessageType
   /**
    *  Initialization of the logging file name and the number of iterations (service request).
    */
-
-   public static final int SETNFIC = 1;
+    public static final int SETNFIC = 1;
 
   /**
    *  Logging file was initialized (reply).
    */
-
-   public static final int NFICDONE = 2;
-
-  /**
-   *  Request hair cut (service request).
-   */
-
-   public static final int REQCUTH = 3;
+    public static final int NFICDONE = 2;
 
   /**
-   *  Hair was cut (reply).
+   *  Chef wait for an order (request).
    */
-
-   public static final int CUTHDONE = 4;
+  public static final int WAFOR = 4;
 
   /**
-   *  Barber shop is full (reply).
+   *  Order done (reply).
    */
-
-   public static final int BSHOPF = 5;
+  public static final int ORDERDONE = 5;
 
   /**
-   *  Barber goes to sleep (service request).
+   *  Chef prepares course (request).
    */
-
-   public static final int SLEEP = 6;
+  public static final int PRPCS = 6;
 
   /**
-   *  Barber is asleep (reply).
+   *  Course prepared (reply).
    */
-
-   public static final int SLEEPDONE = 7;
+  public static final int CSPREP = 7;
 
   /**
-   *  Call a customer (service request).
+   *  Get first course (request).
    */
-
-   public static final int CALLCUST = 8;
+  public static final int GETFIRSTCOURSE = 8;
 
   /**
-   *  Customer was called (reply).
+   *  First course (reply).
    */
-
-   public static final int CCUSTDONE = 9;
+  public static final int FIRSTCOURSE = 9;
 
   /**
-   *  Barber receives payment (service request).
+   *  Proceed to presentation (request).
    */
-
-   public static final int RECPAY = 10;
+  public static final int PRCPRES = 10;
 
   /**
-   *  Payment was received (reply).
+   *  Proceed to presentation (reply).
    */
-
-   public static final int RPAYDONE = 11;
+  public static final int PRESDONE = 11;
 
   /**
-   *  End of work - barber (service request).
+   *  Have all portions been delivered (request).
    */
-
-   public static final int ENDOP = 12;
+  public static final int PORDELIV = 12;
 
   /**
-   *  Barber goes home (reply).
+   *  Have all portions been delivered (reply).
    */
-
-   public static final int EOPDONE = 13;
+  public static final int PORDELIVDONE = 13;
 
   /**
-   *  Server shutdown (service request).
+   *  Have next portion ready (request).
    */
-
-   public static final int SHUT = 14;
+  public static final int POREADY = 14;
 
   /**
-   *  Server was shutdown (reply).
+   *  Have next portion ready (reply).
    */
-
-   public static final int SHUTDONE = 15;
+  public static final int POREADYDONE = 15;
 
   /**
-   *  Set barber state (service request).
+   *  Set first course (request).
    */
-
-   public static final int STBST = 16;
+  public static final int SETFIRSTCS = 16;
 
   /**
-   *  Set customer state (service request).
+   *  Set first course (reply).
    */
-
-   public static final int STCST = 17;
+  public static final int SETFIRSTCSDONE = 17;
 
   /**
-   *  Set barber and customer states (service request).
+   *  Has the order been completed (request).
    */
-
-   public static final int STBCST = 18;
+  public static final int ORDERCOMPREQ = 18;
 
   /**
-   *  Setting acknowledged (reply).
+   *  Order been complete (reply).
    */
+  public static final int ORDERCOMP = 19;
 
-   public static final int SACK = 19;
+  /**
+   *  Clean up (request).
+   */
+  public static final int CLEANREQ = 20;
+
+  /**
+   *  Clean up (reply).
+   */
+  public static final int CLEAN = 21;
+
+  /**
+   *  Hand note to the chef (request).
+   */
+  public static final int NOTEREQ = 22;
+
+  /**
+   *  Hand note to the chef (reply).
+   */
+  public static final int NOTE = 23;
+
+
+
+
+
+  
 }
