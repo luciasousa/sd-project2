@@ -85,7 +85,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
       }
-      outMessage = new Message (MessageType.STBST, state);
+      outMessage = new Message (MessageType.SETCHEFSTATE, state);
       com.writeObject (outMessage);
       inMessage = (Message) com.readObject ();
       if (inMessage.getMsgType() != MessageType.SACK)
@@ -102,7 +102,7 @@ public class GeneralReposStub {
    *     @param state customer state
    */
 
-   public void setStudentState ( int state)
+   public void setWaiterState ( int state)
    {
       ClientCom com;                                                 // communication channel
       Message outMessage,                                            // outgoing message
@@ -115,7 +115,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
       }
-      outMessage = new Message (MessageType.STCST, state);
+      outMessage = new Message (MessageType.SETWAITERSTATE, state);
       com.writeObject (outMessage);
       inMessage = (Message) com.readObject ();
       if (inMessage.getMsgType() != MessageType.SACK)
@@ -146,7 +146,7 @@ public class GeneralReposStub {
        }
        catch (InterruptedException e) {}
      }
-     outMessage = new Message (MessageType.STCST, id, state);
+     outMessage = new Message (MessageType.SETSTUDENTSTATE, id, state);
      com.writeObject (outMessage);
      inMessage = (Message) com.readObject ();
      if (inMessage.getMsgType() != MessageType.SACK)
@@ -179,7 +179,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
       }
-      outMessage = new Message (MessageType.STBCST, chefState, waiterState, studentID, studentState);
+      outMessage = new Message (MessageType.SETSTATES, chefState, waiterState, studentID, studentState);
       com.writeObject (outMessage);
       inMessage = (Message) com.readObject ();
       if (inMessage.getMsgType() != MessageType.SACK)

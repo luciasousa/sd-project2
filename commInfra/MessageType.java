@@ -119,7 +119,61 @@ public class MessageType
    */
   public static final int NOTE = 23;
 
+  /**
+   *  Read menu (request).
+   */
+  public static final int READMENUREQ = 24;
 
+  /**
+   *  Read menu (reply).
+   */
+  public static final int READMENU = 25;
+
+  
+
+
+  /**
+   *  Server shutdown (service request).
+   */
+
+  public static final int SHUT = 26;
+
+  /**
+   *  Server was shutdown (reply).
+   */
+
+   public static final int SHUTDONE = 27;
+
+  /**
+   *  Set chef state (service request).
+   */
+
+   public static final int SETCHEFSTATE = 28;
+
+  /**
+   *  Set waiter state (service request).
+   */
+
+   public static final int SETWAITERSTATE = 29;
+
+  /**
+   *  Set student state (service request).
+   */
+
+  public static final int SETSTUDENTSTATE = 30;
+
+
+  /**
+   *  Set chef, waiter and student states (service request).
+   */
+
+   public static final int SETSTATES = 31;
+
+  /**
+   *  Setting acknowledged (reply).
+   */
+
+   public static final int SACK = 32;
 
 
 

@@ -88,45 +88,52 @@ public class Message implements Serializable
    public Message (int type, int id, int state)
    {
       msgType = type;
-      if ((msgType == MessageType.STBST) || (msgType == MessageType.CALLCUST) || (msgType == MessageType.RPAYDONE))
-         { studentID= id;
-           studentState = state;
-         }
-         else if ((msgType == MessageType.STCST) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
-                  (msgType == MessageType.BSHOPF))
-                 { custId= id;
-                   custState = state;
-                 }
-                 else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
-                        System.exit (1);
-                      }
+      //TODO: meter nas message type as mensagens que pertencem a cada entidade
+      if ((msgType == MessageType.SETSTUDENTSTATE) || (msgType == MessageType.CALLCUST) || (msgType == MessageType.RPAYDONE))
+      { 
+         studentID= id;
+         studentState = state;
+      }
+      else if ((msgType == MessageType.SETWAITERSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
+               (msgType == MessageType.BSHOPF))
+      { 
+         waiterState = state;
+      }
+      else if ((msgType == MessageType.SETCHEFSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
+               (msgType == MessageType.BSHOPF))
+      { 
+         chefState = state;
+      }
+      else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+               System.exit (1);
+      }
    }
 
   /**
    *  Message instantiation (form 3).
    *
    *     @param type message type
-   *     @param id barber identification
+   *     @param id student identification
    */
 
    public Message (int type, int id)
    {
       msgType = type;
-      barbId= id;
+      studentID= id;
    }
 
   /**
    *  Message instantiation (form 4).
    *
    *     @param type message type
-   *     @param id barber identification
+   *     @param id student identification
    *     @param endOP end of operations flag
    */
 
    public Message (int type, int id, boolean endOp)
    {
       msgType = type;
-      barbId= id;
+      studentID= id;
       this.endOp = endOp;
    }
 
@@ -134,36 +141,36 @@ public class Message implements Serializable
    *  Message instantiation (form 5).
    *
    *     @param type message type
-   *     @param barbId barber identification
-   *     @param barbState barber state
-   *     @param custId customer identification
+   *     @param studentID student identification
+   *     @param studentState student state
+   *     @param waiterState waiter state
    */
 
-   public Message (int type, int barbId, int barbState, int custId)
+   public Message (int type, int studentID, int studentState, int waiterState)
    {
       msgType = type;
-      this.barbId= barbId;
-      this.barbState = barbState;
-      this.custId= custId;
+      this.studentID= studentID;
+      this.studentState = studentState;
+      this.waiterState = waiterState;
    }
 
   /**
    *  Message instantiation (form 6).
    *
    *     @param type message type
-   *     @param barbId barber identification
-   *     @param barbState barber state
-   *     @param custId customer identification
-   *     @param custState customer state
+   *     @param studentID student identification
+   *     @param studentState student state
+   *     @param waiterState waiter state
+   *     @param chefState chef state
    */
 
-   public Message (int type, int barbId, int barbState, int custId, int custState)
+   public Message (int type, int studentID, int studentState, int waiterState, int chefState)
    {
       msgType = type;
-      this.barbId= barbId;
-      this.barbState = barbState;
-      this.custId= custId;
-      this.custState = custState;
+      this.studentID= studentID;
+      this.studentState = studentState;
+      this.waiterState= waiterState;
+      this.chefState = chefState;
    }
 
   /**
@@ -204,25 +211,36 @@ public class Message implements Serializable
    }
 
   /**
-   *  Getting customer identification.
+   *  Getting student identification.
    *
-   *     @return customer identification
+   *     @return student identification
    */
 
-   public int getCustId ()
+   public int getStudentID ()
    {
-      return (custId);
+      return (studentID);
    }
 
   /**
-   *  Getting customer state.
+   *  Getting student state.
    *
-   *     @return customer state
+   *     @return student state
    */
 
-   public int getCustState ()
+   public int getStudentState ()
    {
-      return (custState);
+      return (studentState);
+   }
+
+   /**
+   *  Getting waiter state.
+   *
+   *     @return waiter state
+   */
+
+   public int getWaiterState ()
+   {
+      return (waiterState);
    }
 
   /**
@@ -270,16 +288,12 @@ public class Message implements Serializable
    public String toString ()
    {
       return ("Message type = " + msgType +
-              "\nBarber Id = " + barbId +
-              "\nBarber State = " + barbState +
-              "\nCustomer Id = " + custId +
-              "\nCustomer State = " + custState +
+              "\nChef State = " + chefState +
+              "\nWaiter State = " + waiterState +
+              "\nStudent Id = " + studentID +
+              "\nStudent State = " + studentState +
               "\nEnd of Operations (barber) = " + endOp +
               "\nName of logging file = " + fName +
               "\nNumber of iterations = " + nIter);
    }
-
-public int getWaiterState() {
-   return 0;
-}
 }

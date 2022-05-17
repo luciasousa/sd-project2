@@ -55,6 +55,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.PRPCS))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -83,6 +84,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DSHPT))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -112,6 +114,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -143,6 +146,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -172,6 +176,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -202,6 +207,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -231,6 +237,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -260,6 +267,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -290,6 +298,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -318,6 +327,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        //TODO: ver este if
         if ((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.APPST))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
             GenericIO.writelnString (inMessage.toString ());

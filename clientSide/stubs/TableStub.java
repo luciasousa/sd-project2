@@ -1,6 +1,7 @@
 package clientSide.stubs;
 import clientSide.entities.*;
 import commInfra.*;
+import genclass.GenericIO;
 
 /**
  *  Stub to the Table.
@@ -44,6 +45,22 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
+        outMessage = new Message (MessageType.READMENUREQ, ((Student) Thread.currentThread()).getStudentState());
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.READMENU)
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+            }
+        //TODO: ver este if
+        if ((inMessage.getStudentState () < StudentStates.GGTRT) || (inMessage.getStudentState () > StudentStates.OGODR))
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+            }
+        com.close ();
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     public void informCompanion() {
