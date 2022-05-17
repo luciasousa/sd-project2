@@ -18,8 +18,8 @@ public class ClientChef {
         Chef chef;
         KitchenStub kitchen;
         BarStub bar;
-        kitchen = new KitchenStub();
-        bar = new BarStub();
+        kitchen = new KitchenStub("l040101-ws01.ua.pt", 22150);
+        bar = new BarStub("l040101-ws01.ua.pt", 22151);
         chef = new Chef(ChefStates.WAFOR, kitchen, bar);
 
         /*start thread*/

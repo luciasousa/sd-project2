@@ -25,31 +25,31 @@ public class Message implements Serializable
    private int msgType = -1;
 
   /**
-   *  Barber identification.
+   *  Chef state.
    */
 
-   private int barbId = -1;
+   private int chefState = -1;
 
-  /**
-   *  Barber state.
+   /**
+   *  Waiter state.
    */
 
-   private int barbState = -1;
+  private int waiterState = -1;
 
   /**
-   *  Customer identification.
+   *  Student identification.
    */
 
-   private int custId = -1;
+   private int studentID = -1;
 
   /**
-   *  Customer state.
+   *  Student state.
    */
 
-   private int custState = -1;
+   private int studentState = -1;
 
   /**
-   *  End of operations (barber).
+   *  End of operations.
    */
 
    private boolean endOp = false;
@@ -61,7 +61,7 @@ public class Message implements Serializable
    private String fName = null;
 
   /**
-   *  Number of iterations of the customer life cycle.
+   *  Number of iterations of the student life cycle.
    */
 
    private int nIter = -1;
@@ -81,16 +81,16 @@ public class Message implements Serializable
    *  Message instantiation (form 2).
    *
    *     @param type message type
-   *     @param id barber / customer identification
-   *     @param state barber / customer state
+   *     @param id student identification
+   *     @param state student state
    */
 
    public Message (int type, int id, int state)
    {
       msgType = type;
       if ((msgType == MessageType.STBST) || (msgType == MessageType.CALLCUST) || (msgType == MessageType.RPAYDONE))
-         { barbId= id;
-           barbState = state;
+         { studentID= id;
+           studentState = state;
          }
          else if ((msgType == MessageType.STCST) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
                   (msgType == MessageType.BSHOPF))
@@ -193,25 +193,14 @@ public class Message implements Serializable
    }
 
   /**
-   *  Getting barber identification.
+   *  Getting chef state.
    *
-   *     @return barber identification
+   *     @return chef state
    */
 
-   public int getBarbId ()
+   public int getChefState ()
    {
-      return (barbId);
-   }
-
-  /**
-   *  Getting barber state.
-   *
-   *     @return barber state
-   */
-
-   public int getBarbState ()
-   {
-      return (barbState);
+      return (chefState);
    }
 
   /**

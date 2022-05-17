@@ -19,9 +19,9 @@ public class ClientWaiter {
         KitchenStub kitchen;
         TableStub table;
         BarStub bar;
-        kitchen = new KitchenStub();
-        table = new TableStub();
-        bar = new BarStub();
+        kitchen = new KitchenStub("l040101-ws01.ua.pt", 22150);
+        table = new TableStub("l040101-ws01.ua.pt", 22152);
+        bar = new BarStub("l040101-ws01.ua.pt", 22151);
         waiter = new Waiter(WaiterStates.APPST, bar, kitchen, table);
 
         /*start thread*/

@@ -18,8 +18,8 @@ public class ClientStudent {
         Student[] student = new Student[Constants.N];
         TableStub table;
         BarStub bar;
-        table = new TableStub();
-        bar = new BarStub();
+        table = new TableStub("l040101-ws01.ua.pt", 22152);
+        bar = new BarStub("l040101-ws01.ua.pt", 22151);
         for (int i = 0; i < Constants.N; i++)
             student[i] = new Student(i,StudentStates.GGTRT, table, bar);
 

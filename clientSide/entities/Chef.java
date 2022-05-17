@@ -72,7 +72,7 @@ public class Chef extends Thread
         kitchen.startPreparation();
         do 
         {
-            if(!kitchen.getFirstCourse()) kitchen.continuePreparation(); else kitchen.setFirstCourse(false);
+            if(!kitchen.getFirstCourse()) kitchen.startPreparation(); else kitchen.setFirstCourse(false);
             kitchen.proceedToPresentation();
             bar.alertTheWaiter();
 
