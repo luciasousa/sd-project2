@@ -112,7 +112,7 @@ public class Student extends Thread
         for(int i=0; i< Constants.M; i++)
         {
             table.startEating();
-            table.startEating();
+            table.endEating();
             //wait for everyone to finish
             if(!table.hasEverybodyChosen())
                 table.waitForEverybodyToFinish();

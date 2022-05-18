@@ -55,8 +55,7 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.PRPCS))
+        if ((inMessage.getChefState () != ChefStates.WAFOR))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
@@ -80,16 +79,17 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.CSPREP)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DSHPT))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+        }
+        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.PRPCS))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
@@ -110,16 +110,17 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.FIRSTCOURSE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+        }
+        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
@@ -142,16 +143,17 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.PRESDONE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+        }
+        if ((inMessage.getChefState () < ChefStates.PRPCS) || (inMessage.getChefState () > ChefStates.DSHPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
@@ -172,16 +174,17 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.PORDELIVDONE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+        }
+        if ((inMessage.getChefState () != ChefStates.DLVPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
@@ -203,21 +206,23 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.POREADYDONE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+        }
+        if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
     }
 
+    //O QUE FAZER COM O BOOLEAN
     public void setFirstCourse(boolean b) {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -233,16 +238,17 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.SETFIRSTCSDONE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+        }
+        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
@@ -263,12 +269,12 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.ORDERCOMP)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
+        }
+        if ((inMessage.getChefState () != ChefStates.DLVPT))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
@@ -294,12 +300,12 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.CLEAN)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.CLSSV))
+        }
+        if ((inMessage.getChefState () < ChefStates.DLVPT) || (inMessage.getChefState () > ChefStates.CLSSV))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
@@ -323,17 +329,43 @@ public class KitchenStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.NOTE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
-        //TODO: ver este if
-        if ((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.APPST))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+        }
+        if ((inMessage.getWaiterState () < WaiterStates.TKODR) || (inMessage.getWaiterState () > WaiterStates.PCODR))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+        }
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+    }
+
+    public void shutdown ()
+    {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+            { Thread.sleep ((long) (1000));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SHUT);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SHUTDONE)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
     }
 }
