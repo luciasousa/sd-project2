@@ -308,8 +308,106 @@ public class MessageType
    *   Present the bill (reply).
    */
   public static final int PRESBILL = 62;
-  
 
+  /**
+   *   Alert the waiter (request).
+   */
+  public static final int ALERTWAITER = 63;
+
+  /**
+   *   Alert the waiter (reply).
+   */
+  public static final int WAITERALERTED = 64;
+
+  /**
+   *   Student enters the restaurant (request).
+   */
+  public static final int ENTERSTUDENT = 65;
+
+  /**
+   *   Student enters the restaurant (reply).
+   */
+  public static final int STUDENTENTERED = 66;
+
+  /**
+   *   Call the waiter (request).
+   */
+  public static final int CALLWAITER = 67;
+
+  /**
+   *   Call the waiter (reply).
+   */
+  public static final int WAITERCALLED = 68;
+
+  /**
+   *   Signal the waiter (request).
+   */
+  public static final int SIGNALWAITER = 69;
+
+  /**
+   *   Signal the waiter (reply).
+   */
+  public static final int WAITERSIGNALED = 70;
+
+  /**
+   *   Student exits the restaurant (request).
+   */
+  public static final int EXITSTUDENT = 71;
+
+  /**
+   *   Student exits the restaurant (reply).
+   */
+  public static final int STUDENTEXITED = 72;
+
+  /**
+   *   Waiter looks around (request).
+   */
+  public static final int LOOKWAITER = 73;
+
+  /**
+   *   Waiter looks around (reply).
+   */
+  public static final int WAITERLOOKED = 74;
+
+  /**
+   *   Waiter returns to bar (request).
+   */
+  public static final int RETURNWAITER = 75;
+  
+  /**
+   *   Waiter returns to bar (reply).
+   */
+  public static final int WAITERRETURNED = 76;
+
+  /**
+   *   Waiter collects the portion (request).
+   */
+  public static final int COLLECTWAITER = 77;
+
+  /**
+   *   Waiter collects the portion (reply).
+   */
+  public static final int WAITERCOLLECTED = 78;
+
+  /**
+   *   Waiter prepares the bill (request).
+   */
+  public static final int PREPAREWAITER = 79;
+
+  /**
+   *   Waiter prepares the bill (reply).
+   */
+  public static final int WAITERPREPARED = 80;
+
+  /**
+   *   Waiter says goodbye to student (request).
+   */
+  public static final int SAYGOODBYE = 81;
+
+  /**
+   *   Waiter says goodbye to student (reply).
+   */
+  public static final int SAYGOODBYEDONE = 82;
 
 
 
