@@ -15,9 +15,10 @@ public interface SharedRegionInterface {
 	   *
 	   *	 @param message Received Message
 	   *     @return message Response Message.
+	 * @throws MessageException
 	   */
 	
-	public Message processAndReply(Message message);
+	public Message processAndReply(Message message) throws MessageException;
 	
 	/**
 	   *  Get flag to determine if the server has received a shutdown message.

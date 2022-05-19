@@ -323,7 +323,7 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SAYGOODBYE, ((Waiter) Thread.currentThread()).getWaiterState());
+        outMessage = new Message (MessageType.SAYGOODBYE, ((Waiter) Thread.currentThread()).getWaiterState(), requestID);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.SAYGOODBYEDONE)

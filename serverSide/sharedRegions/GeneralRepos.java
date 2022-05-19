@@ -3,6 +3,7 @@ import genclass.GenericIO;
 import genclass.TextFile;
 import serverSide.entities.*;
 import serverSide.main.*;
+import clientSide.entities.*;
 
 /**
  *  General Repository.

@@ -1,8 +1,8 @@
 package serverSide.sharedRegions;
 import commInfra.*;
 import serverSide.main.*;
-import serverSide.stubs.*;
 import serverSide.entities.*;
+import clientSide.entities.*;
 
 /**
  *    Bar
