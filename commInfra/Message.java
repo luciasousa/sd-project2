@@ -87,10 +87,8 @@ public class Message implements Serializable
 
    public Message (int type, int id, int state)
    {
-      
       studentID= id;
       studentState = state;
-
    }
 
    /**
@@ -99,18 +97,25 @@ public class Message implements Serializable
    *     @param type message type
    *     @param state chef/waiter state
    */
-
   public Message (int type, int state)
   {
      msgType = type;
-     //TODO: meter nas message type as mensagens que pertencem a cada entidade
-     if ((msgType == MessageType.SETWAITERSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
-              (msgType == MessageType.BSHOPF))
+
+     if ((msgType == MessageType.SETWAITERSTATE) || (msgType == MessageType.SALUTECLIENTREQ) || (msgType == MessageType.SALUTECLIENT) 
+      || (msgType == MessageType.GETPADREQ) || (msgType == MessageType.GETPAD) || (msgType == MessageType.HVCLIENTSBEENSRVREQ) || (msgType == MessageType.HVCLIENTSBEENSRV)
+      || (msgType == MessageType.DELVPTREQ) || (msgType == MessageType.DELVPT) || (msgType == MessageType.PRESBILLREQ) || (msgType == MessageType.PRESBILL)
+      || (msgType == MessageType.NOTE) || (msgType == MessageType.NOTE) || (msgType == MessageType.LOOKWAITER) || (msgType == MessageType.WAITERLOOKED)
+      || (msgType == MessageType.RETURNWAITER) || (msgType == MessageType.WAITERRETURNED) || (msgType == MessageType.COLLECTWAITER) || (msgType == MessageType.WAITERCOLLECTED)
+      || (msgType == MessageType.PREPAREWAITER) || (msgType == MessageType.WAITERPREPARED) || (msgType == MessageType.SAYGOODBYE) || (msgType == MessageType.SAYGOODBYEDONE))
      { 
         waiterState = state;
      }
-     else if ((msgType == MessageType.SETCHEFSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
-              (msgType == MessageType.BSHOPF))
+     else if ((msgType == MessageType.SETCHEFSTATE) || (msgType == MessageType.ALERTWAITER) || (msgType == MessageType.WAITERALERTED)
+      || (msgType == MessageType.WAFOR) || (msgType == MessageType.ORDERDONE) || (msgType == MessageType.PRPCS) || (msgType == MessageType.CSPREP)
+      || (msgType == MessageType.GETFIRSTCOURSE) || (msgType == MessageType.FIRSTCOURSE) || (msgType == MessageType.PRCPRES) || (msgType == MessageType.PRESDONE)
+      || (msgType == MessageType.PORDELIV) || (msgType == MessageType.PORDELIVDONE) || (msgType == MessageType.POREADY) || (msgType == MessageType.POREADYDONE)
+      || (msgType == MessageType.SETFIRSTCS) || (msgType == MessageType.SETFIRSTCSDONE) || (msgType == MessageType.ORDERCOMPREQ) || (msgType == MessageType.ORDERCOMP)
+      || (msgType == MessageType.CLEANREQ) || (msgType == MessageType.CLEAN))
      { 
         chefState = state;
      }
