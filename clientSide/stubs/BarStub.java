@@ -6,6 +6,7 @@ import clientSide.entities.StudentStates;
 import clientSide.entities.Waiter;
 import clientSide.entities.WaiterStates;
 import commInfra.*;
+import genclass.GenericIO;
 
 /**
  *  Stub to the Bar.
@@ -79,7 +80,7 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STUDENTENTERED)
@@ -111,7 +112,7 @@ public class BarStub {
         }
 
         //criar message type
-        outMessage = new Message (MessageType.CALLWAITER, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.CALLWAITER,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         //criar message type
@@ -143,7 +144,7 @@ public class BarStub {
         }
 
         //criar message type
-        outMessage = new Message (MessageType.SIGNALWAITER, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.SIGNALWAITER,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         //criar message type
@@ -174,7 +175,7 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.EXITSTUDENT, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.EXITSTUDENT,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STUDENTEXITED)
@@ -242,6 +243,7 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+            //TODO: ver return to bar
             if (false)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
             GenericIO.writelnString (inMessage.toString ());

@@ -87,75 +87,40 @@ public class Message implements Serializable
 
    public Message (int type, int id, int state)
    {
-      msgType = type;
-      //TODO: meter nas message type as mensagens que pertencem a cada entidade
-      if ((msgType == MessageType.SETSTUDENTSTATE) || (msgType == MessageType.CALLCUST) || (msgType == MessageType.RPAYDONE))
-      { 
-         studentID= id;
-         studentState = state;
-      }
-      else if ((msgType == MessageType.SETWAITERSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
-               (msgType == MessageType.BSHOPF))
-      { 
-         waiterState = state;
-      }
-      else if ((msgType == MessageType.SETCHEFSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
-               (msgType == MessageType.BSHOPF))
-      { 
-         chefState = state;
-      }
-      else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
-               System.exit (1);
-      }
+      
+      studentID= id;
+      studentState = state;
+
    }
 
-  /**
+   /**
    *  Message instantiation (form 3).
    *
    *     @param type message type
-   *     @param id student identification
+   *     @param state chef/waiter state
    */
 
-   public Message (int type, int id)
-   {
-      msgType = type;
-      studentID= id;
-   }
+  public Message (int type, int state)
+  {
+     msgType = type;
+     //TODO: meter nas message type as mensagens que pertencem a cada entidade
+     if ((msgType == MessageType.SETWAITERSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
+              (msgType == MessageType.BSHOPF))
+     { 
+        waiterState = state;
+     }
+     else if ((msgType == MessageType.SETCHEFSTATE) || (msgType == MessageType.REQCUTH) || (msgType == MessageType.CUTHDONE) ||
+              (msgType == MessageType.BSHOPF))
+     { 
+        chefState = state;
+     }
+     else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+              System.exit (1);
+     }
+  }
 
   /**
    *  Message instantiation (form 4).
-   *
-   *     @param type message type
-   *     @param id student identification
-   *     @param endOP end of operations flag
-   */
-
-   public Message (int type, int id, boolean endOp)
-   {
-      msgType = type;
-      studentID= id;
-      this.endOp = endOp;
-   }
-
-  /**
-   *  Message instantiation (form 5).
-   *
-   *     @param type message type
-   *     @param studentID student identification
-   *     @param studentState student state
-   *     @param waiterState waiter state
-   */
-
-   public Message (int type, int studentID, int studentState, int waiterState)
-   {
-      msgType = type;
-      this.studentID= studentID;
-      this.studentState = studentState;
-      this.waiterState = waiterState;
-   }
-
-  /**
-   *  Message instantiation (form 6).
    *
    *     @param type message type
    *     @param studentID student identification
@@ -174,7 +139,7 @@ public class Message implements Serializable
    }
 
   /**
-   *  Message instantiation (form 7).
+   *  Message instantiation (form 5).
    *
    *     @param type message type
    *     @param name name of the logging file

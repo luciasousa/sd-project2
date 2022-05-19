@@ -45,7 +45,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.READMENUREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.READMENUREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.READMENU)
@@ -75,7 +75,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.INFCOMPREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.INFCOMPREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.INFCOMP)
@@ -105,7 +105,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.PREPORDERREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.PREPORDERREQ, ((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.PREPORDER)
@@ -135,7 +135,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.EVBDCHOSENREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.EVBDCHOSENREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.EVBDCHOSEN)
@@ -166,7 +166,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.ADDUPCHCREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.ADDUPCHCREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.ADDUPCHC)
@@ -196,7 +196,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.DESCORDERREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.DESCORDERREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.DESCORDER)
@@ -226,7 +226,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.JOINTALKREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.JOINTALKREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.JOINTALK)
@@ -256,7 +256,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.STARTEATREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.STARTEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STARTEAT)
@@ -286,7 +286,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.ENDEATREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.ENDEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.ENDEAT)
@@ -316,7 +316,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.EVBDFINISHREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.EVBDFINISHREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.EVBDFINISH)
@@ -346,7 +346,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.CSREADYREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.CSREADYREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.CSREADY)
@@ -376,7 +376,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.WTPAYREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.WTPAYREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WTPAY)
@@ -406,7 +406,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SHARRIVEDEARLIERREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.SHARRIVEDEARLIERREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.SHARRIVEDEARLIER)
@@ -436,7 +436,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.HONOURBILLREQ, ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.HONOURBILLREQ, ((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.HONOURBILL)

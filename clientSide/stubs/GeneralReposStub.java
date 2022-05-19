@@ -166,7 +166,7 @@ public class GeneralReposStub {
    *     @param studentState customer state
    */
 
-   public void setBarberCustomerState (int chefState, int waiterState, int studentID, int studentState)
+   public void setChefWaiterStudentState (int chefState, int waiterState, int studentID, int studentState)
    {
       ClientCom com;                                                 // communication channel
       Message outMessage,                                            // outgoing message
