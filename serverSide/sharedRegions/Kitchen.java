@@ -3,6 +3,7 @@ import commInfra.*;
 import serverSide.main.*;
 import serverSide.entities.*;
 import clientSide.entities.*;
+import clientSide.stubs.GeneralReposStub;
 
 /**
  *    Kitchen
@@ -17,6 +18,11 @@ import clientSide.entities.*;
 public class Kitchen 
 {
     /**
+     *   Number of entity groups requesting the shutdown.
+     */
+    private int nEntities;
+
+    /**
      *   Counter of the number of courses to deliver.
      */
     private int numberOfCoursesToDeliver;
@@ -29,7 +35,7 @@ public class Kitchen
     /**
      *   Reference to the general repository
      */
-    private final GeneralRepos repos;
+    private final GeneralReposStub reposStub;
 
     /**
      *   Boolean flag that indicates if is the first course.
@@ -56,10 +62,11 @@ public class Kitchen
      *
      *    @param repos reference to the General Information Repository
      */
-    public Kitchen(GeneralRepos repos)
+    public Kitchen(GeneralReposStub reposStub)
     {
         firstCourse = true;
-        this.repos = repos;
+        this.reposStub = reposStub;
+        nEntities=0;
     }
 
     /**
@@ -94,7 +101,7 @@ public class Kitchen
         {
             chef.setChefState(ChefStates.WAFOR);
             int state = chef.getChefState();
-            repos.setChefState(state);
+            reposStub.setChefState(state);
         }
         //System.out.println("chef watches the news");
         while(!isNoteAvailable)
@@ -121,7 +128,7 @@ public class Kitchen
         Waiter waiter = (Waiter) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.PCODR);
         int state = waiter.getWaiterState();
-        repos.setWaiterState(state);
+        reposStub.setWaiterState(state);
         //System.out.println("waiter hands the note to chef");
         this.numberOfCoursesToDeliver = Constants.M;
         this.numberOfPortionsToDeliver = Constants.N;
@@ -148,7 +155,7 @@ public class Kitchen
         Chef chef = (Chef) Thread.currentThread();
         chef.setChefState(ChefStates.DLVPT);
         int state = chef.getChefState();
-        repos.setChefState(state);
+        reposStub.setChefState(state);
         //System.out.println("chef waits for waiter to collect portion");
         while(!portionCollected)
         {
@@ -186,7 +193,7 @@ public class Kitchen
         Chef chef = (Chef) Thread.currentThread();
         chef.setChefState(ChefStates.PRPCS);
         int state = chef.getChefState();
-        repos.setChefState(state);
+        reposStub.setChefState(state);
         numberOfCoursesToDeliver--;
         //System.out.printf("chef starts preparation\n");
         preparationStarted = true;
@@ -204,7 +211,7 @@ public class Kitchen
         Chef chef = (Chef) Thread.currentThread();
         chef.setChefState(ChefStates.DSHPT);
         int state = chef.getChefState();
-        repos.setChefState(state);
+        reposStub.setChefState(state);
         numberOfPortionsToDeliver--;
         //System.out.printf("chef proceeds to presentation, course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
     }
@@ -244,7 +251,7 @@ public class Kitchen
         Chef chef = (Chef) Thread.currentThread();
         chef.setChefState(ChefStates.DSHPT);
         int state = chef.getChefState();
-        repos.setChefState(state);
+        reposStub.setChefState(state);
         numberOfPortionsToDeliver--;
         //System.out.printf("chef have next portion ready course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
     }
@@ -260,7 +267,7 @@ public class Kitchen
         Chef chef = (Chef) Thread.currentThread();
         chef.setChefState(ChefStates.PRPCS);
         int state = chef.getChefState();
-        repos.setChefState(state);
+        reposStub.setChefState(state);
         numberOfCoursesToDeliver--;
         numberOfPortionsToDeliver = Constants.N;
         //System.out.printf("chef continues preparation course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
@@ -278,9 +285,20 @@ public class Kitchen
         Chef chef = (Chef) Thread.currentThread();
         chef.setChefState(ChefStates.CLSSV);
         int state = chef.getChefState();
-        repos.setChefState(state);
+        reposStub.setChefState(state);
     }
 
-    public void shutdown() {
+    /**
+     *   Operation server shutdown.
+     *
+     *   New operation.
+     */
+
+    public synchronized void shutdown ()
+    {
+        nEntities += 1;
+        if (nEntities >= Constants.E)
+            ServerKitchen.waitConnection = false;
+        notifyAll ();                                        // the barber may now terminate
     }
 }

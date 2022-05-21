@@ -16,6 +16,12 @@ import serverSide.sharedRegions.*;
  */
 public class ServerBar {
     /**
+     *  Flag signaling the service is active.
+     */
+
+    public static boolean waitConnection;
+
+    /**
      *    Main method.
      *
      *    @param args runtime arguments
@@ -39,12 +45,13 @@ public class ServerBar {
         
         /* service request processing */
                                         // service provider agent
-        while (!barInterface.hasShutdown())
+        waitConnection = true;
+        while (waitConnection)
         { 
         try {
             sconi = serverCom.accept ();                                     // enter listening procedure
             BarClientProxy barClientProxy = new BarClientProxy(sconi, barInterface);            // start a service provider agent to address
-            barInterface.start ();      
+            barClientProxy.start ();      
         } 
         catch(SocketTimeoutException ste) {}
         }

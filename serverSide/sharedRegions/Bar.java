@@ -3,6 +3,7 @@ import commInfra.*;
 import serverSide.main.*;
 import serverSide.entities.*;
 import clientSide.entities.*;
+import clientSide.stubs.GeneralReposStub;
 
 /**
  *    Bar
@@ -15,6 +16,12 @@ import clientSide.entities.*;
  *    blocking point for the Waiter, where he waits for the Chef to signal
  */
 public class Bar {
+
+    /**
+     *   Number of entity groups requesting the shutdown.
+     */
+    private int nEntities;
+
     /**
      *   Counter of the number of pending service requests.
      */
@@ -48,7 +55,7 @@ public class Bar {
     /**
      *   Reference to the general repository.
      */
-    private final GeneralRepos repos;
+    private final GeneralReposStub reposStub;
 
     /**
      *   Array with the IDs of the students in order of arrival.
@@ -60,14 +67,13 @@ public class Bar {
      */
     private boolean[] clientsGoodbye;
 
+
     /**
      *  Table instantiation.
      *
-     *    @param repos reference to the General Information Repository
-     *    @param table reference to the table
-     *    @param kitchen reference to the kitchen
+     *    @param reposStub reference to the General Information Repository Stub
      */
-    public Bar(GeneralRepos repos, Table table, Kitchen kitchen)
+    public Bar(GeneralReposStub reposStub)
     {
         try {
             pendingServiceRequests = new MemFIFO(new Request[Constants.N+1]);
@@ -81,11 +87,12 @@ public class Bar {
             arrivalQueue = null;
             e.printStackTrace();
         }
-        this.repos = repos;
-        this.table = table;
-        this.kitchen = kitchen;
+        this.reposStub = reposStub;
+        //this.table = table;
+        //this.kitchen = kitchen;
         studentsArrival = new int [Constants.N];
         clientsGoodbye = new boolean[Constants.N];
+        nEntities=0;
     }
 
     /**
@@ -102,7 +109,7 @@ public class Bar {
         if(waiter.getWaiterState() != WaiterStates.APPST) {
             waiter.setWaiterState(WaiterStates.APPST);
             int state = waiter.getWaiterState();
-            repos.setWaiterState(state);
+            reposStub.setWaiterState(state);
         }
         //System.out.println("waiter looking");
         while(numberOfPendingServiceRequests == 0) {
@@ -174,7 +181,7 @@ public class Bar {
         Waiter waiter = (Waiter) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.APPST);
         int state = waiter.getWaiterState();
-        repos.setWaiterState(state);
+        reposStub.setWaiterState(state);
     }
 
     /**
@@ -247,7 +254,7 @@ public class Bar {
             Waiter waiter = (Waiter) Thread.currentThread();
             waiter.setWaiterState(WaiterStates.WTFPT);
             int state = waiter.getWaiterState();
-            repos.setWaiterState(state);
+            reposStub.setWaiterState(state);
         }
         kitchen.portionHasBeenCollected();
     }
@@ -290,7 +297,7 @@ public class Bar {
         Waiter waiter = (Waiter) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.PRCBL);
         int state = waiter.getWaiterState();
-        repos.setWaiterState(state);
+        reposStub.setWaiterState(state);
         //System.out.println("waiter preparing the bill");
     }
 
@@ -322,7 +329,7 @@ public class Bar {
             student.setStudentState(StudentStates.GGHOM);
             int stID = student.getStudentID();
             int state = student.getStudentState();
-            repos.setStudentState(stID, state);
+            reposStub.setStudentState(stID, state);
             while(!clientsGoodbye[studentID])
             {
                 try {
@@ -354,6 +361,17 @@ public class Bar {
         return numberOfStudentsInRestaurant;
     }
 
-    public void shutdown() {
+    /**
+     *   Operation server shutdown.
+     *
+     *   New operation.
+     */
+
+    public synchronized void shutdown ()
+    {
+        nEntities += 1;
+        if (nEntities >= Constants.E)
+            ServerBar.waitConnection = false;
+        notifyAll ();                                        // the barber may now terminate
     }
 }

@@ -13,6 +13,13 @@ import serverSide.sharedRegions.*;
  *    It waits for the start of the message exchange.
  */
 public class ServerGeneralRepos {
+
+    /**
+     *  Flag signaling the service is active.
+     */
+
+    public static boolean waitConnection;
+   
     /**
      *    Main method.
      *
@@ -36,8 +43,8 @@ public class ServerGeneralRepos {
         
         /* service request processing */
                                         // service provider agent
-        while (!generalReposInterface.hasShutdown())
-        { 
+        waitConnection = true;
+        while (waitConnection){
         try {
             sconi = serverCom.accept ();                                     // enter listening procedure
             GeneralReposClientProxy generalReposClientProxy = new GeneralReposClientProxy (sconi, generalReposInterface);            // start a service provider agent to address

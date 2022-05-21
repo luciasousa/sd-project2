@@ -224,7 +224,8 @@ public class TableInterface {
                                             break;
 
             case MessageType.SALUTECLIENTREQ:   ((TableClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
-                                                table.saluteTheClient(studentID);
+                                                //salute the client needs student ID ???
+                                                table.saluteTheClient(inMessage.getStudentID());
                                                 outMessage = new Message (MessageType.SALUTECLIENT,
                                                         ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
                                                 break;                                          
@@ -258,10 +259,5 @@ public class TableInterface {
                                           break;
         }
         return (outMessage);
-    }
-
-    public boolean hasShutdown() 
-    {
-        return false;
-    }   
+    } 
 }

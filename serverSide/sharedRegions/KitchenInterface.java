@@ -114,7 +114,7 @@ public class KitchenInterface {
                                         break;
 
             case MessageType.SETFIRSTCS:    ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
-                                            kitchen.setFirstCourse(b);
+                                            kitchen.setFirstCourse(false);
                                             outMessage = new Message (MessageType.SETFIRSTCSDONE,
                                                 ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
                                             break; 
@@ -142,11 +142,6 @@ public class KitchenInterface {
                                         break;
         }
         return (outMessage);
-    }
-
-    public boolean hasShutdown() {
-        // TODO Auto-generated method stub
-        return false;
     }
     
 }

@@ -3,6 +3,9 @@ import genclass.GenericIO;
 import genclass.TextFile;
 import serverSide.entities.*;
 import serverSide.main.*;
+
+import java.util.Objects;
+
 import clientSide.entities.*;
 
 /**
@@ -15,10 +18,21 @@ import clientSide.entities.*;
  *    There are no internal synchronization points.
  */
 public class GeneralRepos {
+
+    /**
+     *  Number of iterations of the student life cycle.
+     */
+    private int nIter;
+
+    /**
+     *   Number of entity groups requesting the shutdown.
+     */
+    private int nEntities;
+
     /**
      *  Name of the logging file.
      */
-    private final String logFileName;
+    private String logFileName;
 
     /**
      *  State of the chef.
@@ -119,16 +133,23 @@ public class GeneralRepos {
     {
         waiterState = state;
         reportStatus();
-   }
+    }
 
    /**
     *   Set student state.
     *
     *     @param state student state
     */
-   public synchronized void setStudentState (int studentID, int state)
+    public synchronized void setStudentState (int studentID, int state)
     {
         studentState[studentID] = state;
+        reportStatus();
+    }
+
+    public synchronized void setChefWaiterStudentState (int cState, int wState, int sID, int sState){
+        chefState = cState;
+        waiterState = wState;
+        studentState[sID] = sState;
         reportStatus();
     }
 
@@ -179,6 +200,37 @@ public class GeneralRepos {
         seatOrder[seatNumber] = id;
         seatNumber += 1;
     }   
+
+    /**
+     *   Operation initialization of simulation.
+     *
+     *   New operation.
+     *
+     *     @param logFileName name of the logging file
+     *     @param nIter number of iterations of the customer life cycle
+     */
+
+    public synchronized void initSimul (String logFileName, int nIter)
+    {
+        if (!Objects.equals (logFileName, ""))
+            this.logFileName = logFileName;
+        this.nIter = nIter;
+        reportInitialStatus();
+    }
+
+    /**
+     *   Operation server shutdown.
+     *
+     *   New operation.
+     */
+
+    public synchronized void shutdown ()
+    {
+        nEntities += 1;
+        if (nEntities >= Constants.E)
+            ServerGeneralRepos.waitConnection = false;
+    }
+
 
     /**
      *  Write a state line at the end of the logging file.

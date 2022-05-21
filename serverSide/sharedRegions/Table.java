@@ -1,8 +1,7 @@
 package serverSide.sharedRegions;
-import commInfra.*;
 import serverSide.main.*;
-import serverSide.entities.*;
 import clientSide.entities.*;
+import clientSide.stubs.GeneralReposStub;
 
 /**
  *    Table
@@ -16,6 +15,12 @@ import clientSide.entities.*;
 
 public class Table 
 {
+
+    /**
+     *   Number of entity groups requesting the shutdown.
+     */
+    private int nEntities;
+
     /**
      *   Counter of the number of portions delivered.
      */
@@ -39,7 +44,7 @@ public class Table
     /**
      *   Reference to the general repository.
      */
-    private final GeneralRepos repos;
+    private final GeneralReposStub reposStub;
 
     /**
      *   Array of booleans that indicates if student read the menu.
@@ -96,12 +101,13 @@ public class Table
      *
      *    @param repos reference to the General Information Repository
      */
-    public Table(GeneralRepos repos)
+    public Table(GeneralReposStub reposStub)
     {
-        this.repos = repos;
+        this.reposStub = reposStub;
         clientsSaluted = new boolean[Constants.N];
         courseReady = new boolean[Constants.M];
         menuRead = new boolean[Constants.N];
+        nEntities=0;
     }
 
     /**
@@ -115,8 +121,8 @@ public class Table
         student.setStudentState(StudentStates.TKSTT);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
-        repos.setSeatOrder(studentID);
+        reposStub.setStudentState(studentID, state);
+        reposStub.setSeatOrder(studentID);
         //System.out.printf("student %d take a seat, state: %d\n", student.getStudentID(),student.getStudentState());
 
         while(!clientsSaluted[student.getStudentID()]) 
@@ -141,7 +147,7 @@ public class Table
         Waiter waiter = (Waiter) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.PRSMN);
         int state = waiter.getWaiterState();
-        repos.setWaiterState(state);
+        reposStub.setWaiterState(state);
         //System.out.printf("waiter salute the client %d, state: %d\n", studentID, waiter.getWaiterState());
         clientsSaluted[studentID] = true;
         notifyAll();
@@ -167,7 +173,7 @@ public class Table
         student.setStudentState(StudentStates.SELCS);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d read menu, state: %d\n", studentID, student.getStudentState());
         menuRead[studentID] = true;
         //signal waiter that menu was read
@@ -187,7 +193,7 @@ public class Table
         student.setStudentState(StudentStates.OGODR);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d prepare the order, state: %d\n", student.getStudentID(), student.getStudentState());
         while (!wasInformed) 
         {    
@@ -213,7 +219,7 @@ public class Table
         student.setStudentState(StudentStates.CHTWC);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d inform companion, state: %d\n", student.getStudentID(), student.getStudentState());
         wasInformed = true;
         numberOfStudentsRequests += 1;
@@ -240,7 +246,7 @@ public class Table
         Student student = (Student) Thread.currentThread();
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d has been informed\n", student.getStudentID());
         while(!wasInformed)
         {
@@ -284,7 +290,7 @@ public class Table
         Waiter waiter = (Waiter) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.TKODR);
         int state = waiter.getWaiterState();
-        repos.setWaiterState(state);
+        reposStub.setWaiterState(state);
         //System.out.printf("waiter get the pad, state: %d\n", waiter.getWaiterState());
         waiterHasThePad = true;
         notifyAll(); 
@@ -338,7 +344,7 @@ public class Table
         student.setStudentState(StudentStates.CHTWC);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.println("first student has joined the talk");
         while(!courseReady[numberOfCoursesDelivered])
         {
@@ -362,7 +368,7 @@ public class Table
     {
         numberOfPortionsEaten = 0;
         numberOfPortionsDelivered += 1;
-        repos.setNumberOfPortions(numberOfPortionsDelivered);
+        reposStub.setNumberOfPortions(numberOfPortionsDelivered);
         hasEndedEating = false;
         //System.out.printf("waiter is delivering the portion %d\n", numberOfPortionsDelivered);
         if(numberOfPortionsDelivered == Constants.N)
@@ -381,8 +387,8 @@ public class Table
             }
             numberOfPortionsDelivered = 0;
             if(numberOfCoursesDelivered < Constants.M - 1) numberOfCoursesDelivered += 1;
-            if(coursesCompleted) repos.setNumberOfPortionsAndCourses(numberOfPortionsDelivered, numberOfCoursesDelivered + 1);
-            else repos.setNumberOfPortionsAndCourses(numberOfPortionsDelivered, numberOfCoursesDelivered);
+            if(coursesCompleted) reposStub.setNumberOfPortionsAndCourses(numberOfPortionsDelivered, numberOfCoursesDelivered + 1);
+            else reposStub.setNumberOfPortionsAndCourses(numberOfPortionsDelivered, numberOfCoursesDelivered);
         }
     }
 
@@ -410,7 +416,7 @@ public class Table
         student.setStudentState(StudentStates.EJYML);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d has started eating, course: %d\n", student.getStudentID(), numberOfCoursesDelivered);
         try {
             wait((long) (1 + 500 * Math.random ()));
@@ -432,7 +438,7 @@ public class Table
         student.setStudentState(StudentStates.CHTWC);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d has finished eating\n", student.getStudentID());
     }
 
@@ -525,7 +531,7 @@ public class Table
         Waiter waiter = (Waiter) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.RECPM);
         int state = waiter.getWaiterState();
-        repos.setWaiterState(state);
+        reposStub.setWaiterState(state);
         //System.out.println("presenting the bill");
         billReady = true;
         notifyAll();
@@ -552,7 +558,7 @@ public class Table
         student.setStudentState(StudentStates.PYTBL);
         int studentID = student.getStudentID();
         int state = student.getStudentState();
-        repos.setStudentState(studentID, state);
+        reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d should have arrived earlier, pay the bill\n",studentID);
         while(!billReady)
         {
@@ -578,6 +584,17 @@ public class Table
         notifyAll();
     }
 
-    public void shutdown() {
+    /**
+     *   Operation server shutdown.
+     *
+     *   New operation.
+     */
+
+    public synchronized void shutdown ()
+    {
+        nEntities += 1;
+        if (nEntities >= Constants.E)
+            ServerTable.waitConnection = false;
+        notifyAll ();                                        // the barber may now terminate
     }
 }

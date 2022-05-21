@@ -21,6 +21,23 @@ public class GeneralReposStub {
     */
  
     private int serverPortNumb;
+
+   /**
+     *  Counter with the number of course.
+     */
+    private int numberOfCourse;
+
+    /**
+     *  Counter with the number of portion.
+     */
+    private int numberOfPortion;    
+
+    /**
+     *  Array with the order that students sat down
+     */
+    private int[] seatOrder;
+
+    private int seatNumber = 0;
  
    /**
     *   Instantiation of a stub to the general repository.
@@ -189,6 +206,52 @@ public class GeneralReposStub {
          }
       com.close ();
    }
+
+   /**
+    *   Update Counter numberOfPortion
+    *
+    *     @param nPortions integer
+    */
+   public synchronized void setNumberOfPortions(int nPortions)
+   {
+      numberOfPortion = nPortions;
+   }
+
+   /**
+    *   Update Counter numberOfCourse
+    *
+    *     @param nCourses integer
+    */
+   public synchronized void setNumberOfCourses(int nCourses)
+   {
+      numberOfCourse = nCourses;
+   }
+
+   /**
+   *   Update Counter numberOfPortions and numberOfCourses
+   *
+   *     @param nPortions integer
+   *     @param nCourses integer
+   */
+
+   public synchronized void setNumberOfPortionsAndCourses(int nPortions, int nCourses)
+   {
+      numberOfPortion = nPortions;
+      numberOfCourse = nCourses;
+   }
+
+   /**
+   *   Update Array seatOrder
+   *
+   *     @param id integer
+   */
+
+   public synchronized void setSeatOrder(int id)
+   {
+      seatOrder[seatNumber] = id;
+      seatNumber += 1;
+   }   
+
 
    /**
    *   Operation server shutdown.

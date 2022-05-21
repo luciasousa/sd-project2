@@ -157,10 +157,5 @@ public class BarInterface
                                           break;
         }
         return (outMessage);
-    }
-
-    public boolean hasShutdown() 
-    {
-        return false;
-    }   
+    } 
 }

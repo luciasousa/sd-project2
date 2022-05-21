@@ -1,6 +1,8 @@
 package serverSide.main;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+
+import clientSide.stubs.*;
 import commInfra.*;
 import genclass.GenericIO;
 import serverSide.entities.*;
@@ -13,6 +15,12 @@ import serverSide.sharedRegions.*;
  *    It waits for the start of the message exchange.
  */
 public class ServerKitchen {
+    /**
+     *  Flag signaling the service is active.
+     */
+
+    public static boolean waitConnection;
+
     /**
      *    Main method.
      *
@@ -37,7 +45,8 @@ public class ServerKitchen {
         
         /* service request processing */
                                         // service provider agent
-        while (!kitchenInterface.hasShutdown())
+        waitConnection = true;
+        while (waitConnection)
         { 
         try {
             sconi = serverCom.accept ();                                     // enter listening procedure

@@ -84,15 +84,13 @@ public class GeneralReposClientProxy extends Thread{
 
       inMessage = (Message) sconi.readObject ();                     // get service request
       try
-      { 
-         outMessage = reposInter.processAndReply (inMessage);         // process it
-      }
-      catch (MessageException e)
-      { 
-         GenericIO.writelnString ("Thread " + getName() + ": " + e.getMessage () + "!");
-         GenericIO.writelnString (e.getMessageVal ().toString ());
-         System.exit (1);
-      }
+        { outMessage = reposInter.processAndReply (inMessage);         // process it
+        }
+        catch (MessageException e)
+        { GenericIO.writelnString ("Thread " + getName () + ": " + e.getMessage () + "!");
+            GenericIO.writelnString (e.getMessageVal ().toString ());
+            System.exit (1);
+        }
       sconi.writeObject (outMessage);                                // send service reply
       sconi.close ();                                                // close the communication channel
    }

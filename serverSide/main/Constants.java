@@ -12,4 +12,9 @@ public class Constants {
      *   Number of Courses
      */
     public static final int M = 3;
+
+    /**
+     *   Number of entities requesting shutdown.
+     */
+    public static final int E = 7;
 }
