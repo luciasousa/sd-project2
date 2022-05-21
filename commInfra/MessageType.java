@@ -22,392 +22,392 @@ public class MessageType
   /**
    *  Chef wait for an order (request).
    */
-  public static final int WAFOR = 4;
+  public static final int WAFOR = 3;
 
   /**
    *  Order done (reply).
    */
-  public static final int ORDERDONE = 5;
+  public static final int ORDERDONE = 4;
 
   /**
    *  Chef prepares course (request).
    */
-  public static final int PRPCS = 6;
+  public static final int PRPCS = 5;
 
   /**
    *  Course prepared (reply).
    */
-  public static final int CSPREP = 7;
+  public static final int CSPREP = 6;
 
   /**
    *  Get first course (request).
    */
-  public static final int GETFIRSTCOURSE = 8;
+  public static final int GETFIRSTCOURSE = 7;
 
   /**
    *  First course (reply).
    */
-  public static final int FIRSTCOURSE = 9;
+  public static final int FIRSTCOURSE = 8;
 
   /**
    *  Proceed to presentation (request).
    */
-  public static final int PRCPRES = 10;
+  public static final int PRCPRES = 9;
 
   /**
    *  Proceed to presentation (reply).
    */
-  public static final int PRESDONE = 11;
+  public static final int PRESDONE = 10;
 
   /**
    *  Have all portions been delivered (request).
    */
-  public static final int PORDELIV = 12;
+  public static final int PORDELIV = 11;
 
   /**
    *  Have all portions been delivered (reply).
    */
-  public static final int PORDELIVDONE = 13;
+  public static final int PORDELIVDONE = 12;
 
   /**
    *  Have next portion ready (request).
    */
-  public static final int POREADY = 14;
+  public static final int POREADY = 13;
 
   /**
    *  Have next portion ready (reply).
    */
-  public static final int POREADYDONE = 15;
+  public static final int POREADYDONE = 14;
 
   /**
    *  Set first course (request).
    */
-  public static final int SETFIRSTCS = 16;
+  public static final int SETFIRSTCS = 15;
 
   /**
    *  Set first course (reply).
    */
-  public static final int SETFIRSTCSDONE = 17;
+  public static final int SETFIRSTCSDONE = 16;
 
   /**
    *  Has the order been completed (request).
    */
-  public static final int ORDERCOMPREQ = 18;
+  public static final int ORDERCOMPREQ = 17;
 
   /**
    *  Order been complete (reply).
    */
-  public static final int ORDERCOMP = 19;
+  public static final int ORDERCOMP = 18;
 
   /**
    *  Clean up (request).
    */
-  public static final int CLEANREQ = 20;
+  public static final int CLEANREQ = 19;
 
   /**
    *  Clean up (reply).
    */
-  public static final int CLEAN = 21;
+  public static final int CLEAN = 20;
 
   /**
    *  Hand note to the chef (request).
    */
-  public static final int NOTEREQ = 22;
+  public static final int NOTEREQ = 21;
 
   /**
    *  Hand note to the chef (reply).
    */
-  public static final int NOTE = 23;
+  public static final int NOTE = 22;
 
   /**
    *  Read menu (request).
    */
-  public static final int READMENUREQ = 24;
+  public static final int READMENUREQ = 23;
 
   /**
    *  Read menu (reply).
    */
-  public static final int READMENU = 25;
+  public static final int READMENU = 24;
 
   /**
    *  Inform companion (request).
    */
-  public static final int INFCOMPREQ = 26;
+  public static final int INFCOMPREQ = 25;
 
   /**
    *  Inform companion (reply).
    */
-  public static final int INFCOMP = 27;
+  public static final int INFCOMP = 26;
 
   /**
    *   Prepare the order (request).
    */
-  public static final int PREPORDERREQ = 28;
+  public static final int PREPORDERREQ = 27;
 
   /**
    *   Prepare the order (reply).
    */
-  public static final int PREPORDER = 29;
+  public static final int PREPORDER = 28;
 
   /**
    *   Has everybody chosen (request).
    */
-  public static final int EVBDCHOSENREQ = 30;
+  public static final int EVBDCHOSENREQ = 29;
 
   /**
    *   Has everybody chosen (reply).
    */
-  public static final int EVBDCHOSEN = 31;
+  public static final int EVBDCHOSEN = 30;
 
   /**
    *   Add up ones choice (request).
    */
-  public static final int ADDUPCHCREQ = 32;
+  public static final int ADDUPCHCREQ = 31;
 
   /**
    *   Add up ones choice (reply).
    */
-  public static final int ADDUPCHC = 33;
+  public static final int ADDUPCHC = 32;
 
   /**
    *   Describe the order (request).
    */
-  public static final int DESCORDERREQ = 34;
+  public static final int DESCORDERREQ = 33;
 
   /**
    *   Describe the order (reply).
    */
-  public static final int DESCORDER = 35;
+  public static final int DESCORDER = 34;
 
   /**
    *   Join the talk (request).
    */
-  public static final int JOINTALKREQ = 36;
+  public static final int JOINTALKREQ = 35;
 
   /**
    *   Join the talk (reply).
    */
-  public static final int JOINTALK = 37;
+  public static final int JOINTALK = 36;
 
   /**
    *   Start eating (request).
    */
-  public static final int STARTEATREQ = 38;
+  public static final int STARTEATREQ = 37;
 
   /**
    *   Start eating (reply).
    */
-  public static final int STARTEAT = 40;
+  public static final int STARTEAT = 38;
 
   /**
    *   End eating (request).
    */
-  public static final int ENDEATREQ = 41;
+  public static final int ENDEATREQ = 39;
 
   /**
    *   End eating (reply).
    */
-  public static final int ENDEAT = 42;
+  public static final int ENDEAT = 40;
 
   /**
    *   Wait for everybody to finish (request).
    */
-  public static final int EVBDFINISHREQ = 43;
+  public static final int EVBDFINISHREQ = 41;
 
   /**
    *   Wait for everybody to finish (reply).
    */
-  public static final int EVBDFINISH = 44;
+  public static final int EVBDFINISH = 42;
 
   /**
    *   Wait for course to be ready (request).
    */
-  public static final int CSREADYREQ = 45;
+  public static final int CSREADYREQ = 43;
 
   /**
    *   Wait for course to be ready (reply).
    */
-  public static final int CSREADY = 46;
+  public static final int CSREADY = 44;
 
   /**
    *   Wait for payment (request).
    */
-  public static final int WTPAYREQ = 47;
+  public static final int WTPAYREQ = 45;
 
   /**
    *   Wait for payment (reply).
    */
-  public static final int WTPAY = 48;
+  public static final int WTPAY = 46;
 
   /**
    *   Should have arrived earlier (request).
    */
-  public static final int SHARRIVEDEARLIERREQ = 49;
+  public static final int SHARRIVEDEARLIERREQ = 47;
 
   /**
    *   Should have arrived earlier (reply).
    */
-  public static final int SHARRIVEDEARLIER = 50;
+  public static final int SHARRIVEDEARLIER = 48;
 
   /**
    *   Honour the bill (request).
    */
-  public static final int HONOURBILLREQ = 51;
+  public static final int HONOURBILLREQ = 49;
 
   /**
    *   Honour the bill (reply).
    */
-  public static final int HONOURBILL = 52;
+  public static final int HONOURBILL = 50;
 
   /**
    *   Salute the client (request).
    */
-  public static final int SALUTECLIENTREQ = 53;
+  public static final int SALUTECLIENTREQ = 51;
 
   /**
    *   Salute the client (reply).
    */
-  public static final int SALUTECLIENT = 54;
+  public static final int SALUTECLIENT = 52;
 
   /**
    *   Get the pad (request).
    */
-  public static final int GETPADREQ = 55;
+  public static final int GETPADREQ = 53;
 
   /**
    *   Get the pad (reply).
    */
-  public static final int GETPAD = 56;
+  public static final int GETPAD = 54;
 
   /**
    *   Have all clients been served (request).
    */
-  public static final int HVCLIENTSBEENSRVREQ = 57;
+  public static final int HVCLIENTSBEENSRVREQ = 55;
 
   /**
    *   Have all clients been served (reply).
    */
-  public static final int HVCLIENTSBEENSRV = 58;
+  public static final int HVCLIENTSBEENSRV = 56;
 
   /**
    *   Deliver portion (request).
    */
-  public static final int DELVPTREQ = 59;
+  public static final int DELVPTREQ = 57;
 
   /**
    *   Deliver portion (reply).
    */
-  public static final int DELVPT = 60;
+  public static final int DELVPT = 58;
 
   /**
    *   Present the bill (request).
    */
-  public static final int PRESBILLREQ = 61;
+  public static final int PRESBILLREQ = 59;
 
   /**
    *   Present the bill (reply).
    */
-  public static final int PRESBILL = 62;
+  public static final int PRESBILL = 60;
 
   /**
    *   Alert the waiter (request).
    */
-  public static final int ALERTWAITER = 63;
+  public static final int ALERTWAITER = 61;
 
   /**
    *   Alert the waiter (reply).
    */
-  public static final int WAITERALERTED = 64;
+  public static final int WAITERALERTED = 62;
 
   /**
    *   Student enters the restaurant (request).
    */
-  public static final int ENTERSTUDENT = 65;
+  public static final int ENTERSTUDENT = 63;
 
   /**
    *   Student enters the restaurant (reply).
    */
-  public static final int STUDENTENTERED = 66;
+  public static final int STUDENTENTERED = 64;
 
   /**
    *   Call the waiter (request).
    */
-  public static final int CALLWAITER = 67;
+  public static final int CALLWAITER = 65;
 
   /**
    *   Call the waiter (reply).
    */
-  public static final int WAITERCALLED = 68;
+  public static final int WAITERCALLED = 66;
 
   /**
    *   Signal the waiter (request).
    */
-  public static final int SIGNALWAITER = 69;
+  public static final int SIGNALWAITER = 67;
 
   /**
    *   Signal the waiter (reply).
    */
-  public static final int WAITERSIGNALED = 70;
+  public static final int WAITERSIGNALED = 68;
 
   /**
    *   Student exits the restaurant (request).
    */
-  public static final int EXITSTUDENT = 71;
+  public static final int EXITSTUDENT = 69;
 
   /**
    *   Student exits the restaurant (reply).
    */
-  public static final int STUDENTEXITED = 72;
+  public static final int STUDENTEXITED = 70;
 
   /**
    *   Waiter looks around (request).
    */
-  public static final int LOOKWAITER = 73;
+  public static final int LOOKWAITER = 71;
 
   /**
    *   Waiter looks around (reply).
    */
-  public static final int WAITERLOOKED = 74;
+  public static final int WAITERLOOKED = 72;
 
   /**
    *   Waiter returns to bar (request).
    */
-  public static final int RETURNWAITER = 75;
+  public static final int RETURNWAITER = 73;
   
   /**
    *   Waiter returns to bar (reply).
    */
-  public static final int WAITERRETURNED = 76;
+  public static final int WAITERRETURNED = 74;
 
   /**
    *   Waiter collects the portion (request).
    */
-  public static final int COLLECTWAITER = 77;
+  public static final int COLLECTWAITER = 75;
 
   /**
    *   Waiter collects the portion (reply).
    */
-  public static final int WAITERCOLLECTED = 78;
+  public static final int WAITERCOLLECTED = 76;
 
   /**
    *   Waiter prepares the bill (request).
    */
-  public static final int PREPAREWAITER = 79;
+  public static final int PREPAREWAITER = 77;
 
   /**
    *   Waiter prepares the bill (reply).
    */
-  public static final int WAITERPREPARED = 80;
+  public static final int WAITERPREPARED = 78;
 
   /**
    *   Waiter says goodbye to student (request).
    */
-  public static final int SAYGOODBYE = 81;
+  public static final int SAYGOODBYE = 79;
 
   /**
    *   Waiter says goodbye to student (reply).
    */
-  public static final int SAYGOODBYEDONE = 82;
+  public static final int SAYGOODBYEDONE = 80;
 
 
 
@@ -415,38 +415,38 @@ public class MessageType
   /**
    *  Server shutdown (service request).
    */
-  public static final int SHUT = 26;
+  public static final int SHUT = 81;
 
   /**
    *  Server was shutdown (reply).
    */
-   public static final int SHUTDONE = 27;
+   public static final int SHUTDONE = 82;
 
   /**
    *  Set chef state (service request).
    */
-   public static final int SETCHEFSTATE = 28;
+   public static final int SETCHEFSTATE = 83;
 
   /**
    *  Set waiter state (service request).
    */
-   public static final int SETWAITERSTATE = 29;
+   public static final int SETWAITERSTATE = 84;
 
   /**
    *  Set student state (service request).
    */
-  public static final int SETSTUDENTSTATE = 30;
+  public static final int SETSTUDENTSTATE = 85;
 
 
   /**
    *  Set chef, waiter and student states (service request).
    */
-  public static final int SETSTATES = 31;
+  public static final int SETSTATES = 86;
 
   /**
    *  Setting acknowledged (reply).
    */
 
-   public static final int SACK = 32;
+   public static final int SACK = 87;
 
 }

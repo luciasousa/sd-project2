@@ -577,4 +577,7 @@ public class Table
         studentHasPaid = true;
         notifyAll();
     }
+
+    public void shutdown() {
+    }
 }

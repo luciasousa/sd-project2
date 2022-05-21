@@ -7,12 +7,12 @@ import serverSide.entities.*;
 import serverSide.sharedRegions.*;
 
 /**
- *    Server side of the General Repository Shared Region.
+ *    Server side of the Kitchen Shared Region.
  *
  *    Request serialization variant.
  *    It waits for the start of the message exchange.
  */
-public class GeneralReposMain {
+public class ServerKitchen {
     /**
      *    Main method.
      *
@@ -24,25 +24,25 @@ public class GeneralReposMain {
         /* service is established */
 
         ServerCom serverCom, sconi;                                        // communication channels
-        int portNumb = 22153;                                          // port nunber for listening to service requests
+        int portNumb = 22150;                                          // port nunber for listening to service requests
 
         serverCom = new ServerCom (portNumb);
         serverCom.start ();                             // service is instantiated
-        serverCom.setSoTimeout(10000);
         GenericIO.writelnString ("Service is established!");
         GenericIO.writelnString ("Server is listening for service requests.");
 
-        GeneralRepos generalRepos = new GeneralRepos("logger");
-        SharedRegionInterface sharedRegionInterface = new GeneralReposInterface(generalRepos);
+        GeneralReposStub generalReposStub = new GeneralReposStub("l040101-ws08.ua.pt", 22153);
+        Kitchen kitchen = new Kitchen(generalReposStub);
+        KitchenInterface kitchenInterface = new KitchenInterface(kitchen);
         
         /* service request processing */
                                         // service provider agent
-        while (!sharedRegionInterface.hasShutdown())
+        while (!kitchenInterface.hasShutdown())
         { 
         try {
             sconi = serverCom.accept ();                                     // enter listening procedure
-            ServiceProviderAgent serviceProviderAgent = new ServiceProviderAgent (sconi, sharedRegionInterface);            // start a service provider agent to address
-            serviceProviderAgent.start ();      
+            KitchenClientProxy kitchenClientProxy = new KitchenClientProxy (sconi, kitchenInterface);            // start a service provider agent to address
+            kitchenClientProxy.start ();      
         } 
         catch(SocketTimeoutException ste) {}
         }

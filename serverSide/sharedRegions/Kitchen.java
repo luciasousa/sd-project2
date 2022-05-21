@@ -280,4 +280,7 @@ public class Kitchen
         int state = chef.getChefState();
         repos.setChefState(state);
     }
+
+    public void shutdown() {
+    }
 }

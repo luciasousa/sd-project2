@@ -7,9 +7,8 @@ import commInfra.Request;
 import serverSide.entities.BarClientProxy;
 import clientSide.entities.*;
 import serverSide.main.Constants;
-import serverSide.main.SharedRegionInterface;
 
-public class BarInterface implements SharedRegionInterface
+public class BarInterface
 {
     /**
     *  Reference to the bar.
@@ -22,7 +21,6 @@ public class BarInterface implements SharedRegionInterface
         this.bar = bar;
     }
 
-    @Override
     public Message processAndReply(Message inMessage) throws MessageException
     {
         Message outMessage = null;                                     // outgoing message
@@ -161,7 +159,6 @@ public class BarInterface implements SharedRegionInterface
         return (outMessage);
     }
 
-    @Override
     public boolean hasShutdown() 
     {
         return false;

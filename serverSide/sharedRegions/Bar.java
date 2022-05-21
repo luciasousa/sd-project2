@@ -353,4 +353,7 @@ public class Bar {
         numberOfStudentsInRestaurant--;
         return numberOfStudentsInRestaurant;
     }
+
+    public void shutdown() {
+    }
 }

@@ -1,19 +1,20 @@
 package serverSide.main;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+
+import clientSide.stubs.*;
 import commInfra.*;
 import genclass.GenericIO;
 import serverSide.entities.*;
 import serverSide.sharedRegions.*;
-import serverSide.stubs.*;
 
 /**
- *    Server side of the Kitchen Shared Region.
+ *    Server side of the Bar.
  *
- *    Request serialization variant.
- *    It waits for the start of the message exchange.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
  */
-public class KitchenMain {
+public class ServerBar {
     /**
      *    Main method.
      *
@@ -28,23 +29,22 @@ public class KitchenMain {
         int portNumb = 22150;                                          // port nunber for listening to service requests
 
         serverCom = new ServerCom (portNumb);
-        serverCom.start ();                             // service is instantiated
-        serverCom.setSoTimeout(10000);
+        serverCom.start ();                
         GenericIO.writelnString ("Service is established!");
         GenericIO.writelnString ("Server is listening for service requests.");
 
         GeneralReposStub generalReposStub = new GeneralReposStub("l040101-ws08.ua.pt", 22153);
-        Kitchen kitchen = new Kitchen(generalReposStub);
-        SharedRegionInterface sharedRegionInterface = new KitchenInterface(kitchen);
+        Bar bar = new Bar(generalReposStub);
+        BarInterface barInterface = new BarInterface(bar);
         
         /* service request processing */
                                         // service provider agent
-        while (!sharedRegionInterface.hasShutdown())
+        while (!barInterface.hasShutdown())
         { 
         try {
             sconi = serverCom.accept ();                                     // enter listening procedure
-            ServiceProviderAgent serviceProviderAgent = new ServiceProviderAgent (sconi, sharedRegionInterface);            // start a service provider agent to address
-            serviceProviderAgent.start ();      
+            BarClientProxy barClientProxy = new BarClientProxy(sconi, barInterface);            // start a service provider agent to address
+            barInterface.start ();      
         } 
         catch(SocketTimeoutException ste) {}
         }
