@@ -1,6 +1,7 @@
 package clientSide.main;
 import clientSide.entities.*;
 import clientSide.stubs.*;
+import genclass.GenericIO;
 
 /**
  *    Client side of the Assignment 2 - Student.
@@ -16,10 +17,61 @@ public class ClientStudent {
      */
     public static void main(String[] args) {
         Student[] student = new Student[Constants.N];
+        
         TableStub table;
         BarStub bar;
-        table = new TableStub("l040101-ws01.ua.pt", 22152);
-        bar = new BarStub("l040101-ws01.ua.pt", 22151);
+        GeneralReposStub generalRepos;
+        String tableServerName = "";
+        String barServerName = "";
+        String generalRepoServerName = "";
+        int tableServerPort = -1;
+        int barServerPort = -1;
+        int generalRepoServerPort = -1;
+        
+        if (args.length != 6)
+        { GenericIO.writelnString ("Wrong number of parameters!");
+          System.exit (1);
+        }
+        generalRepoServerName = args[0];
+	     try
+	     { generalRepoServerPort = Integer.parseInt (args[1]);
+	     }
+	     catch (NumberFormatException e)
+	     { GenericIO.writelnString ("args[1] is not a number!");
+	       System.exit (1);
+	     }
+	     if ((generalRepoServerPort < 4000) || (generalRepoServerPort >= 65536))
+	        { GenericIO.writelnString ("args[1] is not a valid port number!");
+	          System.exit (1);
+	        }
+	     tableServerName = args[2];
+	     try
+	     { tableServerPort = Integer.parseInt (args[3]);
+	     }
+	     catch (NumberFormatException e)
+	     { GenericIO.writelnString ("args[3] is not a number!");
+	       System.exit (1);
+	     }
+	     if ((tableServerPort < 4000) || (tableServerPort >= 65536))
+	        { GenericIO.writelnString ("args[3] is not a valid port number!");
+	          System.exit (1);
+	        }
+	     barServerName = args[4];
+	     try
+	     { barServerPort = Integer.parseInt (args[5]);
+	     }
+	     catch (NumberFormatException e)
+	     { GenericIO.writelnString ("args[5] is not a number!");
+	       System.exit (1);
+	     }
+	     if ((barServerPort < 4000) || (barServerPort >= 65536))
+	        { GenericIO.writelnString ("args[5] is not a valid port number!");
+	          System.exit (1);
+	        }
+
+        table = new TableStub(tableServerName, tableServerPort);
+        bar = new BarStub(barServerName, barServerPort);
+        generalRepos = new GeneralReposStub(generalRepoServerName,generalRepoServerPort);
         for (int i = 0; i < Constants.N; i++)
             student[i] = new Student(i,StudentStates.GGTRT, table, bar);
 
