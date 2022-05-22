@@ -244,11 +244,12 @@ public class BarStub {
             System.exit (1);
             }
             //TODO: ver return to bar
-            if (false)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            //if (false)
+            //{ 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
-            }
+            //}
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }

@@ -1,7 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/home/lucia/Downloads/genclass.jar",
-        "c:\\Users\\fran_\\Downloads\\genclass.jar"
+        "c:\\Users\\fran_\\Downloads\\genclass.jar",
+        "genclass.jar"
     ]
 }

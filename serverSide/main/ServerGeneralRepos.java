@@ -31,8 +31,23 @@ public class ServerGeneralRepos {
         /* service is established */
 
         ServerCom serverCom, sconi;                                        // communication channels
-        int portNumb = 22153;                                          // port nunber for listening to service requests
+        int portNumb = -1;                                             // port number for listening to service requests
 
+        if (args.length != 1)
+            { GenericIO.writelnString ("Wrong number of parameters!");
+            System.exit (1);
+            }
+        try
+            { portNumb = Integer.parseInt (args[0]);
+            }
+        catch (NumberFormatException e)
+            { GenericIO.writelnString ("args[0] is not a number!");
+                System.exit (1);
+            }
+        if ((portNumb < 4000) || (portNumb >= 65536))
+            { GenericIO.writelnString ("args[0] is not a valid port number!");
+            System.exit (1);
+            }
         serverCom = new ServerCom (portNumb);
         serverCom.start ();                             // service is instantiated
         GenericIO.writelnString ("Service is established!");
