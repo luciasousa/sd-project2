@@ -43,7 +43,7 @@ public class KitchenClientProxy extends Thread implements ChefCloning, WaiterClo
     private int waiterState;
 
     public KitchenClientProxy(ServerCom sconi, KitchenInterface kitInter){
-        super ("KItchenProxy_" + KitchenClientProxy.getProxyId());
+        super ("KitchenProxy_" + KitchenClientProxy.getProxyId());
         this.sconi = sconi;
         this.kitInter = kitInter;
     }

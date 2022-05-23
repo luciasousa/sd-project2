@@ -1,7 +1,8 @@
 package serverSide.sharedRegions;
 import commInfra.*;
+import serverSide.entities.BarClientProxy;
+import serverSide.entities.TableClientProxy;
 import serverSide.main.*;
-import serverSide.entities.*;
 import clientSide.entities.*;
 import clientSide.stubs.GeneralReposStub;
 
@@ -105,7 +106,7 @@ public class Bar {
      */
     public synchronized Request lookAround() 
     {
-        Waiter waiter = (Waiter) Thread.currentThread();
+        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
         if(waiter.getWaiterState() != WaiterStates.APPST) {
             waiter.setWaiterState(WaiterStates.APPST);
             int state = waiter.getWaiterState();
@@ -146,7 +147,7 @@ public class Bar {
         int studentID;
         synchronized(this)
         {
-            Student student = (Student) Thread.currentThread();
+            TableClientProxy student = (TableClientProxy) Thread.currentThread();
             studentID = student.getStudentID();
             //System.out.printf("student %d enters\n", studentID);
             try {
@@ -178,7 +179,7 @@ public class Bar {
     public synchronized void returnToBar() 
     {
         //System.out.println("waiter is returning to bar");
-        Waiter waiter = (Waiter) Thread.currentThread();
+        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.APPST);
         int state = waiter.getWaiterState();
         reposStub.setWaiterState(state);
@@ -198,7 +199,7 @@ public class Bar {
         //System.out.println("waiter was called");
         synchronized(this) 
         {
-            Student student = (Student)Thread.currentThread();
+            TableClientProxy student = (TableClientProxy)Thread.currentThread();
             int studentID = student.getStudentID();
             Request r = new Request(studentID, 'o');
             numberOfPendingServiceRequests += 1;
@@ -251,7 +252,7 @@ public class Bar {
         //System.out.println("waiter is collecting portion");
         synchronized(this)
         {
-            Waiter waiter = (Waiter) Thread.currentThread();
+            BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
             waiter.setWaiterState(WaiterStates.WTFPT);
             int state = waiter.getWaiterState();
             reposStub.setWaiterState(state);
@@ -272,7 +273,7 @@ public class Bar {
         synchronized(this) 
         {
             //System.out.println("waiter has been signaled");
-            Student student = (Student)Thread.currentThread();
+            TableClientProxy student = (TableClientProxy)Thread.currentThread();
             int studentID = student.getStudentID();
             //bill presentation
             Request r = new Request(studentID, 'b');
@@ -294,7 +295,7 @@ public class Bar {
      */
     public synchronized void prepareTheBill() 
     {
-        Waiter waiter = (Waiter) Thread.currentThread();
+        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.PRCBL);
         int state = waiter.getWaiterState();
         reposStub.setWaiterState(state);
@@ -315,7 +316,7 @@ public class Bar {
         int studentID;
         synchronized(this)
         {
-            Student student = (Student) Thread.currentThread();
+            TableClientProxy student = (TableClientProxy) Thread.currentThread();
             studentID = student.getStudentID();
             //say goodbye
             Request r = new Request(studentID, 'g');

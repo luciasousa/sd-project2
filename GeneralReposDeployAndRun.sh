@@ -1,10 +1,10 @@
 echo "Transfering data to the general repository node."
-sshpass -f password ssh sd105@l040101-ws07.ua.pt 'mkdir -p test/Restaurant'
-sshpass -f password ssh sd105@l040101-ws07.ua.pt 'rm -rf test/Restaurant/*'
-sshpass -f password scp dirGeneralRepos.zip sd105@l040101-ws07.ua.pt:test/Restaurant
+sshpass -p "qwerty" ssh sd105@l040101-ws07.ua.pt 'mkdir -p test/Restaurant'
+sshpass -p "qwerty" ssh sd105@l040101-ws07.ua.pt 'rm -rf test/Restaurant/*'
+sshpass -p "qwerty" scp dirGeneralRepos.zip sd105@l040101-ws07.ua.pt:test/Restaurant
 echo "Decompressing data sent to the general repository node."
-sshpass -f password ssh sd105@l040101-ws07.ua.pt 'cd test/Restaurant ; unzip -uq dirGeneralRepos.zip'
+sshpass -p "qwerty" ssh sd105@l040101-ws07.ua.pt 'cd test/Restaurant ; unzip -uq dirGeneralRepos.zip'
 echo "Executing program at the server general repository."
-sshpass -f password ssh sd105@l040101-ws07.ua.pt 'cd test/Restaurant/dirGeneralRepos ; java serverSide.main.ServerGeneralRepos 22000'
+sshpass -p "qwerty" ssh sd105@l040101-ws07.ua.pt 'cd test/Restaurant/dirGeneralRepos ; java serverSide.main.ServerGeneralRepos 22153'
 echo "Server shutdown."
-sshpass -f password ssh sd105@l040101-ws07.ua.pt 'cd test/Restaurant/dirGeneralRepos ; less stat'
+sshpass -p "qwerty" ssh sd105@l040101-ws07.ua.pt 'cd test/Restaurant/dirGeneralRepos ; less stat'

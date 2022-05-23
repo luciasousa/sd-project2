@@ -96,7 +96,7 @@ public class Kitchen
      */
     public synchronized void watchTheNews() 
     {
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         if(chef.getChefState() != ChefStates.WAFOR) 
         {
             chef.setChefState(ChefStates.WAFOR);
@@ -125,7 +125,7 @@ public class Kitchen
      */
     public synchronized void handTheNoteToChef() 
     {
-        Waiter waiter = (Waiter) Thread.currentThread();
+        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
         waiter.setWaiterState(WaiterStates.PCODR);
         int state = waiter.getWaiterState();
         reposStub.setWaiterState(state);
@@ -152,7 +152,7 @@ public class Kitchen
      */
     public synchronized void chefWaitForCollection() 
     {
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         chef.setChefState(ChefStates.DLVPT);
         int state = chef.getChefState();
         reposStub.setChefState(state);
@@ -190,7 +190,7 @@ public class Kitchen
      */    
     public synchronized void startPreparation() 
     {
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         chef.setChefState(ChefStates.PRPCS);
         int state = chef.getChefState();
         reposStub.setChefState(state);
@@ -208,7 +208,7 @@ public class Kitchen
      */
     public synchronized void proceedToPresentation() 
     {
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         chef.setChefState(ChefStates.DSHPT);
         int state = chef.getChefState();
         reposStub.setChefState(state);
@@ -248,7 +248,7 @@ public class Kitchen
      */
     public synchronized void haveNextPortionReady() 
     {
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         chef.setChefState(ChefStates.DSHPT);
         int state = chef.getChefState();
         reposStub.setChefState(state);
@@ -264,7 +264,7 @@ public class Kitchen
      */
     public synchronized void continuePreparation() 
     {
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         chef.setChefState(ChefStates.PRPCS);
         int state = chef.getChefState();
         reposStub.setChefState(state);
@@ -282,7 +282,7 @@ public class Kitchen
     public synchronized void cleanUp() 
     {
         //System.out.println("chef cleans up");
-        Chef chef = (Chef) Thread.currentThread();
+        KitchenClientProxy chef = (KitchenClientProxy) Thread.currentThread();
         chef.setChefState(ChefStates.CLSSV);
         int state = chef.getChefState();
         reposStub.setChefState(state);

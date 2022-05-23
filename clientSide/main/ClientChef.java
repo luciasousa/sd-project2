@@ -84,5 +84,8 @@ public class ClientChef {
         catch (InterruptedException e) {}
         System.out.println("The Chef just terminated");
         System.out.println("End of the Simulation");
+		kitchen.shutdown ();
+        bar.shutdown();
+        generalRepos.shutdown ();
 	}
 }

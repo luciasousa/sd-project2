@@ -1,5 +1,4 @@
 package serverSide.main;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import commInfra.*;
 import genclass.GenericIO;

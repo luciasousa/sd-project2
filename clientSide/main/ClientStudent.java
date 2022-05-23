@@ -87,5 +87,9 @@ public class ClientStudent {
             catch (InterruptedException e) {}
             System.out.println("The Student "+(i)+" just terminated");
         }
+        GenericIO.writelnString ();
+        table.shutdown ();
+        bar.shutdown();
+        generalRepos.shutdown ();
 	}
 }

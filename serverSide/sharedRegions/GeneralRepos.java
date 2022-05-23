@@ -1,7 +1,6 @@
 package serverSide.sharedRegions;
 import genclass.GenericIO;
 import genclass.TextFile;
-import serverSide.entities.*;
 import serverSide.main.*;
 
 import java.util.Objects;

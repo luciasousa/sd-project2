@@ -98,5 +98,9 @@ public class ClientWaiter {
             waiter.join();	
         } catch (InterruptedException e) {}
         System.out.println("The Waiter just terminated");
+		table.shutdown ();
+        bar.shutdown();
+		kitchen.shutdown();
+        generalRepos.shutdown ();
 	}
 }
