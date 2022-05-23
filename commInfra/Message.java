@@ -148,7 +148,7 @@ public class Message implements Serializable
    *
    *     @param type message type
    *     @param name name of the logging file
-   *     @param nIter number of iterations of the customer life cycle
+   *     @param nIter number of iterations of the student life cycle
    */
 
    public Message (int type, String name, int nIter)
@@ -214,7 +214,7 @@ public class Message implements Serializable
    }
 
   /**
-   *  Getting end of operations flag (barber).
+   *  Getting end of operations flag.
    *
    *     @return end of operations flag
    */
@@ -236,9 +236,9 @@ public class Message implements Serializable
    }
 
   /**
-   *  Getting the number of iterations of the customer life cycle.
+   *  Getting the number of iterations of the student life cycle.
    *
-   *     @return number of iterations of the customer life cycle
+   *     @return number of iterations of the student life cycle
    */
 
    public int getNIter ()
@@ -262,7 +262,7 @@ public class Message implements Serializable
               "\nWaiter State = " + waiterState +
               "\nStudent Id = " + studentID +
               "\nStudent State = " + studentState +
-              "\nEnd of Operations (barber) = " + endOp +
+              "\nEnd of Operations = " + endOp +
               "\nName of logging file = " + fName +
               "\nNumber of iterations = " + nIter);
    }

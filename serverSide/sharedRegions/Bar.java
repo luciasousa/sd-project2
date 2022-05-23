@@ -372,6 +372,6 @@ public class Bar {
         nEntities += 1;
         if (nEntities >= Constants.E)
             ServerBar.waitConnection = false;
-        notifyAll ();                                        // the barber may now terminate
+        notifyAll ();                                        // the bar may now terminate
     }
 }

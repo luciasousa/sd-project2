@@ -595,6 +595,6 @@ public class Table
         nEntities += 1;
         if (nEntities >= Constants.E)
             ServerTable.waitConnection = false;
-        notifyAll ();                                        // the barber may now terminate
+        notifyAll ();                                        // the table may now terminate
     }
 }

@@ -207,7 +207,7 @@ public class GeneralRepos {
      *   New operation.
      *
      *     @param logFileName name of the logging file
-     *     @param nIter number of iterations of the customer life cycle
+     *     @param nIter number of iterations of the student life cycle
      */
 
     public synchronized void initSimul (String logFileName, int nIter)

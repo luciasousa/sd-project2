@@ -42,7 +42,7 @@ public class GeneralReposStub {
    /**
     *   Instantiation of a stub to the general repository.
     *
-    *     @param serverHostName name of the platform where is located the barber shop server
+    *     @param serverHostName name of the platform where is located the server
     *     @param serverPortNumb port number for listening to service requests
     */
  
@@ -56,7 +56,7 @@ public class GeneralReposStub {
     *   Operation initialization of the simulation.
     *
     *     @param fileName logging file name
-    *     @param nIter number of iterations of the customer life cycle
+    *     @param nIter number of iterations of the student life cycle
     */
  
     public void initSimul (String fileName, int nIter)
@@ -116,7 +116,7 @@ public class GeneralReposStub {
   /**
    *   Set waiter state.
    *
-   *     @param state customer state
+   *     @param state waiter state
    */
 
    public void setWaiterState ( int state)
@@ -177,10 +177,10 @@ public class GeneralReposStub {
   /**
    *   Set chef, waiter and student state.
    *
-   *     @param chefState barber id
-   *     @param waiterState barber state
-   *     @param studentID customer id
-   *     @param studentState customer state
+   *     @param chefState chef state
+   *     @param waiterState waiter state
+   *     @param studentID student id
+   *     @param studentState student state
    */
 
    public void setChefWaiterStudentState (int chefState, int waiterState, int studentID, int studentState)

@@ -56,16 +56,16 @@ public class KitchenClientProxy extends Thread implements ChefCloning, WaiterClo
 
     private static int getProxyId ()
     {
-        Class<?> cl = null;                                            // representation of the BarberShopClientProxy object in JVM
+        Class<?> cl = null;                                            // representation of the KitchenClientProxy object in JVM
         int proxyId;                                                   // instantiation identifier
 
         try
         {
-            cl = Class.forName ("serverSide.entities.BarberShopClientProxy");
+            cl = Class.forName ("serverSide.entities.KitchenClientProxy");
         }
         catch (ClassNotFoundException e)
         { 
-            GenericIO.writelnString ("Data type BarberShopClientProxy was not found!");
+            GenericIO.writelnString ("Data type KitchenClientProxy was not found!");
             e.printStackTrace ();
             System.exit (1);
         }
