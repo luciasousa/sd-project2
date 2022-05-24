@@ -4,6 +4,7 @@ import commInfra.Message;
 import commInfra.MessageException;
 import commInfra.MessageType;
 import commInfra.Request;
+import genclass.GenericIO;
 import serverSide.entities.BarClientProxy;
 import clientSide.entities.*;
 import serverSide.main.Constants;
@@ -122,6 +123,7 @@ public class BarInterface
                                             break;
 
             case MessageType.LOOKWAITER:    ((BarClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
+                                            GenericIO.writeString("Look around request\n");
                                             Request r = bar.lookAround();
                                             outMessage = new Message (MessageType.WAITERLOOKED,
                                                     ((BarClientProxy) Thread.currentThread ()).getWaiterState ());

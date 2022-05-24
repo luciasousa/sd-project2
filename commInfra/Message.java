@@ -66,6 +66,18 @@ public class Message implements Serializable
 
    private int nIter = -1;
 
+   /**
+   *  Request ID
+   */
+
+   private int requestID = -1;
+
+   /**
+   *  Request type
+   */
+
+  private char requestType;
+
   /**
    *  Message instantiation (form 1).
    *
@@ -158,6 +170,19 @@ public class Message implements Serializable
       this.nIter = nIter;
    }
 
+   /**
+   *  Message instantiation (form 6).
+   *
+   *     @param id request id
+   *     @param type request type 
+   */
+
+  public Message (int id, char type)
+  {
+     requestID = id;
+     requestType= type;
+  }
+
   /**
    *  Getting message type.
    *
@@ -246,6 +271,10 @@ public class Message implements Serializable
       return (nIter);
    }
 
+   public Request getRequest() {
+      return new Request(requestID, requestType);
+   }   
+
   /**
    *  Printing the values of the internal fields.
    *
@@ -266,4 +295,6 @@ public class Message implements Serializable
               "\nName of logging file = " + fName +
               "\nNumber of iterations = " + nIter);
    }
+
+
 }

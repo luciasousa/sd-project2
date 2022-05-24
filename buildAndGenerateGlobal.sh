@@ -9,7 +9,7 @@ cp serverSide/main/Constants.class serverSide/main/ServerGeneralRepos.class dirG
 cp serverSide/entities/GeneralReposClientProxy.class dirGeneralRepos/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/GeneralRepos.class dirGeneralRepos/serverSide/sharedRegions
 cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class dirGeneralRepos/clientSide/entities
-cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ServerCom.class dirGeneralRepos/commInfra
+cp commInfra/Message.class commInfra/Request.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ServerCom.class dirGeneralRepos/commInfra
 echo "  Kitchen"
 rm -rf dirKitchen
 mkdir -p dirKitchen dirKitchen/serverSide dirKitchen/serverSide/main dirKitchen/serverSide/entities dirKitchen/serverSide/sharedRegions \
@@ -51,7 +51,7 @@ cp serverSide/main/Constants.class dirChef/serverSide/main
 cp clientSide/main/ClientChef.class dirChef/clientSide/main
 cp clientSide/entities/Chef.class clientSide/entities/ChefStates.class dirChef/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/KitchenStub.class clientSide/stubs/BarStub.class dirChef/clientSide/stubs
-cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirChef/commInfra
+cp commInfra/Message.class commInfra/Request.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirChef/commInfra
 echo "  Waiter"
 rm -rf dirWaiter
 mkdir -p dirWaiter dirWaiter/serverSide dirWaiter/serverSide/main dirWaiter/clientSide dirWaiter/clientSide/main dirWaiter/clientSide/entities \
@@ -60,7 +60,7 @@ cp serverSide/main/Constants.class dirWaiter/serverSide/main
 cp clientSide/main/ClientWaiter.class dirWaiter/clientSide/main
 cp clientSide/entities/Waiter.class clientSide/entities/WaiterStates.class dirWaiter/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/BarStub.class clientSide/stubs/KitchenStub.class clientSide/stubs/TableStub.class dirWaiter/clientSide/stubs
-cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirWaiter/commInfra
+cp commInfra/Message.class commInfra/Request.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirWaiter/commInfra
 echo "  Student"
 rm -rf dirStudent
 mkdir -p dirStudent dirStudent/serverSide dirStudent/serverSide/main dirStudent/clientSide dirStudent/clientSide/main dirStudent/clientSide/entities \
@@ -69,7 +69,7 @@ cp serverSide/main/Constants.class dirStudent/serverSide/main
 cp clientSide/main/ClientStudent.class dirStudent/clientSide/main
 cp clientSide/entities/Student.class clientSide/entities/StudentStates.class dirStudent/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/TableStub.class clientSide/stubs/BarStub.class dirStudent/clientSide/stubs
-cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirStudent/commInfra
+cp commInfra/Message.class commInfra/Request.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirStudent/commInfra
 echo "Compressing execution environments."
 echo " Genclass"
 rm -f genclass.zip

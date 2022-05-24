@@ -91,9 +91,11 @@ public class Student extends Thread
      */
     public void run() 
     {
-        //System.out.println("student thread");
+        System.out.println("student walk a bit");
         walkABit();
+        System.out.println("student enter");
         int[] orderOfArrival = bar.enter();
+        System.out.println("student read menu");
         table.readMenu();
         if (orderOfArrival[0] != studentID){
             table.informCompanion();
