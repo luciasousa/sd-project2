@@ -74,7 +74,7 @@ public class Bar {
      *
      *    @param reposStub reference to the General Information Repository Stub
      */
-    public Bar(GeneralReposStub reposStub)
+    public Bar(GeneralReposStub reposStub, Table table, Kitchen kitchen)
     {
         try {
             pendingServiceRequests = new MemFIFO(new Request[Constants.N+1]);
@@ -89,8 +89,8 @@ public class Bar {
             e.printStackTrace();
         }
         this.reposStub = reposStub;
-        //this.table = table;
-        //this.kitchen = kitchen;
+        this.table = table;
+        this.kitchen = kitchen;
         studentsArrival = new int [Constants.N];
         clientsGoodbye = new boolean[Constants.N];
         nEntities=0;
@@ -147,7 +147,7 @@ public class Bar {
         int studentID;
         synchronized(this)
         {
-            TableClientProxy student = (TableClientProxy) Thread.currentThread();
+            BarClientProxy student = (BarClientProxy) Thread.currentThread();
             studentID = student.getStudentID();
             //System.out.printf("student %d enters\n", studentID);
             try {
@@ -199,7 +199,7 @@ public class Bar {
         //System.out.println("waiter was called");
         synchronized(this) 
         {
-            TableClientProxy student = (TableClientProxy)Thread.currentThread();
+            BarClientProxy student = (BarClientProxy)Thread.currentThread();
             int studentID = student.getStudentID();
             Request r = new Request(studentID, 'o');
             numberOfPendingServiceRequests += 1;
@@ -273,7 +273,7 @@ public class Bar {
         synchronized(this) 
         {
             //System.out.println("waiter has been signaled");
-            TableClientProxy student = (TableClientProxy)Thread.currentThread();
+            BarClientProxy student = (BarClientProxy)Thread.currentThread();
             int studentID = student.getStudentID();
             //bill presentation
             Request r = new Request(studentID, 'b');
@@ -316,7 +316,7 @@ public class Bar {
         int studentID;
         synchronized(this)
         {
-            TableClientProxy student = (TableClientProxy) Thread.currentThread();
+            BarClientProxy student = (BarClientProxy) Thread.currentThread();
             studentID = student.getStudentID();
             //say goodbye
             Request r = new Request(studentID, 'g');

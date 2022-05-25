@@ -27,7 +27,7 @@ public class BarInterface
         Message outMessage = null;                                     // outgoing message
 
         /* validation of the incoming message */
-
+        System.out.println(inMessage.getMsgType());
         switch(inMessage.getMsgType())
         {
             case MessageType.ALERTWAITER:   if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
@@ -94,11 +94,13 @@ public class BarInterface
                                                     ((BarClientProxy) Thread.currentThread ()).getWaiterState ());
                                             break;
 
-            case MessageType.ENTERSTUDENT:  ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
+            case MessageType.ENTERSTUDENT:  System.out.printf("message: ");
+                                        ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             int[] orderOfArrival = bar.enter();
-                                            outMessage = new Message (MessageType.STUDENTENTERED,
+                                            outMessage = new Message (MessageType.STUDENTENTERED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState ());
+                                                    System.out.printf("message: %s\n",outMessage);
                                             break;
                             
             case MessageType.CALLWAITER:    ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());

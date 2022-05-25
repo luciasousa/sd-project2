@@ -72,7 +72,9 @@ public class ServerBar {
         GenericIO.writelnString ("Server is listening for service requests.");
 
         GeneralReposStub generalReposStub = new GeneralReposStub(reposServerName, reposPortNumb);
-        Bar bar = new Bar(generalReposStub);
+        Table table = new Table(generalReposStub);
+        Kitchen kitchen = new Kitchen(generalReposStub);
+        Bar bar = new Bar(generalReposStub, table, kitchen);
         BarInterface barInterface = new BarInterface(bar);
         
         /* service request processing */

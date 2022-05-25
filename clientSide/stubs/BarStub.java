@@ -48,7 +48,6 @@ public class BarStub {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
-        requestMessage,
         inMessage;                 // incoming message
         while (!com.open ())                                           // waits for a connection to be established
         { try
@@ -57,9 +56,8 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.ALERTWAITER, ((Chef) Thread.currentThread()).getChefState());
+        outMessage = new Message (MessageType.ALERTWAITER, Constants.N,((Chef) Thread.currentThread()).getChefState(),'p');
         com.writeObject (outMessage);
-        requestMessage = new Message(8, 'p');
 
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITERALERTED)
@@ -81,7 +79,6 @@ public class BarStub {
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         
         Message outMessage,        // outgoing message
-        requestMessage,
         inMessage;                 // incoming message
         System.out.println("try to establish connection");
         while (!com.open ())                                           // waits for a connection to be established
@@ -93,13 +90,13 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(), 'c');
         System.out.println("out message");
+        System.out.printf("id student: %d\n",outMessage.getStudentID());
         com.writeObject (outMessage);
         System.out.println("write out message");
         students[i] = ((Student) Thread.currentThread()).getStudentID();
         i++;
-        requestMessage = new Message(((Student) Thread.currentThread()).getStudentID(), 'c');
         System.out.println("in message");
         inMessage = (Message) com.readObject ();
         System.out.println("read in message");
@@ -123,7 +120,6 @@ public class BarStub {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
-        requestMessage,
         inMessage;                 // incoming message
         while (!com.open ())                                           // waits for a connection to be established
         { try
@@ -133,9 +129,8 @@ public class BarStub {
         }
 
         //criar message type
-        outMessage = new Message (MessageType.CALLWAITER,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message(MessageType.CALLWAITER,((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState(), 'o');
         com.writeObject (outMessage);
-        requestMessage = new Message(((Student) Thread.currentThread()).getStudentID(), 'o');
         inMessage = (Message) com.readObject ();
         //criar message type
         if (inMessage.getMsgType () != MessageType.WAITERCALLED)
@@ -157,7 +152,6 @@ public class BarStub {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
-        requestMessage,
         inMessage;                 // incoming message
         while (!com.open ())                                           // waits for a connection to be established
         { try
@@ -167,9 +161,8 @@ public class BarStub {
         }
 
         //criar message type
-        outMessage = new Message (MessageType.SIGNALWAITER,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.SIGNALWAITER,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(),'b');
         com.writeObject (outMessage);
-        requestMessage = new Message(((Student) Thread.currentThread()).getStudentID(), 'b');
         inMessage = (Message) com.readObject ();
         //criar message type
         if (inMessage.getMsgType () != MessageType.WAITERSIGNALED)
@@ -199,7 +192,7 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.EXITSTUDENT,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.EXITSTUDENT,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(),'g');
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STUDENTEXITED)

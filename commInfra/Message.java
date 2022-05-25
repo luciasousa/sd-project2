@@ -86,7 +86,7 @@ public class Message implements Serializable
 
    public Message (int type)
    {
-      msgType = type;
+      this.msgType = type;
    }
 
   /**
@@ -99,8 +99,12 @@ public class Message implements Serializable
 
    public Message (int type, int id, int state)
    {
-      studentID= id;
-      studentState = state;
+      System.out.printf("ids: %d\n",id);
+      
+      this.msgType=type;
+      this.studentID= id;
+      System.out.printf("ids: %d\n",this.studentID);
+      this.studentState = state;
    }
 
    /**
@@ -111,27 +115,27 @@ public class Message implements Serializable
    */
   public Message (int type, int state)
   {
-     msgType = type;
+     this.msgType = type;
 
-     if ((msgType == MessageType.SETWAITERSTATE) || (msgType == MessageType.SALUTECLIENTREQ) || (msgType == MessageType.SALUTECLIENT) 
-      || (msgType == MessageType.GETPADREQ) || (msgType == MessageType.GETPAD) || (msgType == MessageType.HVCLIENTSBEENSRVREQ) || (msgType == MessageType.HVCLIENTSBEENSRV)
-      || (msgType == MessageType.DELVPTREQ) || (msgType == MessageType.DELVPT) || (msgType == MessageType.PRESBILLREQ) || (msgType == MessageType.PRESBILL)
-      || (msgType == MessageType.NOTE) || (msgType == MessageType.NOTE) || (msgType == MessageType.LOOKWAITER) || (msgType == MessageType.WAITERLOOKED)
-      || (msgType == MessageType.RETURNWAITER) || (msgType == MessageType.WAITERRETURNED) || (msgType == MessageType.COLLECTWAITER) || (msgType == MessageType.WAITERCOLLECTED)
-      || (msgType == MessageType.PREPAREWAITER) || (msgType == MessageType.WAITERPREPARED) || (msgType == MessageType.SAYGOODBYE) || (msgType == MessageType.SAYGOODBYEDONE))
+     if ((type == MessageType.SETWAITERSTATE) || (type == MessageType.SALUTECLIENTREQ) || (type == MessageType.SALUTECLIENT) 
+      || (type == MessageType.GETPADREQ) || (type == MessageType.GETPAD) || (type == MessageType.HVCLIENTSBEENSRVREQ) || (type == MessageType.HVCLIENTSBEENSRV)
+      || (type == MessageType.DELVPTREQ) || (type == MessageType.DELVPT) || (type == MessageType.PRESBILLREQ) || (type == MessageType.PRESBILL)
+      || (type == MessageType.NOTE) || (type == MessageType.NOTE) || (type == MessageType.LOOKWAITER) || (type == MessageType.WAITERLOOKED)
+      || (type == MessageType.RETURNWAITER) || (type == MessageType.WAITERRETURNED) || (type == MessageType.COLLECTWAITER) || (type == MessageType.WAITERCOLLECTED)
+      || (type == MessageType.PREPAREWAITER) || (type == MessageType.WAITERPREPARED) || (type == MessageType.SAYGOODBYE) || (type == MessageType.SAYGOODBYEDONE))
      { 
-        waiterState = state;
+        this.waiterState = state;
      }
-     else if ((msgType == MessageType.SETCHEFSTATE) || (msgType == MessageType.ALERTWAITER) || (msgType == MessageType.WAITERALERTED)
-      || (msgType == MessageType.WAFOR) || (msgType == MessageType.ORDERDONE) || (msgType == MessageType.PRPCS) || (msgType == MessageType.CSPREP)
-      || (msgType == MessageType.GETFIRSTCOURSE) || (msgType == MessageType.FIRSTCOURSE) || (msgType == MessageType.PRCPRES) || (msgType == MessageType.PRESDONE)
-      || (msgType == MessageType.PORDELIV) || (msgType == MessageType.PORDELIVDONE) || (msgType == MessageType.POREADY) || (msgType == MessageType.POREADYDONE)
-      || (msgType == MessageType.SETFIRSTCS) || (msgType == MessageType.SETFIRSTCSDONE) || (msgType == MessageType.ORDERCOMPREQ) || (msgType == MessageType.ORDERCOMP)
-      || (msgType == MessageType.CLEANREQ) || (msgType == MessageType.CLEAN))
+     else if ((type == MessageType.SETCHEFSTATE) || (type == MessageType.ALERTWAITER) || (type == MessageType.WAITERALERTED)
+      || (type == MessageType.WAFOR) || (type == MessageType.ORDERDONE) || (type == MessageType.PRPCS) || (type == MessageType.CSPREP)
+      || (type == MessageType.GETFIRSTCOURSE) || (type == MessageType.FIRSTCOURSE) || (type == MessageType.PRCPRES) || (type == MessageType.PRESDONE)
+      || (type == MessageType.PORDELIV) || (type == MessageType.PORDELIVDONE) || (type == MessageType.POREADY) || (type == MessageType.POREADYDONE)
+      || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
+      || (type == MessageType.CLEANREQ) || (type == MessageType.CLEAN))
      { 
-        chefState = state;
+        this.chefState = state;
      }
-     else { GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+     else { GenericIO.writelnString ("Message type = " + type + ": non-implemented instantiation!");
               System.exit (1);
      }
   }
@@ -148,7 +152,7 @@ public class Message implements Serializable
 
    public Message (int type, int studentID, int studentState, int waiterState, int chefState)
    {
-      msgType = type;
+      this.msgType = type;
       this.studentID= studentID;
       this.studentState = studentState;
       this.waiterState= waiterState;
@@ -165,22 +169,26 @@ public class Message implements Serializable
 
    public Message (int type, String name, int nIter)
    {
-      msgType = type;
-      fName= name;
+      this.msgType = type;
+      this.fName= name;
       this.nIter = nIter;
    }
 
    /**
    *  Message instantiation (form 6).
-   *
+   *     @param type message type
    *     @param id request id
-   *     @param type request type 
+   *     @param state request state
+   *     @param type_req request type 
    */
 
-  public Message (int id, char type)
+  public Message (int type,int id,int state, char type_req)
   {
-     requestID = id;
-     requestType= type;
+     this.msgType=type;
+     this.studentID = id;
+     this.requestID = id;
+     this.studentState=state;
+     this.requestType= type_req;
   }
 
   /**
@@ -191,7 +199,7 @@ public class Message implements Serializable
 
    public int getMsgType ()
    {
-      return (msgType);
+      return (this.msgType);
    }
 
   /**
@@ -202,7 +210,7 @@ public class Message implements Serializable
 
    public int getChefState ()
    {
-      return (chefState);
+      return (this.chefState);
    }
 
   /**
@@ -213,7 +221,7 @@ public class Message implements Serializable
 
    public int getStudentID ()
    {
-      return (studentID);
+      return (this.studentID);
    }
 
   /**
@@ -224,7 +232,7 @@ public class Message implements Serializable
 
    public int getStudentState ()
    {
-      return (studentState);
+      return (this.studentState);
    }
 
    /**
@@ -235,7 +243,7 @@ public class Message implements Serializable
 
    public int getWaiterState ()
    {
-      return (waiterState);
+      return (this.waiterState);
    }
 
   /**
@@ -246,7 +254,7 @@ public class Message implements Serializable
 
    public boolean getEndOp ()
    {
-      return (endOp);
+      return (this.endOp);
    }
 
   /**
@@ -257,7 +265,7 @@ public class Message implements Serializable
 
    public String getLogFName ()
    {
-      return (fName);
+      return (this.fName);
    }
 
   /**
@@ -268,11 +276,11 @@ public class Message implements Serializable
 
    public int getNIter ()
    {
-      return (nIter);
+      return (this.nIter);
    }
 
    public Request getRequest() {
-      return new Request(requestID, requestType);
+      return new Request(this.requestID, this.requestType);
    }   
 
   /**

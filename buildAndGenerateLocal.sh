@@ -1,5 +1,5 @@
 echo "Compiling source code."
-javac */*.java */*/*.java
+javac -cp genclass.jar */*.java */*/*.java
 echo "Distributing intermediate code to the different execution environments."
 echo "  General Repository of Information"
 rm -rf dirGeneralRepos
@@ -71,6 +71,9 @@ cp clientSide/entities/Student.class clientSide/entities/StudentStates.class dir
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/TableStub.class clientSide/stubs/BarStub.class dirStudent/clientSide/stubs
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirStudent/commInfra
 echo "Compressing execution environments."
+echo " Genclass"
+rm -f genclass.zip
+zip -rq genclass.zip genclass
 echo "  General Repository of Information"
 rm -f  dirGeneralRepos.zip
 zip -rq dirGeneralRepos.zip dirGeneralRepos
