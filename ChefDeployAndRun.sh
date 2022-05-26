@@ -1,8 +1,9 @@
-echo "Transfering data to the chef node."
-sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'mkdir -p test/Restaurant'
-sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'rm -rf test/Restaurant/*'
-sshpass -p "qwerty" scp dirChef.zip sd105@l040101-ws03.ua.pt:test/Restaurant
-echo "Decompressing data sent to the chef node."
-sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'cd test/Restaurant ; unzip -uq dirChef.zip'
-echo "Executing program at the chef node."
-sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'cd test/Restaurant/dirChef ; java clientSide.main.ClientChef l040101-ws07.ua.pt 22153 l040101-ws06.ua.pt 22152 l040101-ws09.ua.pt 22154'
+#echo "Transfering data to the chef node."
+#sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'mkdir -p test/Restaurant'
+#sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'rm -rf test/Restaurant/*'
+#sshpass -p "qwerty" scp dirChef.zip sd105@l040101-ws03.ua.pt:test/Restaurant
+#echo "Decompressing data sent to the chef node."
+#sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'cd test/Restaurant ; unzip -uq dirChef.zip'
+#echo "Executing program at the chef node."
+#sshpass -p "qwerty" ssh sd105@l040101-ws03.ua.pt 'cd test/Restaurant/dirChef ; java clientSide.main.ClientChef l040101-ws07.ua.pt 22153 l040101-ws06.ua.pt 22152 l040101-ws09.ua.pt 22154'
+'cd /home/lucia/test/Restaurant/dirChef ; java clientSide.main.ClientChef localhost 22153 localhost 22152 localhost 22154'

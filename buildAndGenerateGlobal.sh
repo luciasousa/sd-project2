@@ -26,8 +26,8 @@ rm -rf dirBar
 mkdir -p dirBar dirBar/serverSide dirBar/serverSide/main dirBar/serverSide/entities dirBar/serverSide/sharedRegions \
          dirBar/clientSide dirBar/clientSide/entities dirBar/clientSide/stubs dirBar/commInfra
 cp serverSide/main/Constants.class serverSide/main/ServerBar.class dirBar/serverSide/main
-cp serverSide/entities/BarClientProxy.class dirBar/serverSide/entities
-cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/BarInterface.class serverSide/sharedRegions/Bar.class serverSide/sharedRegions/Table.class dirBar/serverSide/sharedRegions
+cp serverSide/entities/BarClientProxy.class serverSide/entities/TableClientProxy.class dirBar/serverSide/entities
+cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/BarInterface.class serverSide/sharedRegions/Bar.class serverSide/sharedRegions/Table.class serverSide/sharedRegions/Kitchen.class dirBar/serverSide/sharedRegions
 cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class \
    dirBar/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class dirBar/clientSide/stubs

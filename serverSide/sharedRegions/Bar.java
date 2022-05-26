@@ -1,7 +1,6 @@
 package serverSide.sharedRegions;
 import commInfra.*;
 import serverSide.entities.BarClientProxy;
-import serverSide.entities.TableClientProxy;
 import serverSide.main.*;
 import clientSide.entities.*;
 import clientSide.stubs.GeneralReposStub;

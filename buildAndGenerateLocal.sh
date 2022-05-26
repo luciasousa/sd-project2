@@ -105,11 +105,16 @@ cp dirTable.zip /home/lucia/test/Restaurant
 cp dirChef.zip /home/lucia/test/Restaurant
 cp dirWaiter.zip /home/lucia/test/Restaurant
 cp dirStudent.zip /home/lucia/test/Restaurant
+cp genclass.zip /home/lucia/test/Restaurant
 cd /home/lucia/test/Restaurant
 unzip -q dirGeneralRepos.zip
+unzip -q genclass.zip
 unzip -q dirKitchen.zip
 unzip -q dirBar.zip
+cp genclass.zip /home/lucia/test/Restaurant/dirBar
 unzip -q dirTable.zip
 unzip -q dirChef.zip
 unzip -q dirWaiter.zip
 unzip -q dirStudent.zip
+unzip -q dirKitchen.zip
+unzip -q genclass.zip

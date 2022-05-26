@@ -6,6 +6,7 @@ import commInfra.MessageType;
 import commInfra.Request;
 import genclass.GenericIO;
 import serverSide.entities.BarClientProxy;
+import serverSide.entities.TableClientProxy;
 import clientSide.entities.*;
 import serverSide.main.Constants;
 
@@ -95,7 +96,7 @@ public class BarInterface
                                             break;
 
             case MessageType.ENTERSTUDENT:  System.out.printf("message: ");
-                                        ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
+                                            ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             int[] orderOfArrival = bar.enter();
                                             outMessage = new Message (MessageType.STUDENTENTERED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
