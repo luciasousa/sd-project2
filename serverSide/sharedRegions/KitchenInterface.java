@@ -137,6 +137,15 @@ public class KitchenInterface {
                                             ((KitchenClientProxy) Thread.currentThread ()).getWaiterState ());
                                         break;
 
+            
+            case MessageType.CHEFWAIT:    if(inMessage.getChefState() != ChefStates.DLVPT)
+                                        throw new MessageException ("Invalid chef state", inMessage);
+                                      break;   
+
+            case MessageType.PORTIONCOLLECT:    if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.WTFPT))
+                                            throw new MessageException ("Invalid waiter state", inMessage);
+                                            break;  
+
             case MessageType.SHUT:      kitchen.shutdown();
                                         outMessage = new Message (MessageType.SHUTDONE); 
                                         break;

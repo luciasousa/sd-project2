@@ -631,4 +631,68 @@ public class TableStub {
         }
         com.close ();
     }
+
+    public int takeASeat(int studentID, int studentState) 
+    {
+        // communication channel
+        ClientCom com = new ClientCom (serverHostName, serverPortNumb);
+        Message outMessage,        // outgoing message
+        inMessage;                 // incoming message
+        while (!com.open ())                                           // waits for a connection to be established
+        { try
+            { Thread.currentThread ().sleep ((long) (10));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.TAKESEAT,studentID, studentState);
+        System.out.printf("state: %d \n", studentState);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.TAKESEATDONE)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        if ((inMessage.getStudentState () != StudentStates.TKSTT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        return inMessage.getStudentState ();
+    }
+
+    public void waitForPad() 
+    {
+        // communication channel
+        ClientCom com = new ClientCom (serverHostName, serverPortNumb);
+        Message outMessage,        // outgoing message
+        inMessage;                 // incoming message
+        while (!com.open ())                                           // waits for a connection to be established
+        { try
+            { Thread.currentThread ().sleep ((long) (10));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.WAITPAD, ((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState());
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.WAITPADDONE)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        if ((inMessage.getStudentState () != StudentStates.OGODR))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+    }
 }

@@ -129,6 +129,15 @@ public class TableInterface {
                                                 throw new MessageException ("Invalid waiter state", inMessage);
                                             break; 
 
+
+            case MessageType.TAKESEAT:    if((inMessage.getStudentState () != StudentStates.TKSTT))
+                                        throw new MessageException ("Invalid student state", inMessage);
+                                        break;  
+
+            case MessageType.WAITPAD:    if((inMessage.getStudentState () != StudentStates.OGODR))
+                                        throw new MessageException ("Invalid student state", inMessage);
+                                        break;  
+
             case MessageType.SHUT:          // check nothing
                                             break;
             default:                   throw new MessageException ("Invalid message type!", inMessage);
@@ -252,6 +261,16 @@ public class TableInterface {
                                             table.presentTheBill();
                                             outMessage = new Message (MessageType.PRESBILL,
                                                     ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
+                                            break;  
+
+            case MessageType.TAKESEAT:  ((TableClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentState ());
+                                            outMessage = new Message (MessageType.TAKESEATDONE,
+                                                    ((TableClientProxy) Thread.currentThread ()).getStudentState ());
+                                            break;  
+    
+            case MessageType.WAITPAD:   ((TableClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentState ());
+                                            outMessage = new Message (MessageType.WAITPADDONE,
+                                                    ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;  
 
             case MessageType.SHUT:        table.shutdown();

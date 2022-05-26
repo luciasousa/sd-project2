@@ -23,6 +23,9 @@ public class Table
      */
     private int nEntities;
 
+    private TableClientProxy studentProxy;
+    private TableClientProxy waiterProxy;
+
     /**
      *   Counter of the number of portions delivered.
      */
@@ -110,6 +113,7 @@ public class Table
         courseReady = new boolean[Constants.M];
         menuRead = new boolean[Constants.N];
         nEntities=0;
+        studentProxy = null;
     }
 
     /**
@@ -119,15 +123,15 @@ public class Table
      */
     public synchronized void takeASeat() 
     {
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.TKSTT);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.TKSTT);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         reposStub.setSeatOrder(studentID);
         //System.out.printf("student %d take a seat, state: %d\n", student.getStudentID(),student.getStudentState());
 
-        while(!clientsSaluted[student.getStudentID()]) 
+        while(!clientsSaluted[studentProxy.getStudentID()]) 
         {
             try {
                 wait();
@@ -146,9 +150,9 @@ public class Table
      */
     public synchronized void saluteTheClient(int studentID) 
     {
-        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
-        waiter.setWaiterState(WaiterStates.PRSMN);
-        int state = waiter.getWaiterState();
+        waiterProxy = (TableClientProxy) Thread.currentThread();
+        waiterProxy.setWaiterState(WaiterStates.PRSMN);
+        int state = waiterProxy.getWaiterState();
         reposStub.setWaiterState(state);
         //System.out.printf("waiter salute the client %d, state: %d\n", studentID, waiter.getWaiterState());
         clientsSaluted[studentID] = true;
@@ -171,10 +175,10 @@ public class Table
      */
     public synchronized void readMenu() 
     {
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.SELCS);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.SELCS);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d read menu, state: %d\n", studentID, student.getStudentState());
         menuRead[studentID] = true;
@@ -191,10 +195,10 @@ public class Table
      */
     public synchronized void prepareTheOrder() 
     {
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.OGODR);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.OGODR);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d prepare the order, state: %d\n", student.getStudentID(), student.getStudentState());
         while (!wasInformed) 
@@ -217,10 +221,10 @@ public class Table
     public synchronized void informCompanion() 
     {
         wasInformed = false;
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.CHTWC);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.CHTWC);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d inform companion, state: %d\n", student.getStudentID(), student.getStudentState());
         wasInformed = true;
@@ -245,9 +249,9 @@ public class Table
      */
     public synchronized void addUpOnesChoice() 
     {
-        TableClientProxy student = (TableClientProxy) Thread.currentThread();
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = (TableClientProxy) Thread.currentThread();
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d has been informed\n", student.getStudentID());
         while(!wasInformed)
@@ -289,9 +293,9 @@ public class Table
      */
     public synchronized void getThePad() 
     { 
-        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
-        waiter.setWaiterState(WaiterStates.TKODR);
-        int state = waiter.getWaiterState();
+        waiterProxy = (TableClientProxy) Thread.currentThread();
+        waiterProxy.setWaiterState(WaiterStates.TKODR);
+        int state = waiterProxy.getWaiterState();
         reposStub.setWaiterState(state);
         //System.out.printf("waiter get the pad, state: %d\n", waiter.getWaiterState());
         waiterHasThePad = true;
@@ -342,10 +346,10 @@ public class Table
      */
     public synchronized void joinTheTalk() 
     {
-        TableClientProxy student = (TableClientProxy) Thread.currentThread();
-        student.setStudentState(StudentStates.CHTWC);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = (TableClientProxy) Thread.currentThread();
+        studentProxy.setStudentState(StudentStates.CHTWC);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.println("first student has joined the talk");
         while(!courseReady[numberOfCoursesDelivered])
@@ -414,10 +418,10 @@ public class Table
      */
     public synchronized void startEating() 
     {
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.EJYML);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.EJYML);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d has started eating, course: %d\n", student.getStudentID(), numberOfCoursesDelivered);
         try {
@@ -436,10 +440,10 @@ public class Table
     public synchronized void endEating() 
     {
         numberOfPortionsEaten += 1;
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.CHTWC);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.CHTWC);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d has finished eating\n", student.getStudentID());
     }
@@ -507,8 +511,8 @@ public class Table
      */
     public synchronized void waitForPayment()
     {
-        TableClientProxy student = (TableClientProxy) Thread.currentThread();
-        int studentID = student.getStudentID();
+        studentProxy = (TableClientProxy) Thread.currentThread();
+        int studentID = studentProxy.getStudentID();
         //System.out.printf("Student %d is waiting for payment\n", studentID);
         while(!studentHasPaid)
         {
@@ -530,9 +534,9 @@ public class Table
      */
     public synchronized void presentTheBill() 
     {
-        BarClientProxy waiter = (BarClientProxy) Thread.currentThread();
-        waiter.setWaiterState(WaiterStates.RECPM);
-        int state = waiter.getWaiterState();
+        waiterProxy = (TableClientProxy) Thread.currentThread();
+        waiterProxy.setWaiterState(WaiterStates.RECPM);
+        int state = waiterProxy.getWaiterState();
         reposStub.setWaiterState(state);
         //System.out.println("presenting the bill");
         billReady = true;
@@ -556,10 +560,10 @@ public class Table
      */
     public synchronized void shouldHaveArrivedEarlier() 
     {
-        TableClientProxy student = ((TableClientProxy) Thread.currentThread());
-        student.setStudentState(StudentStates.PYTBL);
-        int studentID = student.getStudentID();
-        int state = student.getStudentState();
+        studentProxy = ((TableClientProxy) Thread.currentThread());
+        studentProxy.setStudentState(StudentStates.PYTBL);
+        int studentID = studentProxy.getStudentID();
+        int state = studentProxy.getStudentState();
         reposStub.setStudentState(studentID, state);
         //System.out.printf("student %d should have arrived earlier, pay the bill\n",studentID);
         while(!billReady)

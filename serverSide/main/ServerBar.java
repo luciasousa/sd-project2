@@ -35,8 +35,13 @@ public class ServerBar {
         String reposServerName;                                        // name of the platform where is located the server for the general repository
         int reposPortNumb = -1;                                        // port nunber where the server for the general repository is listening to service requests
 
+        String tableServerName;                                        // name of the platform where is located the server for the general repository
+        int tablePortNumb = -1;
 
-        if (args.length != 3)
+        String kitchenServerName;                                        // name of the platform where is located the server for the general repository
+        int kitchenPortNumb = -1;
+
+        if (args.length != 7)
             { GenericIO.writelnString ("Wrong number of parameters!");
             System.exit (1);
             }
@@ -66,15 +71,45 @@ public class ServerBar {
             System.exit (1);
         }
 
+        tableServerName = args[3];
+        try
+            { tablePortNumb = Integer.parseInt (args[4]);
+            }
+        catch (NumberFormatException e)
+        { 
+            GenericIO.writelnString ("args[4] is not a number!");
+            System.exit (1);
+        }
+        if ((tablePortNumb < 4000) || (tablePortNumb >= 65536))
+        { 
+            GenericIO.writelnString ("args[4] is not a valid port number!");
+            System.exit (1);
+        }
+
+        kitchenServerName = args[5];
+        try
+            { kitchenPortNumb = Integer.parseInt (args[6]);
+            }
+        catch (NumberFormatException e)
+        { 
+            GenericIO.writelnString ("args[6] is not a number!");
+            System.exit (1);
+        }
+        if ((kitchenPortNumb < 4000) || (kitchenPortNumb >= 65536))
+        { 
+            GenericIO.writelnString ("args[6] is not a valid port number!");
+            System.exit (1);
+        }
+
         serverCom = new ServerCom (portNumb);
         serverCom.start ();                
         GenericIO.writelnString ("Service is established!");
         GenericIO.writelnString ("Server is listening for service requests.");
 
         GeneralReposStub generalReposStub = new GeneralReposStub(reposServerName, reposPortNumb);
-        Table table = new Table(generalReposStub);
-        Kitchen kitchen = new Kitchen(generalReposStub);
-        Bar bar = new Bar(generalReposStub, table, kitchen);
+        TableStub tableStub = new TableStub(tableServerName, tablePortNumb);
+        KitchenStub kitchenStub = new KitchenStub(kitchenServerName, kitchenPortNumb);
+        Bar bar = new Bar(generalReposStub, tableStub, kitchenStub);
         BarInterface barInterface = new BarInterface(bar);
         
         /* service request processing */

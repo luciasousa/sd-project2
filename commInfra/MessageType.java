@@ -447,6 +447,47 @@ public class MessageType
    *  Setting acknowledged (reply).
    */
 
-   public static final int SACK = 87;
+  public static final int SACK = 87;
+
+  /**
+   *  Chef wait (request).
+   */
+  public static final int CHEFWAIT = 88;
+
+  /**
+   *  Chef wait (reply).
+   */
+  public static final int CHEFWAITDONE = 89;
+
+  /**
+   *  Portion collect (request).
+   */
+  public static final int PORTIONCOLLECT = 90;
+
+  /**
+   *  Portion collect (reply).
+   */
+  public static final int PORTIONCOLLECTDONE = 91;
+
+  /**
+   *  Take a seat (request).
+   */
+  public static final int TAKESEAT = 92;
+
+  /**
+   *  Take a seat (reply).
+   */
+  public static final int TAKESEATDONE = 93;
+
+  /**
+   *  Wait for pad (request).
+   */
+  public static final int WAITPAD = 94;
+
+  /**
+   *  Wait for pad (reply).
+   */
+  public static final int WAITPADDONE = 95;
+
 
 }

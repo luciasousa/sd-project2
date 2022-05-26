@@ -79,6 +79,7 @@ public class BarInterface
                                               throw new MessageException ("Invalid waiter state", inMessage);
                                             break;   
 
+
             case MessageType.SHUT:          // check nothing
                                             break;
             default:                   throw new MessageException ("Invalid message type!", inMessage);
@@ -156,6 +157,8 @@ public class BarInterface
                                           outMessage = new Message (MessageType.SAYGOODBYEDONE,
                                                   ((BarClientProxy) Thread.currentThread ()).getWaiterState ());
                                           break;  
+
+            
 
             case MessageType.SHUT:        bar.shutdown();
                                           outMessage = new Message (MessageType.SHUTDONE); 

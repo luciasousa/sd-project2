@@ -372,4 +372,66 @@ public class KitchenStub {
         }
         com.close ();
     }
+
+    public void chefWaitForCollection() 
+    {
+        // communication channel
+        ClientCom com = new ClientCom (serverHostName, serverPortNumb);
+        Message outMessage,        // outgoing message
+        inMessage;                 // incoming message
+        while (!com.open ())                                           // waits for a connection to be established
+        { try
+            { Thread.currentThread ().sleep ((long) (10));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.CHEFWAIT, ((Chef) Thread.currentThread()).getChefState());
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.CHEFWAITDONE)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        if ((inMessage.getChefState () != ChefStates.DLVPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+    }
+
+    public void portionHasBeenCollected() 
+    {
+        // communication channel
+        ClientCom com = new ClientCom (serverHostName, serverPortNumb);
+        Message outMessage,        // outgoing message
+        inMessage;                 // incoming message
+        while (!com.open ())                                           // waits for a connection to be established
+        { try
+            { Thread.currentThread ().sleep ((long) (10));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.PORTIONCOLLECT, ((Waiter) Thread.currentThread()).getWaiterState());
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.PORTIONCOLLECTDONE)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        if ((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.WTFPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+    }
 }
