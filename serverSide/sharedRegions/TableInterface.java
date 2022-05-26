@@ -130,7 +130,7 @@ public class TableInterface {
                                             break; 
 
 
-            case MessageType.TAKESEAT:    if((inMessage.getStudentState () != StudentStates.TKSTT))
+            case MessageType.TAKESEAT:    if((inMessage.getStudentState () != StudentStates.GGTRT))
                                         throw new MessageException ("Invalid student state", inMessage);
                                         break;  
 
@@ -264,12 +264,12 @@ public class TableInterface {
                                             break;  
 
             case MessageType.TAKESEAT:  ((TableClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentState ());
-                                            outMessage = new Message (MessageType.TAKESEATDONE,
+                                            outMessage = new Message (MessageType.TAKESEATDONE,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;  
     
             case MessageType.WAITPAD:   ((TableClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentState ());
-                                            outMessage = new Message (MessageType.WAITPADDONE,
+                                            outMessage = new Message (MessageType.WAITPADDONE,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;  
 

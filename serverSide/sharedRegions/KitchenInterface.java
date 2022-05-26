@@ -66,6 +66,14 @@ public class KitchenInterface {
                                             throw new MessageException ("Invalid waiter state!", inMessage);
                                         break;
 
+            case MessageType.CHEFWAIT:    if(inMessage.getChefState() != ChefStates.DLVPT)
+                                        throw new MessageException ("Invalid chef state", inMessage);
+                                      break;   
+
+            case MessageType.PORTIONCOLLECT:    if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.WTFPT))
+                                            throw new MessageException ("Invalid waiter state", inMessage);
+                                            break;  
+
             case MessageType.SHUT:      // check nothing
                                         break;
 
@@ -138,13 +146,19 @@ public class KitchenInterface {
                                         break;
 
             
-            case MessageType.CHEFWAIT:    if(inMessage.getChefState() != ChefStates.DLVPT)
-                                        throw new MessageException ("Invalid chef state", inMessage);
-                                      break;   
+            case MessageType.CHEFWAIT:  ((KitchenClientProxy) Thread.currentThread ()).setChefState(inMessage.getChefState ());
+                                        outMessage = new Message (MessageType.CHEFWAITDONE,
+                                                ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
+                                        break;  
 
-            case MessageType.PORTIONCOLLECT:    if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.WTFPT))
-                                            throw new MessageException ("Invalid waiter state", inMessage);
-                                            break;  
+            case MessageType.PORTIONCOLLECT:    ((KitchenClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
+                                                outMessage = new Message (MessageType.PORTIONCOLLECTDONE,
+                                                        ((KitchenClientProxy) Thread.currentThread ()).getWaiterState ());
+                                                break;  
+
+            
+
+            
 
             case MessageType.SHUT:      kitchen.shutdown();
                                         outMessage = new Message (MessageType.SHUTDONE); 

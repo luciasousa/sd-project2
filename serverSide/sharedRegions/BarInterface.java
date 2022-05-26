@@ -158,8 +158,6 @@ public class BarInterface
                                                   ((BarClientProxy) Thread.currentThread ()).getWaiterState ());
                                           break;  
 
-            
-
             case MessageType.SHUT:        bar.shutdown();
                                           outMessage = new Message (MessageType.SHUTDONE); 
                                           break;

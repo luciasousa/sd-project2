@@ -654,7 +654,7 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        if ((inMessage.getStudentState () != StudentStates.TKSTT))
+        if ((inMessage.getStudentState () != StudentStates.GGTRT))
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
             GenericIO.writelnString (inMessage.toString ());
