@@ -130,7 +130,7 @@ public class TableInterface {
                                             break; 
 
 
-            case MessageType.TAKESEAT:    if((inMessage.getStudentState () != StudentStates.GGTRT))
+            case MessageType.TAKESEAT:    if((inMessage.getStudentState () != StudentStates.TKSTT))
                                         throw new MessageException ("Invalid student state", inMessage);
                                         break;  
 
@@ -150,85 +150,85 @@ public class TableInterface {
         { 
             case MessageType.READMENUREQ:   ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.readMenu();
-                                            outMessage = new Message (MessageType.READMENU,
+                                            outMessage = new Message (MessageType.READMENU,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.INFCOMPREQ:    ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.informCompanion();
-                                            outMessage = new Message (MessageType.INFCOMP,
+                                            outMessage = new Message (MessageType.INFCOMP, ((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
                           
             case MessageType.PREPORDERREQ:  ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.prepareTheOrder();
-                                            outMessage = new Message (MessageType.PREPORDER,
+                                            outMessage = new Message (MessageType.PREPORDER, ((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.EVBDCHOSENREQ: ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.hasEverybodyChosen();
-                                            outMessage = new Message (MessageType.EVBDCHOSEN,
+                                            outMessage = new Message (MessageType.EVBDCHOSEN, ((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.ADDUPCHCREQ:   ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.addUpOnesChoice();
-                                            outMessage = new Message (MessageType.ADDUPCHC,
+                                            outMessage = new Message (MessageType.ADDUPCHC, ((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.DESCORDERREQ:  ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.describeTheOrder();
-                                            outMessage = new Message (MessageType.DESCORDER,
+                                            outMessage = new Message (MessageType.DESCORDER, ((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.JOINTALKREQ:   ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.joinTheTalk();
-                                            outMessage = new Message (MessageType.JOINTALK,
+                                            outMessage = new Message (MessageType.JOINTALK, ((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.STARTEATREQ:   ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.startEating();
-                                            outMessage = new Message (MessageType.STARTEAT,
+                                            outMessage = new Message (MessageType.STARTEAT,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.ENDEATREQ: ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                         table.endEating();
-                                        outMessage = new Message (MessageType.ENDEAT,
+                                        outMessage = new Message (MessageType.ENDEAT,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                 ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                         break;
 
             case MessageType.EVBDFINISHREQ: ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.hasEverybodyFinished();
-                                            outMessage = new Message (MessageType.EVBDFINISH,
+                                            outMessage = new Message (MessageType.EVBDFINISH,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.CSREADYREQ:    ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.waitForCourseToBeReady();
-                                            outMessage = new Message (MessageType.CSREADY,
+                                            outMessage = new Message (MessageType.CSREADY,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.WTPAYREQ:  ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                         table.waitForPayment();
-                                        outMessage = new Message (MessageType.WTPAY,
+                                        outMessage = new Message (MessageType.WTPAY,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                 ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                         break;
 
             case MessageType.SHARRIVEDEARLIERREQ:   ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                                     table.shouldHaveArrivedEarlier();
-                                                    outMessage = new Message (MessageType.SHARRIVEDEARLIER,
+                                                    outMessage = new Message (MessageType.SHARRIVEDEARLIER,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                             ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                                     break;
 
             case MessageType.HONOURBILLREQ: ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.honourTheBill();
-                                            outMessage = new Message (MessageType.HONOURBILL,
+                                            outMessage = new Message (MessageType.HONOURBILL,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 

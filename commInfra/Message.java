@@ -99,11 +99,11 @@ public class Message implements Serializable
 
    public Message (int type, int id, int state)
    {
-      System.out.printf("ids: %d\n",id);
+      //System.out.printf("ids: %d\n",id);
       
       this.msgType=type;
       this.studentID= id;
-      System.out.printf("ids: %d\n",this.studentID);
+      //System.out.printf("ids: %d\n",this.studentID);
       this.studentState = state;
    }
 

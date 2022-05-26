@@ -154,6 +154,8 @@ public class Bar {
         int studentState;
         synchronized(this)
         {
+            studentProxy = (BarClientProxy) Thread.currentThread();
+            studentProxy.setStudentState(StudentStates.TKSTT);
             studentID = (((BarClientProxy) Thread.currentThread()).getStudentID());
             studentState = (((BarClientProxy) Thread.currentThread()).getStudentState());
             //System.out.printf("student %d enters\n", studentID);
@@ -174,7 +176,7 @@ public class Bar {
             notifyAll();
         }
         int state = table.takeASeat(studentID, studentState);
-        ((BarClientProxy) Thread.currentThread()).setStudentState(state);
+        ((BarClientProxy) Thread.currentThread()).setStudentState(studentState);
         return studentsArrival;
     }
 

@@ -48,6 +48,9 @@ public class TableStub {
         outMessage = new Message (MessageType.READMENUREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
+
+        System.out.printf("in mes st state: %d\n",inMessage.getStudentState ());
+
         if (inMessage.getMsgType () != MessageType.READMENU)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
@@ -60,8 +63,9 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
+
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     }
 
     public void informCompanion() {
@@ -654,7 +658,7 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        if ((inMessage.getStudentState () != StudentStates.GGTRT))
+        if ((inMessage.getStudentState () != StudentStates.TKSTT))
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
             GenericIO.writelnString (inMessage.toString ());

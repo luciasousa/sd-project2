@@ -93,6 +93,7 @@ public class BarStub {
         outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(), 'c');
         System.out.println("out message");
         System.out.printf("id student: %d\n",outMessage.getStudentID());
+        System.out.printf("state student out: %d\n",outMessage.getStudentState());
         com.writeObject (outMessage);
         System.out.println("write out message");
         students[i] = ((Student) Thread.currentThread()).getStudentID();
@@ -105,13 +106,15 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        System.out.printf("state student in: %d\n",inMessage.getStudentState());
         if ((inMessage.getStudentState () < StudentStates.GGTRT) || (inMessage.getStudentState () > StudentStates.TKSTT))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        com.close ();
+        
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
 
         return students;
     }
