@@ -20,6 +20,7 @@ public class BarInterface
     public BarInterface(Bar bar)
     {
         this.bar = bar;
+        
     }
 
     public Message processAndReply(Message inMessage) throws MessageException
@@ -30,58 +31,60 @@ public class BarInterface
         System.out.println(inMessage.getMsgType());
         switch(inMessage.getMsgType())
         {
-            case MessageType.ALERTWAITER:   if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
-                                              throw new MessageException ("Invalid chef state!", inMessage);
+            case MessageType.ALERTWAITER:   System.out.printf("Chef state= %d\n", inMessage.getChefState ());
+                                            if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
+                                              throw new MessageException ("Invalid chef state 12!", inMessage);
                                             break;
 
             case MessageType.ENTERSTUDENT:  if ((inMessage.getStudentID () < 0) || (inMessage.getStudentID () >= Constants.N))
                                               throw new MessageException ("Invalid student id!", inMessage);
                                             else if((inMessage.getStudentState() < StudentStates.GGTRT) || (inMessage.getStudentState() > StudentStates.TKSTT ))
-                                              throw new MessageException ("Invalid student state!", inMessage);
+                                              throw new MessageException ("Invalid student state 22!", inMessage);
                                             break;
                             
             case MessageType.CALLWAITER:    if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                               throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState() != StudentStates.OGODR))
-                                              throw new MessageException ("Invalid student state", inMessage);
+                                              throw new MessageException ("Invalid student state 23", inMessage);
                                             break;
 
             case MessageType.SIGNALWAITER:  if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState() != StudentStates.CHTWC))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 24", inMessage);
                                             break;
 
             case MessageType.EXITSTUDENT:   if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState() < StudentStates.CHTWC) || (inMessage.getStudentState() > StudentStates.GGHOM))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 25", inMessage);
                                             break;
 
             case MessageType.LOOKWAITER:    if(inMessage.getWaiterState() != WaiterStates.APPST)
-                                              throw new MessageException ("Invalid waiter state", inMessage);
+                                              throw new MessageException ("Invalid waiter state 12", inMessage);
                                             break;
 
             case MessageType.RETURNWAITER:  if(false)
-                                              throw new MessageException ("Invalid waiter state", inMessage);
+                                              throw new MessageException ("Invalid waiter state 13", inMessage);
                                             break;
 
             case MessageType.COLLECTWAITER: if((inMessage.getWaiterState() < WaiterStates.APPST) || (inMessage.getWaiterState() > WaiterStates.WTFPT))
-                                              throw new MessageException ("Invalid waiter state", inMessage);
+                                              throw new MessageException ("Invalid waiter state 14", inMessage);
                                             break;
 
             case MessageType.PREPAREWAITER: if((inMessage.getWaiterState() < WaiterStates.APPST) || (inMessage.getWaiterState() > WaiterStates.PRCBL))
-                                              throw new MessageException ("Invalid waiter state", inMessage);
+                                              throw new MessageException ("Invalid waiter state 15", inMessage);
                                             break;                                                
 
-            case MessageType.SAYGOODBYE:    if(inMessage.getWaiterState() != WaiterStates.APPST)
-                                              throw new MessageException ("Invalid waiter state", inMessage);
+            case MessageType.SAYGOODBYE:    System.out.printf("state16: %d\n",inMessage.getWaiterState());
+                                            if(inMessage.getWaiterState() != WaiterStates.APPST)
+                                              throw new MessageException ("Invalid waiter state 16", inMessage);
                                             break;   
 
 
             case MessageType.SHUT:          // check nothing
                                             break;
-            default:                   throw new MessageException ("Invalid message type!", inMessage);
+            default:                   throw new MessageException ("Invalid message type 54!", inMessage);
         }
 
         /* processing */
@@ -92,7 +95,7 @@ public class BarInterface
             case MessageType.ALERTWAITER:   ((BarClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
                                             bar.alertTheWaiter();
                                             outMessage = new Message (MessageType.WAITERALERTED,
-                                                    ((BarClientProxy) Thread.currentThread ()).getWaiterState ());
+                                                    ((BarClientProxy) Thread.currentThread ()).getChefState ());
                                             break;
 
             case MessageType.ENTERSTUDENT:  System.out.printf("message: ");
@@ -102,6 +105,7 @@ public class BarInterface
                                             outMessage = new Message (MessageType.STUDENTENTERED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState (), orderOfArrival);
                                                     System.out.printf("message: %s\n",outMessage);
+                                            
                                             break;
                             
             case MessageType.CALLWAITER:    ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
@@ -152,9 +156,11 @@ public class BarInterface
 
             case MessageType.SAYGOODBYE:  ((BarClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
                                           int studentID = inMessage.getStudentID();
-                                          bar.sayGoodbye(studentID);
+                                          System.out.printf("student id = %d\n", studentID);
+                                          int numberOfStudentsInRest = bar.sayGoodbye(studentID);
+                                          System.out.printf("number of students in restaurant = %d \n", numberOfStudentsInRest);
                                           outMessage = new Message (MessageType.SAYGOODBYEDONE,
-                                                  ((BarClientProxy) Thread.currentThread ()).getWaiterState ());
+                                                  ((BarClientProxy) Thread.currentThread ()).getWaiterState (), numberOfStudentsInRest, "number of students in restaurant");
                                           break;  
 
             case MessageType.SHUT:        bar.shutdown();

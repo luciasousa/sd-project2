@@ -1,9 +1,4 @@
 package serverSide.sharedRegions;
-
-import java.nio.file.FileAlreadyExistsException;
-
-import javax.lang.model.util.ElementScanner6;
-
 import clientSide.entities.*;
 import clientSide.main.*;
 import commInfra.*;
@@ -32,119 +27,122 @@ public class TableInterface {
             case MessageType.READMENUREQ:   if ((inMessage.getStudentID () < 0) || (inMessage.getStudentID () >= Constants.N))
                                               throw new MessageException ("Invalid student id!", inMessage);
                                             else if ((inMessage.getStudentState () < StudentStates.TKSTT) || (inMessage.getStudentState () > StudentStates.SELCS))
-                                              throw new MessageException ("Invalid student state!", inMessage);
+                                              throw new MessageException ("Invalid student state 28!", inMessage);
                                             break;
 
             case MessageType.INFCOMPREQ:    if ((inMessage.getStudentID () < 0) || (inMessage.getStudentID () >= Constants.N))
                                               throw new MessageException ("Invalid student id!", inMessage);
                                             else if((inMessage.getStudentState() < StudentStates.SELCS) || (inMessage.getStudentState() > StudentStates.CHTWC ))
-                                              throw new MessageException ("Invalid student state!", inMessage);
+                                              throw new MessageException ("Invalid student state 29!", inMessage);
                                             break;
                             
             case MessageType.PREPORDERREQ:    if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                               throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState () < StudentStates.SELCS) || (inMessage.getStudentState () > StudentStates.OGODR))
-                                              throw new MessageException ("Invalid student state", inMessage);
+                                              throw new MessageException ("Invalid student state 30", inMessage);
                                             break;
 
             case MessageType.EVBDCHOSENREQ:  if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState() != StudentStates.OGODR))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 31", inMessage);
                                             break;
 
             case MessageType.ADDUPCHCREQ:   if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState() != StudentStates.OGODR))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 32", inMessage);
                                             break;
 
             case MessageType.DESCORDERREQ:  if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState() != StudentStates.OGODR))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 33", inMessage);
                                             break;
 
             case MessageType.JOINTALKREQ:   if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState () < StudentStates.OGODR) || (inMessage.getStudentState () > StudentStates.CHTWC))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 34", inMessage);
                                             break;
 
             case MessageType.STARTEATREQ:   if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState () < StudentStates.CHTWC) || (inMessage.getStudentState () > StudentStates.EJYML))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 35", inMessage);
                                             break;
 
             case MessageType.ENDEATREQ:     if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState () < StudentStates.CHTWC) || (inMessage.getStudentState () > StudentStates.EJYML))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                                throw new MessageException ("Invalid student state 36", inMessage);
                                             break;
 
-            case MessageType.EVBDFINISHREQ: if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
+            case MessageType.EVBDFINISHREQ: System.out.printf("state37: %d\n", inMessage.getStudentState());
+                                            if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
-                                            else if((inMessage.getStudentState () != StudentStates.OGODR))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                            else if((inMessage.getStudentState () != StudentStates.CHTWC))
+                                                throw new MessageException ("Invalid student state 37", inMessage);
                                             break;
 
-            case MessageType.CSREADYREQ: if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
+            case MessageType.CSREADYREQ:    System.out.printf("state38: %d\n", inMessage.getStudentState());
+                                            if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
-                                            else if((inMessage.getStudentState () != StudentStates.OGODR))
-                                                throw new MessageException ("Invalid student state", inMessage);
+                                            else if((inMessage.getStudentState () != StudentStates.CHTWC))
+                                                throw new MessageException ("Invalid student state 38", inMessage);
                                             break;
 
             case MessageType.WTPAYREQ:  if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                             throw new MessageException ("Invalid student id", inMessage);
                                         else if((inMessage.getStudentState () != StudentStates.CHTWC))
-                                            throw new MessageException ("Invalid student state", inMessage);
+                                            throw new MessageException ("Invalid student state 39", inMessage);
                                         break;
 
             case MessageType.SHARRIVEDEARLIERREQ:   if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                         throw new MessageException ("Invalid student id", inMessage);
                                                     else if((inMessage.getStudentState () < StudentStates.CHTWC) || (inMessage.getStudentState () > StudentStates.PYTBL))
-                                                        throw new MessageException ("Invalid student state", inMessage);
+                                                        throw new MessageException ("Invalid student state 40", inMessage);
                                                     break;
 
             case MessageType.HONOURBILLREQ:     if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                     throw new MessageException ("Invalid student id", inMessage);
                                                 else if((inMessage.getStudentState () != StudentStates.PYTBL))
-                                                    throw new MessageException ("Invalid student state", inMessage);
+                                                    throw new MessageException ("Invalid student state 41", inMessage);
                                                 break;
 
             case MessageType.SALUTECLIENTREQ:   if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.PRSMN))
-                                                    throw new MessageException ("Invalid waiter state", inMessage);
+                                                    throw new MessageException ("Invalid waiter state 21", inMessage);
                                                 break;                                                
 
             case MessageType.GETPADREQ:     if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.TKODR))
-                                                throw new MessageException ("Invalid waiter state", inMessage);
+                                                throw new MessageException ("Invalid waiter state 22", inMessage);
                                             break;   
 
-            case MessageType.HVCLIENTSBEENSRVREQ:   if(inMessage.getWaiterState () != WaiterStates.WTFPT)
-                                                        throw new MessageException ("Invalid waiter state", inMessage);
+            case MessageType.HVCLIENTSBEENSRVREQ:   System.out.printf("Waiter state= %d \n", inMessage.getWaiterState());
+                                                    if(inMessage.getWaiterState () != WaiterStates.APPST)
+                                                        throw new MessageException ("Invalid waiter state 23", inMessage);
                                                     break; 
 
             case MessageType.DELVPTREQ:     if(inMessage.getWaiterState () != WaiterStates.WTFPT)
-                                                throw new MessageException ("Invalid waiter state", inMessage);
+                                                throw new MessageException ("Invalid waiter state 24", inMessage);
                                             break; 
 
             case MessageType.PRESBILLREQ:   if((inMessage.getWaiterState () < WaiterStates.PRCBL) || (inMessage.getWaiterState () > WaiterStates.RECPM))
-                                                throw new MessageException ("Invalid waiter state", inMessage);
+                                                throw new MessageException ("Invalid waiter state 25", inMessage);
                                             break; 
 
 
             case MessageType.TAKESEAT:    if((inMessage.getStudentState () != StudentStates.TKSTT))
-                                        throw new MessageException ("Invalid student state", inMessage);
+                                        throw new MessageException ("Invalid student state 42", inMessage);
                                         break;  
 
             case MessageType.WAITPAD:    if((inMessage.getStudentState () != StudentStates.OGODR))
-                                        throw new MessageException ("Invalid student state", inMessage);
+                                        throw new MessageException ("Invalid student state 43", inMessage);
                                         break;  
 
             case MessageType.SHUT:          // check nothing
                                             break;
-            default:                   throw new MessageException ("Invalid message type!", inMessage);
+            default:                   throw new MessageException ("Invalid message type 57!", inMessage);
         }
 
         /* processing */
@@ -253,7 +251,8 @@ public class TableInterface {
 
             case MessageType.SALUTECLIENTREQ:   ((TableClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
                                                 //salute the client needs student ID ???
-                                                table.saluteTheClient(inMessage.getStudentID());
+                                                System.out.printf("Request id: %d \n",(inMessage.getRequest()).getRequestID());
+                                                table.saluteTheClient((inMessage.getRequest()).getRequestID());
                                                 outMessage = new Message (MessageType.SALUTECLIENT,
                                                         ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
                                                 break;                                          
@@ -265,14 +264,14 @@ public class TableInterface {
                                         break;              
 
             case MessageType.HVCLIENTSBEENSRVREQ:   ((TableClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
-                                                    if(table.haveAllClientsBeenServed())
+                                                    boolean haveAllBeenServed = table.haveAllClientsBeenServed();
                                                         outMessage = new Message (MessageType.HVCLIENTSBEENSRV,
-                                                                ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
+                                                                ((TableClientProxy) Thread.currentThread ()).getWaiterState (), haveAllBeenServed);
                                                     break;  
 
             case MessageType.DELVPTREQ: ((TableClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
                                         table.deliverPortion();
-                                        outMessage = new Message (MessageType.DELVPTREQ,
+                                        outMessage = new Message (MessageType.DELVPT,
                                                 ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
                                         break;  
 
@@ -284,12 +283,14 @@ public class TableInterface {
 
             case MessageType.TAKESEAT:      ((TableClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((TableClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentState ());
+                                            table.takeASeat();
                                             outMessage = new Message (MessageType.TAKESEATDONE,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;  
     
             case MessageType.WAITPAD:       ((TableClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((TableClientProxy) Thread.currentThread ()).setStudentState(inMessage.getStudentState ());
+                                            table.waitForPad();
                                             outMessage = new Message (MessageType.WAITPADDONE,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;  

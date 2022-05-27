@@ -104,7 +104,8 @@ public class Student extends Thread
         else
         {
             table.prepareTheOrder();
-            while(!table.hasEverybodyChosen()) table.addUpOnesChoice();
+            while(!table.hasEverybodyChosen()) 
+                table.addUpOnesChoice();
             System.out.println("student is going to call the waiter");
             bar.callWaiter();
             table.describeTheOrder();

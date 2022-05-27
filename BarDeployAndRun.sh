@@ -5,4 +5,4 @@ sshpass -p "qwerty" scp dirBar.zip sd105@l040101-ws09.ua.pt:test/Restaurant
 echo "Decompressing data sent to the bar node."
 sshpass -p "qwerty" ssh sd105@l040101-ws09.ua.pt 'cd test/Restaurant ; unzip -uq dirBar.zip'
 echo "Executing program at the bar node."
-sshpass -p "qwerty" ssh sd105@l040101-ws09.ua.pt 'cd test/Restaurant/dirBar ; java serverSide.main.ServerBar 22154 l040101-ws07.ua.pt 22153'
+sshpass -p "qwerty" ssh sd105@l040101-ws09.ua.pt 'cd test/Restaurant/dirBar ; java serverSide.main.ServerBar 22154 l040101-ws07.ua.pt 22153 l040101-ws06.ua.pt 22152'

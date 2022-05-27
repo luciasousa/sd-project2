@@ -55,18 +55,19 @@ public class BarStub {
             }
             catch (InterruptedException e) {}
         }
-
-        outMessage = new Message (MessageType.ALERTWAITER, Constants.N,((Chef) Thread.currentThread()).getChefState(),'p');
+        Request r = new Request(Constants.N, 'p');
+        outMessage = new Message (MessageType.ALERTWAITER,((Chef) Thread.currentThread()).getChefState(),r);
         com.writeObject (outMessage);
 
         inMessage = (Message) com.readObject ();
+        System.out.printf("Chef state= %d\n",inMessage.getChefState());
         if (inMessage.getMsgType () != MessageType.WAITERALERTED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 1!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state 12_1!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -93,22 +94,18 @@ public class BarStub {
         outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(), 'c');
         System.out.println("out message");
         System.out.printf("id student: %d\n",outMessage.getStudentID());
-        System.out.printf("state student out: %d\n",outMessage.getStudentState());
         com.writeObject (outMessage);
-        System.out.println("write out message");
         students[i] = ((Student) Thread.currentThread()).getStudentID();
         i++;
-        System.out.println("in message");
         inMessage = (Message) com.readObject ();
-        System.out.println("read in message");
         if (inMessage.getMsgType () != MessageType.STUDENTENTERED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 2!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         System.out.printf("state student in: %d\n",inMessage.getStudentState());
         if ((inMessage.getStudentState () < StudentStates.GGTRT) || (inMessage.getStudentState () > StudentStates.TKSTT))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 1!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -138,13 +135,13 @@ public class BarStub {
         inMessage = (Message) com.readObject ();
         //criar message type
         if (inMessage.getMsgType () != MessageType.WAITERCALLED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 3!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         //TODO: ver este if
         if (inMessage.getStudentState () != StudentStates.OGODR)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 2!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -154,6 +151,7 @@ public class BarStub {
 
     public void signalTheWaiter() {
         // communication channel
+        System.out.println("signal the waiter bar stub");
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
@@ -170,13 +168,13 @@ public class BarStub {
         inMessage = (Message) com.readObject ();
         //criar message type
         if (inMessage.getMsgType () != MessageType.WAITERSIGNALED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 4!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         //TODO: ver este if
         if (inMessage.getStudentState () != StudentStates.CHTWC)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 3!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -200,12 +198,12 @@ public class BarStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STUDENTEXITED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type  5!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         if ((inMessage.getStudentState () < StudentStates.CHTWC || inMessage.getStudentState () > StudentStates.GGHOM))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 4!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -229,19 +227,19 @@ public class BarStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITERLOOKED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 6!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         if (inMessage.getWaiterState () != WaiterStates.APPST)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 1!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        System.out.printf("Request from message: id %d type %c\n",(inMessage.getRequest()).getRequestID(),(inMessage.getRequest()).getRequestType());
         return inMessage.getRequest();
-
     }
 
     public void returnToBar() {
@@ -260,16 +258,16 @@ public class BarStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITERRETURNED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 7!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
             //TODO: ver return to bar
             //if (false)
             //{ 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
-            GenericIO.writelnString (inMessage.toString ());
-            System.exit (1);
+            //GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            //GenericIO.writelnString (inMessage.toString ());
+            //System.exit (1);
             //}
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
@@ -291,12 +289,12 @@ public class BarStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITERCOLLECTED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 8!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         if ((inMessage.getWaiterState () < WaiterStates.APPST || inMessage.getWaiterState () > WaiterStates.WTFPT))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 2!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -320,12 +318,12 @@ public class BarStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITERPREPARED)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 9!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
             if ((inMessage.getWaiterState () < WaiterStates.APPST || inMessage.getWaiterState () > WaiterStates.PRCBL))
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 3!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
@@ -333,7 +331,7 @@ public class BarStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
-    public int sayGoodbye(int requestID) {
+    public int sayGoodbye(Request req) {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
@@ -344,24 +342,23 @@ public class BarStub {
             }
             catch (InterruptedException e) {}
         }
-
-        outMessage = new Message (MessageType.SAYGOODBYE, ((Waiter) Thread.currentThread()).getWaiterState(), requestID);
+        outMessage = new Message (MessageType.SAYGOODBYE, ((Waiter) Thread.currentThread()).getWaiterState(), req);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.SAYGOODBYEDONE)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 10!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         if (inMessage.getWaiterState () != WaiterStates.APPST)
-            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 4!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
 
-        return 0;
+        return inMessage.getNumberOfStudentsInRestaurant();
     }
 
     public void shutdown() {
@@ -381,7 +378,7 @@ public class BarStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SHUTDONE)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 11!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }

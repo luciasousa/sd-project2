@@ -15,7 +15,7 @@ rm -rf dirKitchen
 mkdir -p dirKitchen dirKitchen/serverSide dirKitchen/serverSide/main dirKitchen/serverSide/entities dirKitchen/serverSide/sharedRegions \
          dirKitchen/clientSide dirKitchen/clientSide/entities dirKitchen/clientSide/stubs dirKitchen/commInfra
 cp serverSide/main/Constants.class serverSide/main/ServerKitchen.class dirKitchen/serverSide/main
-cp serverSide/entities/KitchenClientProxy.class dirKitchen/serverSide/entities
+cp serverSide/entities/*.class dirKitchen/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/KitchenInterface.class serverSide/sharedRegions/Kitchen.class dirKitchen/serverSide/sharedRegions
 cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class \
    dirKitchen/clientSide/entities
@@ -26,7 +26,7 @@ rm -rf dirBar
 mkdir -p dirBar dirBar/serverSide dirBar/serverSide/main dirBar/serverSide/entities dirBar/serverSide/sharedRegions \
          dirBar/clientSide dirBar/clientSide/entities dirBar/clientSide/stubs dirBar/commInfra
 cp serverSide/main/Constants.class serverSide/main/ServerBar.class dirBar/serverSide/main
-cp serverSide/entities/BarClientProxy.class dirBar/serverSide/entities
+cp serverSide/entities/*.class dirBar/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/BarInterface.class serverSide/sharedRegions/Bar.class serverSide/sharedRegions/Table.class serverSide/sharedRegions/Kitchen.class dirBar/serverSide/sharedRegions
 cp clientSide/entities/*.class dirBar/clientSide/entities
 cp clientSide/stubs/*.class dirBar/clientSide/stubs
@@ -36,7 +36,7 @@ rm -rf dirTable
 mkdir -p dirTable dirTable/serverSide dirTable/serverSide/main dirTable/serverSide/entities dirTable/serverSide/sharedRegions \
          dirTable/clientSide dirTable/clientSide/entities dirTable/clientSide/stubs dirTable/commInfra
 cp serverSide/main/Constants.class serverSide/main/ServerTable.class dirTable/serverSide/main
-cp serverSide/entities/TableClientProxy.class dirTable/serverSide/entities
+cp serverSide/entities/*.class dirTable/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/TableInterface.class serverSide/sharedRegions/Table.class dirTable/serverSide/sharedRegions
 cp clientSide/entities/ChefStates.class clientSide/entities/WaiterStates.class clientSide/entities/StudentStates.class clientSide/entities/ChefCloning.class clientSide/entities/WaiterCloning.class clientSide/entities/StudentCloning.class \
    dirTable/clientSide/entities

@@ -53,13 +53,13 @@ public class TableStub {
 
         if (inMessage.getMsgType () != MessageType.READMENU)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 31!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.TKSTT) || (inMessage.getStudentState () > StudentStates.SELCS))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 5!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -84,13 +84,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.INFCOMP)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 32!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.SELCS) || (inMessage.getStudentState () > StudentStates.CHTWC))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 6!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -114,13 +114,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.PREPORDER)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 33!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.SELCS) || (inMessage.getStudentState () > StudentStates.OGODR))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 7!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -144,13 +144,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.EVBDCHOSEN)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 34!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.OGODR))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 8!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -175,13 +175,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.ADDUPCHC)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 35!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.OGODR))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 9!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -205,13 +205,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.DESCORDER)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 36!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.OGODR))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 10!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -235,13 +235,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.JOINTALK)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 37!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.OGODR) || (inMessage.getStudentState () > StudentStates.CHTWC))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 11!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -263,15 +263,16 @@ public class TableStub {
         outMessage = new Message (MessageType.STARTEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
+        System.out.printf("student start eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
         if (inMessage.getMsgType () != MessageType.STARTEAT)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 38!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.CHTWC) || (inMessage.getStudentState () > StudentStates.EJYML))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 12!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -293,15 +294,16 @@ public class TableStub {
         outMessage = new Message (MessageType.ENDEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
+        System.out.printf("student end eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
         if (inMessage.getMsgType () != MessageType.ENDEAT)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 39!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.CHTWC) || (inMessage.getStudentState () > StudentStates.EJYML))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 13!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -325,13 +327,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.EVBDFINISH)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 40!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.CHTWC))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 14!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -356,13 +358,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.EVBDFINISH)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 41!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.CHTWC))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 15!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -386,13 +388,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.CSREADY)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 42!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        if ((inMessage.getStudentState () != StudentStates.OGODR))
+        if ((inMessage.getStudentState () != StudentStates.CHTWC))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 16!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -416,13 +418,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WTPAY)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 43!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.CHTWC))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 17!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -446,13 +448,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.SHARRIVEDEARLIER)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 44!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () < StudentStates.CHTWC) || (inMessage.getStudentState () > StudentStates.PYTBL))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 18!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -476,13 +478,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.HONOURBILL)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 45!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.PYTBL))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 19!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -490,7 +492,7 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
-    public void saluteTheClient(int requestID) {
+    public void saluteTheClient(Request req) {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
@@ -501,18 +503,18 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SALUTECLIENTREQ, ((Waiter) Thread.currentThread()).getWaiterState());
+        outMessage = new Message (MessageType.SALUTECLIENTREQ, ((Waiter) Thread.currentThread()).getWaiterState(), req);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.SALUTECLIENT)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 46!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.PRSMN))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 7!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -536,13 +538,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.GETPAD)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 47!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.TKODR))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 8!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -566,20 +568,20 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.HVCLIENTSBEENSRV)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 48!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        if ((inMessage.getWaiterState () != WaiterStates.WTFPT))
+        if ((inMessage.getWaiterState () != WaiterStates.APPST))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 9!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     
-        return (inMessage.getMsgType() == MessageType.HVCLIENTSBEENSRV);
+        return (inMessage.getBoolVal());
     }
 
     public void deliverPortion() {
@@ -598,13 +600,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.DELVPT)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 49!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getWaiterState () != WaiterStates.WTFPT))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 10!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -628,13 +630,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.PRESBILL)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 50!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getWaiterState () < WaiterStates.PRCBL) || (inMessage.getWaiterState () > WaiterStates.RECPM))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state 11!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -660,7 +662,7 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SHUTDONE)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 51!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -685,13 +687,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.TAKESEATDONE)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 52!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.TKSTT))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 20!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
@@ -716,13 +718,13 @@ public class TableStub {
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITPADDONE)
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 53!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
         if ((inMessage.getStudentState () != StudentStates.OGODR))
         { 
-            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 21!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }

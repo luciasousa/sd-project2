@@ -241,11 +241,13 @@ public class Bar {
      */
     public void alertTheWaiter() 
     {
+        int chefState;
         synchronized(this) 
         {
             //chef's ID is equal to the number of students
             chefProxy = (BarClientProxy) Thread.currentThread();
             chefProxy.setChefState(ChefStates.DLVPT);
+            chefState = ((BarClientProxy) Thread.currentThread()).getChefState();
             Request r = new Request(Constants.N, 'p');
             numberOfPendingServiceRequests += 1;
             try {
@@ -256,7 +258,7 @@ public class Bar {
             notifyAll();
             System.out.println("chef alerts the waiter");
         }
-        kitchen.chefWaitForCollection();
+        kitchen.chefWaitForCollection(chefState);
     }
 
     /**
@@ -269,14 +271,15 @@ public class Bar {
     public void collectPortion() 
     {
         System.out.println("waiter is collecting portion");
+        int state;
         synchronized(this)
         {
-            int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
+            state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
             waiterProxy = (BarClientProxy) Thread.currentThread();
             waiterProxy.setWaiterState(WaiterStates.WTFPT);
             reposStub.setWaiterState(state);
         }
-        kitchen.portionHasBeenCollected();
+        kitchen.portionHasBeenCollected(state);
     }
 
     /**

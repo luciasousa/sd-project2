@@ -133,7 +133,7 @@ public class Table
         studentProxy[studentID].setStudentState(StudentStates.TKSTT);
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
         reposStub.setStudentState(studentID, state);
-        reposStub.setSeatOrder(studentID);
+        //reposStub.setSeatOrder(studentID);
         System.out.printf("student %d take a seat, state: %d\n", studentID,state);
 
         while(!clientsSaluted[studentID]) 

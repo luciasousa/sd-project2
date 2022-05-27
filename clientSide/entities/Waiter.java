@@ -81,17 +81,20 @@ public class Waiter extends Thread
             switch(r.getRequestType()) 
             {
                 case 'c': //client arriving
-                    table.saluteTheClient(r.getRequestID());
+                    System.out.println("client arriving - 'c'");
+                    table.saluteTheClient(r);
                     bar.returnToBar();
                     break;
                 
                 case 'o': //order ready to be collected
+                    System.out.println("order ready to be collected - 'o'");
                     table.getThePad();
                     kitchen.handTheNoteToChef();
                     bar.returnToBar();
                     break;
                 
                 case 'p': //portion ready to be collected
+                    System.out.println("portion ready to be collected - 'p'");
                     if(!table.haveAllClientsBeenServed())
                     {
                         bar.collectPortion();
@@ -101,13 +104,15 @@ public class Waiter extends Thread
                     break;
 
                 case 'b': //bill presentation
+                    System.out.println("bill presentation - 'b'");
                     bar.prepareTheBill();
                     table.presentTheBill();
                     bar.returnToBar();
                     break;
                     
                 case 'g': //say goodbye to students
-                    int numberOfStudentsInRestaurant = bar.sayGoodbye(r.getRequestID());
+                    System.out.println("say goodbye to students - 'g'");
+                    int numberOfStudentsInRestaurant = bar.sayGoodbye(r);
                     if(numberOfStudentsInRestaurant == 0) return;
             }
         }

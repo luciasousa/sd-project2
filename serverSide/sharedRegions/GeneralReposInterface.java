@@ -56,35 +56,35 @@ public class GeneralReposInterface
                                     break;
 
             case MessageType.SETCHEFSTATE:  if ((inMessage.getChefState() < ChefStates.WAFOR) || (inMessage.getChefState() > ChefStates.CLSSV))
-                                                throw new MessageException ("Invalid chef state!", inMessage);
+                                                throw new MessageException ("Invalid chef state 13!", inMessage);
                                             break;
 
             case MessageType.SETWAITERSTATE:    if ((inMessage.getWaiterState() < WaiterStates.APPST) || (inMessage.getWaiterState() > WaiterStates.RECPM))
-                                                    throw new MessageException ("Invalid waiter state!", inMessage);
+                                                    throw new MessageException ("Invalid waiter state 17!", inMessage);
                                                 break;
 
             case MessageType.SETSTUDENTSTATE:   if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                     throw new MessageException ("Invalid student id!", inMessage);
                                                 else if ((inMessage.getStudentState() < StudentStates.GGTRT) || (inMessage.getStudentState() > StudentStates.GGHOM))
-                                                    throw new MessageException ("Invalid student state!", inMessage);
+                                                    throw new MessageException ("Invalid student state 26!", inMessage);
                                                 break;
 
             case MessageType.SETSTATES: if ((inMessage.getChefState() < ChefStates.WAFOR) || (inMessage.getChefState() > ChefStates.CLSSV))
-                                            throw new MessageException ("Invalid chef state!", inMessage);
+                                            throw new MessageException ("Invalid chef state 14!", inMessage);
                                         
                                         if ((inMessage.getWaiterState() < WaiterStates.APPST) || (inMessage.getWaiterState() > WaiterStates.RECPM))
-                                            throw new MessageException ("Invalid waiter state!", inMessage);
+                                            throw new MessageException ("Invalid waiter state 18!", inMessage);
                                         
                                         if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                             throw new MessageException ("Invalid student id!", inMessage);
                                         else if ((inMessage.getStudentState() < StudentStates.GGTRT) || (inMessage.getStudentState() > StudentStates.GGHOM))
-                                            throw new MessageException ("Invalid student state!", inMessage);
+                                            throw new MessageException ("Invalid student state 27!", inMessage);
                                         break;
 
             case MessageType.SHUT:     // check nothing
                                         break;
 
-            default:                   throw new MessageException ("Invalid message type!", inMessage);
+            default:                   throw new MessageException ("Invalid message type 55!", inMessage);
         }
 
         /* processing */

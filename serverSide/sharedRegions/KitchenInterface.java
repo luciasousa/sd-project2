@@ -27,57 +27,58 @@ public class KitchenInterface {
         switch(inMessage.getMsgType())
         {
             case MessageType.WAFOR:     if (inMessage.getChefState () != ChefStates.WAFOR)
-                                          throw new MessageException ("Invalid chef state!", inMessage);
+                                          throw new MessageException ("Invalid chef state 15!", inMessage);
                                         break;
 
-            case MessageType.PRPCS: if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.PRPCS))
-                                        throw new MessageException ("Invalid chef state!", inMessage);
+            case MessageType.PRPCS: System.out.printf("chef state = %d\n",inMessage.getChefState ());
+                                    if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
+                                        throw new MessageException ("Invalid chef state 16!", inMessage);
                                     break;
 
             case MessageType.GETFIRSTCOURSE: if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
-                                                throw new MessageException ("Invalid chef state!", inMessage);
+                                                throw new MessageException ("Invalid chef state 17!", inMessage);
                                             break;
 
             case MessageType.PRCPRES:   if ((inMessage.getChefState () < ChefStates.PRPCS) || (inMessage.getChefState () > ChefStates.DSHPT))
-                                            throw new MessageException ("Invalid chef state!", inMessage);
+                                            throw new MessageException ("Invalid chef state 18!", inMessage);
                                         break;
 
             case MessageType.PORDELIV:  if ((inMessage.getChefState () != ChefStates.DLVPT))
-                                            throw new MessageException ("Invalid chef state!", inMessage);
+                                            throw new MessageException ("Invalid chef state 19!", inMessage);
                                         break;
 
             case MessageType.POREADY:   if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
-                                            throw new MessageException ("Invalid chef state!", inMessage);
+                                            throw new MessageException ("Invalid chef state 20!", inMessage);
                                         break;
 
             case MessageType.SETFIRSTCS:    if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
-                                                throw new MessageException ("Invalid chef state!", inMessage);
+                                                throw new MessageException ("Invalid chef state 21!", inMessage);
                                             break;
 
             case MessageType.ORDERCOMPREQ:  if ((inMessage.getChefState () != ChefStates.DLVPT))
-                                                throw new MessageException ("Invalid chef state!", inMessage);
+                                                throw new MessageException ("Invalid chef state 22!", inMessage);
                                             break;
 
             case MessageType.CLEANREQ:  if ((inMessage.getChefState () < ChefStates.DLVPT) || (inMessage.getChefState () > ChefStates.CLSSV))
-                                            throw new MessageException ("Invalid chef state!", inMessage);
+                                            throw new MessageException ("Invalid chef state 23!", inMessage);
                                         break;
 
             case MessageType.NOTEREQ:   if ((inMessage.getWaiterState () < WaiterStates.TKODR) || (inMessage.getWaiterState () > WaiterStates.PCODR))
-                                            throw new MessageException ("Invalid waiter state!", inMessage);
+                                            throw new MessageException ("Invalid waiter state 20!", inMessage);
                                         break;
 
             case MessageType.CHEFWAIT:    if(inMessage.getChefState() != ChefStates.DLVPT)
-                                        throw new MessageException ("Invalid chef state", inMessage);
+                                        throw new MessageException ("Invalid chef state 24", inMessage);
                                       break;   
 
             case MessageType.PORTIONCOLLECT:    if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.WTFPT))
-                                            throw new MessageException ("Invalid waiter state", inMessage);
+                                            throw new MessageException ("Invalid waiter state 19", inMessage);
                                             break;  
 
             case MessageType.SHUT:      // check nothing
                                         break;
 
-            default:                    throw new MessageException ("Invalid message type!", inMessage);
+            default:                    throw new MessageException ("Invalid message type 56!", inMessage);
         }
 
         /* processing */
@@ -147,18 +148,16 @@ public class KitchenInterface {
 
             
             case MessageType.CHEFWAIT:  ((KitchenClientProxy) Thread.currentThread ()).setChefState(inMessage.getChefState ());
+                                        kitchen.chefWaitForCollection();
                                         outMessage = new Message (MessageType.CHEFWAITDONE,
                                                 ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
                                         break;  
 
             case MessageType.PORTIONCOLLECT:    ((KitchenClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
+                                                kitchen.portionHasBeenCollected();
                                                 outMessage = new Message (MessageType.PORTIONCOLLECTDONE,
                                                         ((KitchenClientProxy) Thread.currentThread ()).getWaiterState ());
                                                 break;  
-
-            
-
-            
 
             case MessageType.SHUT:      kitchen.shutdown();
                                         outMessage = new Message (MessageType.SHUTDONE); 

@@ -91,6 +91,10 @@ public class Message implements Serializable
 
   private char requestType;
 
+  private int numberOfStudentsInRest = 0;
+
+  private String c = "";
+
   /**
    *  Message instantiation (form 1).
    *
@@ -118,6 +122,7 @@ public class Message implements Serializable
       this.studentID= id;
       //System.out.printf("ids: %d\n",this.studentID);
       this.studentState = state;
+      System.out.printf("state: %d\n",this.studentState);
    }
 
    /**
@@ -165,16 +170,47 @@ public class Message implements Serializable
    *
    *     @param type message type
    *     @param state waiter state
+   *     @param numberOfStudentsInRest number of students in restaurant
+   *     @param c string to distingish message
+   */
+  public Message (int type,int state, int numberOfStudentsInRest, String c){
+      this.msgType=type;
+      this.waiterState= state;
+      //System.out.printf("ids: %d\n",this.studentID);
+      this.numberOfStudentsInRest = numberOfStudentsInRest;
+      this.c = c;
+  }
+
+  /**
+   *  Message instantiation (form 2).
+   *
+   *     @param type message type
+   *     @param state waiter state
    *     @param request request
    */
 
   public Message (int type, int state, Request request)
   {
-     //System.out.printf("ids: %d\n",id);
-     
      this.msgType=type;
-     //System.out.printf("ids: %d\n",this.studentID);
-     this.waiterState = state;
+     
+     if ((type == MessageType.SETWAITERSTATE) || (type == MessageType.SALUTECLIENTREQ) || (type == MessageType.SALUTECLIENT) 
+      || (type == MessageType.GETPADREQ) || (type == MessageType.GETPAD) || (type == MessageType.HVCLIENTSBEENSRVREQ) || (type == MessageType.HVCLIENTSBEENSRV)
+      || (type == MessageType.DELVPTREQ) || (type == MessageType.DELVPT) || (type == MessageType.PRESBILLREQ) || (type == MessageType.PRESBILL)
+      || (type == MessageType.NOTEREQ) || (type == MessageType.NOTE) || (type == MessageType.LOOKWAITER) || (type == MessageType.WAITERLOOKED)
+      || (type == MessageType.RETURNWAITER) || (type == MessageType.WAITERRETURNED) || (type == MessageType.COLLECTWAITER) || (type == MessageType.WAITERCOLLECTED)
+      || (type == MessageType.PORTIONCOLLECT) || (type == MessageType.PORTIONCOLLECTDONE) || (type == MessageType.PREPAREWAITER) || (type == MessageType.WAITERPREPARED) || (type == MessageType.SAYGOODBYE) || (type == MessageType.SAYGOODBYEDONE))
+     { 
+        this.waiterState = state;
+     }
+     else if ((type == MessageType.SETCHEFSTATE) || (type == MessageType.ALERTWAITER) || (type == MessageType.WAITERALERTED)
+      || (type == MessageType.WAFOR) || (type == MessageType.ORDERDONE) || (type == MessageType.PRPCS) || (type == MessageType.CSPREP)
+      || (type == MessageType.GETFIRSTCOURSE) || (type == MessageType.FIRSTCOURSE) || (type == MessageType.PRCPRES) || (type == MessageType.PRESDONE)
+      || (type == MessageType.PORDELIV) || (type == MessageType.PORDELIVDONE) || (type == MessageType.POREADY) || (type == MessageType.POREADYDONE)
+      || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
+      || (type == MessageType.CLEANREQ) || (type == MessageType.CHEFWAIT) || (type == MessageType.CHEFWAITDONE) || (type == MessageType.CLEAN))
+     { 
+        this.chefState = state;
+     }
      this.requestID = request.getRequestID();
      this.requestType = request.getRequestType();
   }
@@ -193,7 +229,24 @@ public class Message implements Serializable
      
      this.msgType=type;
      //System.out.printf("ids: %d\n",this.studentID);
-     this.chefState = state;
+     if ((type == MessageType.SETWAITERSTATE) || (type == MessageType.SALUTECLIENTREQ) || (type == MessageType.SALUTECLIENT) 
+     || (type == MessageType.GETPADREQ) || (type == MessageType.GETPAD) || (type == MessageType.HVCLIENTSBEENSRVREQ) || (type == MessageType.HVCLIENTSBEENSRV)
+     || (type == MessageType.DELVPTREQ) || (type == MessageType.DELVPT) || (type == MessageType.PRESBILLREQ) || (type == MessageType.PRESBILL)
+     || (type == MessageType.NOTEREQ) || (type == MessageType.NOTE) || (type == MessageType.LOOKWAITER) || (type == MessageType.WAITERLOOKED)
+     || (type == MessageType.RETURNWAITER) || (type == MessageType.WAITERRETURNED) || (type == MessageType.COLLECTWAITER) || (type == MessageType.WAITERCOLLECTED)
+     || (type == MessageType.PORTIONCOLLECT) || (type == MessageType.PORTIONCOLLECTDONE) || (type == MessageType.PREPAREWAITER) || (type == MessageType.WAITERPREPARED) || (type == MessageType.SAYGOODBYE) || (type == MessageType.SAYGOODBYEDONE))
+    { 
+       this.waiterState = state;
+    }
+    else if ((type == MessageType.SETCHEFSTATE) || (type == MessageType.ALERTWAITER) || (type == MessageType.WAITERALERTED)
+     || (type == MessageType.WAFOR) || (type == MessageType.ORDERDONE) || (type == MessageType.PRPCS) || (type == MessageType.CSPREP)
+     || (type == MessageType.GETFIRSTCOURSE) || (type == MessageType.FIRSTCOURSE) || (type == MessageType.PRCPRES) || (type == MessageType.PRESDONE)
+     || (type == MessageType.PORDELIV) || (type == MessageType.PORDELIVDONE) || (type == MessageType.POREADY) || (type == MessageType.POREADYDONE)
+     || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
+     || (type == MessageType.CLEANREQ) || (type == MessageType.CHEFWAIT) || (type == MessageType.CHEFWAITDONE) || (type == MessageType.CLEAN))
+    { 
+       this.chefState = state;
+    }
      this.boolVal=boolVal;
   }
 
@@ -208,23 +261,23 @@ public class Message implements Serializable
      this.msgType = type;
 
      if ((type == MessageType.SETWAITERSTATE) || (type == MessageType.SALUTECLIENTREQ) || (type == MessageType.SALUTECLIENT) 
-      || (type == MessageType.GETPADREQ) || (type == MessageType.GETPAD) || (type == MessageType.HVCLIENTSBEENSRVREQ) || (type == MessageType.HVCLIENTSBEENSRV)
-      || (type == MessageType.DELVPTREQ) || (type == MessageType.DELVPT) || (type == MessageType.PRESBILLREQ) || (type == MessageType.PRESBILL)
-      || (type == MessageType.NOTE) || (type == MessageType.NOTE) || (type == MessageType.LOOKWAITER) || (type == MessageType.WAITERLOOKED)
-      || (type == MessageType.RETURNWAITER) || (type == MessageType.WAITERRETURNED) || (type == MessageType.COLLECTWAITER) || (type == MessageType.WAITERCOLLECTED)
-      || (type == MessageType.PREPAREWAITER) || (type == MessageType.WAITERPREPARED) || (type == MessageType.SAYGOODBYE) || (type == MessageType.SAYGOODBYEDONE))
-     { 
-        this.waiterState = state;
-     }
-     else if ((type == MessageType.SETCHEFSTATE) || (type == MessageType.ALERTWAITER) || (type == MessageType.WAITERALERTED)
-      || (type == MessageType.WAFOR) || (type == MessageType.ORDERDONE) || (type == MessageType.PRPCS) || (type == MessageType.CSPREP)
-      || (type == MessageType.GETFIRSTCOURSE) || (type == MessageType.FIRSTCOURSE) || (type == MessageType.PRCPRES) || (type == MessageType.PRESDONE)
-      || (type == MessageType.PORDELIV) || (type == MessageType.PORDELIVDONE) || (type == MessageType.POREADY) || (type == MessageType.POREADYDONE)
-      || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
-      || (type == MessageType.CLEANREQ) || (type == MessageType.CLEAN))
-     { 
-        this.chefState = state;
-     }
+     || (type == MessageType.GETPADREQ) || (type == MessageType.GETPAD) || (type == MessageType.HVCLIENTSBEENSRVREQ) || (type == MessageType.HVCLIENTSBEENSRV)
+     || (type == MessageType.DELVPTREQ) || (type == MessageType.DELVPT) || (type == MessageType.PRESBILLREQ) || (type == MessageType.PRESBILL)
+     || (type == MessageType.NOTEREQ) || (type == MessageType.NOTE) || (type == MessageType.LOOKWAITER) || (type == MessageType.WAITERLOOKED)
+     || (type == MessageType.RETURNWAITER) || (type == MessageType.WAITERRETURNED) || (type == MessageType.COLLECTWAITER) || (type == MessageType.WAITERCOLLECTED)
+     || (type == MessageType.PORTIONCOLLECT) || (type == MessageType.PORTIONCOLLECTDONE) || (type == MessageType.PREPAREWAITER) || (type == MessageType.WAITERPREPARED) || (type == MessageType.SAYGOODBYE) || (type == MessageType.SAYGOODBYEDONE))
+    { 
+       this.waiterState = state;
+    }
+    else if ((type == MessageType.SETCHEFSTATE) || (type == MessageType.ALERTWAITER) || (type == MessageType.WAITERALERTED)
+     || (type == MessageType.WAFOR) || (type == MessageType.ORDERDONE) || (type == MessageType.PRPCS) || (type == MessageType.CSPREP)
+     || (type == MessageType.GETFIRSTCOURSE) || (type == MessageType.FIRSTCOURSE) || (type == MessageType.PRCPRES) || (type == MessageType.PRESDONE)
+     || (type == MessageType.PORDELIV) || (type == MessageType.PORDELIVDONE) || (type == MessageType.POREADY) || (type == MessageType.POREADYDONE)
+     || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
+     || (type == MessageType.CLEANREQ) || (type == MessageType.CHEFWAIT) || (type == MessageType.CHEFWAITDONE) || (type == MessageType.CLEAN))
+    { 
+       this.chefState = state;
+    }
      else { GenericIO.writelnString ("Message type = " + type + ": non-implemented instantiation!");
               System.exit (1);
      }
@@ -270,7 +323,7 @@ public class Message implements Serializable
    *  Message instantiation (form 6).
    *     @param type message type
    *     @param id request id
-   *     @param state request state
+   *     @param state student state
    *     @param type_req request type 
    */
 
@@ -391,6 +444,10 @@ public class Message implements Serializable
    public int getNIter ()
    {
       return (this.nIter);
+   }
+
+   public int getNumberOfStudentsInRestaurant(){
+      return (this.numberOfStudentsInRest);
    }
 
    public Request getRequest() {

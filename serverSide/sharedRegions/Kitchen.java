@@ -217,7 +217,8 @@ public class Kitchen
         chefProxy.setChefState(ChefStates.DSHPT);
         int state = chefProxy.getChefState();
         reposStub.setChefState(state);
-        numberOfPortionsToDeliver--;
+        if(numberOfPortionsToDeliver!=0) numberOfPortionsToDeliver--;
+        else numberOfPortionsToDeliver=Constants.N-1;
         System.out.printf("chef proceeds to presentation, course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
     }
 
