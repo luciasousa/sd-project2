@@ -95,17 +95,17 @@ echo "  Student"
 rm -f  dirStudent.zip
 zip -rq dirStudent.zip dirStudent
 echo "Deploying and decompressing execution environments."
-mkdir -p /home/lucia/test/Restaurant
-rm -rf /home/lucia/test/Restaurant/*
-cp dirGeneralRepos.zip /home/lucia/test/Restaurant
-cp dirKitchen.zip /home/lucia/test/Restaurant
-cp dirBar.zip /home/lucia/test/Restaurant
-cp dirTable.zip /home/lucia/test/Restaurant
-cp dirChef.zip /home/lucia/test/Restaurant
-cp dirWaiter.zip /home/lucia/test/Restaurant
-cp dirStudent.zip /home/lucia/test/Restaurant
-cp genclass.zip /home/lucia/test/Restaurant
-cd /home/lucia/test/Restaurant
+mkdir -p ~/test/Restaurant
+rm -rf ~/test/Restaurant/*
+cp dirGeneralRepos.zip ~/test/Restaurant
+cp dirKitchen.zip ~/test/Restaurant
+cp dirBar.zip ~/test/Restaurant
+cp dirTable.zip ~/test/Restaurant
+cp dirChef.zip ~/test/Restaurant
+cp dirWaiter.zip ~/test/Restaurant
+cp dirStudent.zip ~/test/Restaurant
+cp genclass.zip ~/test/Restaurant
+cd ~/test/Restaurant
 unzip -q dirGeneralRepos.zip
 unzip -q genclass.zip
 unzip -q dirKitchen.zip
@@ -115,13 +115,13 @@ unzip -q dirChef.zip
 unzip -q dirWaiter.zip
 unzip -q dirStudent.zip
 unzip -q dirKitchen.zip
-cp genclass.zip /home/lucia/test/Restaurant/dirBar
-cp genclass.zip /home/lucia/test/Restaurant/dirKitchen
-cp genclass.zip /home/lucia/test/Restaurant/dirTable
-cp genclass.zip /home/lucia/test/Restaurant/dirWaiter
-cp genclass.zip /home/lucia/test/Restaurant/dirStudent
-cp genclass.zip /home/lucia/test/Restaurant/dirChef
-cp genclass.zip /home/lucia/test/Restaurant/dirGeneralRepos
+cp genclass.zip ~/test/Restaurant/dirBar
+cp genclass.zip ~/test/Restaurant/dirKitchen
+cp genclass.zip ~/test/Restaurant/dirTable
+cp genclass.zip ~/test/Restaurant/dirWaiter
+cp genclass.zip ~/test/Restaurant/dirStudent
+cp genclass.zip ~/test/Restaurant/dirChef
+cp genclass.zip ~/test/Restaurant/dirGeneralRepos
 cd dirBar
 unzip -q genclass.zip
 cd ../dirKitchen
