@@ -30,7 +30,8 @@ public class Bar {
     private int numberOfPendingServiceRequests = 0;
 
     private BarClientProxy waiterProxy;
-    private BarClientProxy studentProxy;
+    private BarClientProxy[] studentProxy;
+    private BarClientProxy chefProxy;
 
     /**
      *   FIFO with the pending service requests.
@@ -95,8 +96,12 @@ public class Bar {
         this.reposStub = reposStub;
         this.table = table;
         this.kitchen = kitchen;
-        studentProxy = null;
+        studentProxy = new BarClientProxy[Constants.N];
+        for(int i = 0; i < Constants.N; i++){
+            studentProxy[i] = null;
+        }
         waiterProxy = null;
+        chefProxy = null;
         studentsArrival = new int [Constants.N];
         clientsGoodbye = new boolean[Constants.N];
         nEntities=0;
@@ -118,7 +123,7 @@ public class Bar {
             int state = waiterProxy.getWaiterState();
             reposStub.setWaiterState(state);
         }
-        //System.out.println("waiter looking");
+        System.out.println("waiter looking");
         while(numberOfPendingServiceRequests == 0) {
             try {
                 wait();
@@ -132,8 +137,8 @@ public class Bar {
         } catch (MemException e) {
             e.printStackTrace();
         }
-        //System.out.print(request.getRequestID());
-        //System.out.println(" - " + request.getRequestType());
+        System.out.print(request.getRequestID());
+        System.out.println(" - " + request.getRequestType());
         numberOfPendingServiceRequests--;
         return request;
     }
@@ -154,11 +159,12 @@ public class Bar {
         int studentState;
         synchronized(this)
         {
-            studentProxy = (BarClientProxy) Thread.currentThread();
-            studentProxy.setStudentState(StudentStates.TKSTT);
             studentID = (((BarClientProxy) Thread.currentThread()).getStudentID());
+            studentProxy[studentID] = (BarClientProxy) Thread.currentThread();
+            studentProxy[studentID].setStudentState(StudentStates.TKSTT);
             studentState = (((BarClientProxy) Thread.currentThread()).getStudentState());
-            //System.out.printf("student %d enters\n", studentID);
+            reposStub.setStudentState(studentID,studentState);
+            System.out.printf("student %d enters\n", studentID);
             try {
                 arrivalQueue.write(studentID);
             } catch (MemException e1) {
@@ -175,8 +181,7 @@ public class Bar {
             }
             notifyAll();
         }
-        int state = table.takeASeat(studentID, studentState);
-        ((BarClientProxy) Thread.currentThread()).setStudentState(studentState);
+        table.takeASeat(studentID, studentState);
         return studentsArrival;
     }
 
@@ -188,7 +193,7 @@ public class Bar {
      */
     public synchronized void returnToBar() 
     {
-        //System.out.println("waiter is returning to bar");
+        System.out.println("waiter is returning to bar");
         int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
         waiterProxy = (BarClientProxy) Thread.currentThread();
         waiterProxy.setWaiterState(WaiterStates.APPST);
@@ -206,10 +211,13 @@ public class Bar {
      */
     public void callWaiter() 
     {
-        //System.out.println("waiter was called");
+        System.out.println("waiter was called");
+        int studentID;
+        int studentState;
         synchronized(this) 
         {
-            int studentID = ((BarClientProxy)Thread.currentThread()).getStudentID();
+            studentID = ((BarClientProxy)Thread.currentThread()).getStudentID();
+            studentState = ((BarClientProxy)Thread.currentThread()).getStudentState();
             Request r = new Request(studentID, 'o');
             numberOfPendingServiceRequests += 1;
             try {
@@ -219,7 +227,7 @@ public class Bar {
             }
             notifyAll();
         }
-        table.waitForPad();
+        table.waitForPad(studentID, studentState);
     }
 
     /**
@@ -236,6 +244,8 @@ public class Bar {
         synchronized(this) 
         {
             //chef's ID is equal to the number of students
+            chefProxy = (BarClientProxy) Thread.currentThread();
+            chefProxy.setChefState(ChefStates.DLVPT);
             Request r = new Request(Constants.N, 'p');
             numberOfPendingServiceRequests += 1;
             try {
@@ -244,7 +254,7 @@ public class Bar {
                 e.printStackTrace();
             }
             notifyAll();
-            //System.out.println("chef alerts the waiter");
+            System.out.println("chef alerts the waiter");
         }
         kitchen.chefWaitForCollection();
     }
@@ -258,7 +268,7 @@ public class Bar {
      */
     public void collectPortion() 
     {
-        //System.out.println("waiter is collecting portion");
+        System.out.println("waiter is collecting portion");
         synchronized(this)
         {
             int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
@@ -281,7 +291,7 @@ public class Bar {
     {
         synchronized(this) 
         {
-            //System.out.println("waiter has been signaled");
+            System.out.println("waiter has been signaled");
             int studentID = ((BarClientProxy)Thread.currentThread()).getStudentID();
             //bill presentation
             Request r = new Request(studentID, 'b');
@@ -307,7 +317,7 @@ public class Bar {
         waiterProxy = (BarClientProxy) Thread.currentThread();
         waiterProxy.setWaiterState(WaiterStates.PRCBL);
         reposStub.setWaiterState(state);
-        //System.out.println("waiter preparing the bill");
+        System.out.println("waiter preparing the bill");
     }
 
     /**
@@ -334,11 +344,10 @@ public class Bar {
                 e.printStackTrace();
             }
             notifyAll();
-            studentProxy = (BarClientProxy) Thread.currentThread();
-            studentProxy.setStudentState(StudentStates.GGHOM);
-            int stID = studentProxy.getStudentID();
-            int state = studentProxy.getStudentState();
-            reposStub.setStudentState(stID, state);
+            studentProxy[studentID] = (BarClientProxy) Thread.currentThread();
+            studentProxy[studentID].setStudentState(StudentStates.GGHOM);
+            int state = ((BarClientProxy) Thread.currentThread()).getStudentState();
+            reposStub.setStudentState(studentID, state);
             while(!clientsGoodbye[studentID])
             {
                 try {
@@ -347,7 +356,7 @@ public class Bar {
                     e.printStackTrace();
                 }
             }
-            //System.out.printf("student %d going home\n",studentID);
+            System.out.printf("student %d going home\n",studentID);
         }        
     }
 
@@ -363,7 +372,7 @@ public class Bar {
      */
     public synchronized int sayGoodbye(int studentID) 
     {
-        //System.out.printf("saying goodbye to student %d\n", studentID);
+        System.out.printf("saying goodbye to student %d\n", studentID);
         clientsGoodbye[studentID] = true;
         notifyAll();
         numberOfStudentsInRestaurant--;

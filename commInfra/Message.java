@@ -48,6 +48,19 @@ public class Message implements Serializable
 
    private int studentState = -1;
 
+   /**
+   *  Value of boolean
+   */
+
+  private boolean boolVal = false;
+
+  /**
+   *  Array of students order
+   */
+
+  private int[] arr = null;
+
+
   /**
    *  End of operations.
    */
@@ -108,6 +121,83 @@ public class Message implements Serializable
    }
 
    /**
+   *  Message instantiation (form 2).
+   *
+   *     @param type message type
+   *     @param id student identification
+   *     @param state student state
+   *     @param bool_val value of boolean
+   */
+
+  public Message (int type, int id, int state, boolean boolVal)
+  {
+     //System.out.printf("ids: %d\n",id);
+     
+     this.msgType=type;
+     this.studentID= id;
+     //System.out.printf("ids: %d\n",this.studentID);
+     this.studentState = state;
+     this.boolVal = boolVal;
+  }
+
+  /**
+   *  Message instantiation (form 2).
+   *
+   *     @param type message type
+   *     @param id student identification
+   *     @param state student state
+   *     @param arr array
+   */
+
+  public Message (int type, int id, int state, int[] arr)
+  {
+     //System.out.printf("ids: %d\n",id);
+     
+     this.msgType=type;
+     this.studentID= id;
+     //System.out.printf("ids: %d\n",this.studentID);
+     this.studentState = state;
+     this.arr = arr;
+  }
+
+  /**
+   *  Message instantiation (form 2).
+   *
+   *     @param type message type
+   *     @param state waiter state
+   *     @param request request
+   */
+
+  public Message (int type, int state, Request request)
+  {
+     //System.out.printf("ids: %d\n",id);
+     
+     this.msgType=type;
+     //System.out.printf("ids: %d\n",this.studentID);
+     this.waiterState = state;
+     this.requestID = request.getRequestID();
+     this.requestType = request.getRequestType();
+  }
+
+  /**
+   *  Message instantiation (form 2).
+   *
+   *     @param type message type
+   *     @param state chef state
+   *     @param boolVal boolean value
+   */
+
+  public Message (int type, int state, Boolean boolVal)
+  {
+     //System.out.printf("ids: %d\n",id);
+     
+     this.msgType=type;
+     //System.out.printf("ids: %d\n",this.studentID);
+     this.chefState = state;
+     this.boolVal=boolVal;
+  }
+
+   /**
    *  Message instantiation (form 3).
    *
    *     @param type message type
@@ -139,6 +229,8 @@ public class Message implements Serializable
               System.exit (1);
      }
   }
+
+
 
   /**
    *  Message instantiation (form 4).
@@ -256,6 +348,28 @@ public class Message implements Serializable
    {
       return (this.endOp);
    }
+
+   /**
+   *  Getting array flag.
+   *
+   *     @return end of operations flag
+   */
+
+  public int[] getArr ()
+  {
+     return (this.arr);
+  }
+
+   /**
+   *  Getting boolean value flag.
+   *
+   *     @return boolean value flag
+   */
+   public boolean getBoolVal()
+   {
+      return (this.boolVal);
+   }
+
 
   /**
    *  Getting name of logging file.

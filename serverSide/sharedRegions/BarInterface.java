@@ -6,7 +6,6 @@ import commInfra.MessageType;
 import commInfra.Request;
 import genclass.GenericIO;
 import serverSide.entities.BarClientProxy;
-import serverSide.entities.TableClientProxy;
 import clientSide.entities.*;
 import serverSide.main.Constants;
 
@@ -101,28 +100,28 @@ public class BarInterface
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             int[] orderOfArrival = bar.enter();
                                             outMessage = new Message (MessageType.STUDENTENTERED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
-                                                    ((BarClientProxy) Thread.currentThread ()).getStudentState ());
+                                                    ((BarClientProxy) Thread.currentThread ()).getStudentState (), orderOfArrival);
                                                     System.out.printf("message: %s\n",outMessage);
                                             break;
                             
             case MessageType.CALLWAITER:    ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             bar.callWaiter();
-                                            outMessage = new Message (MessageType.WAITERCALLED,
+                                            outMessage = new Message (MessageType.WAITERCALLED, ((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState ());
                                             break; 
 
             case MessageType.SIGNALWAITER:  ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             bar.signalTheWaiter();
-                                            outMessage = new Message (MessageType.WAITERSIGNALED,
+                                            outMessage = new Message (MessageType.WAITERSIGNALED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
             case MessageType.EXITSTUDENT:   ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             bar.exit();
-                                            outMessage = new Message (MessageType.STUDENTEXITED,
+                                            outMessage = new Message (MessageType.STUDENTEXITED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
 
@@ -130,7 +129,7 @@ public class BarInterface
                                             GenericIO.writeString("Look around request\n");
                                             Request r = bar.lookAround();
                                             outMessage = new Message (MessageType.WAITERLOOKED,
-                                                    ((BarClientProxy) Thread.currentThread ()).getWaiterState ());
+                                                    ((BarClientProxy) Thread.currentThread ()).getWaiterState (), r);
                                             break;
 
             case MessageType.RETURNWAITER:  ((BarClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());

@@ -98,9 +98,9 @@ public class KitchenInterface {
                                     break;
 
             case MessageType.GETFIRSTCOURSE:    ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
-                                                kitchen.getFirstCourse();
+                                                boolean firstCourse = kitchen.getFirstCourse();
                                                 outMessage = new Message (MessageType.FIRSTCOURSE,
-                                                    ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
+                                                    ((KitchenClientProxy) Thread.currentThread ()).getChefState (), firstCourse);
                                                 break;
 
             case MessageType.PRCPRES:   ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
@@ -110,9 +110,9 @@ public class KitchenInterface {
                                         break;
 
             case MessageType.PORDELIV:  ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
-                                        kitchen.haveAllPortionsBeenDelivered();
+                                        boolean portionsDeliv = kitchen.haveAllPortionsBeenDelivered();
                                         outMessage = new Message (MessageType.PORDELIVDONE,
-                                            ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
+                                            ((KitchenClientProxy) Thread.currentThread ()).getChefState (), portionsDeliv);
                                         break;
 
             case MessageType.POREADY:   ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
@@ -128,9 +128,9 @@ public class KitchenInterface {
                                             break; 
 
             case MessageType.ORDERCOMPREQ:  ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
-                                            kitchen.hasTheOrderBeenCompleted();
+                                            boolean orderComplete = kitchen.hasTheOrderBeenCompleted();
                                             outMessage = new Message (MessageType.ORDERCOMP,
-                                                ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
+                                                ((KitchenClientProxy) Thread.currentThread ()).getChefState (), orderComplete);
                                             break; 
 
             case MessageType.CLEANREQ:  ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());

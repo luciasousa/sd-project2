@@ -156,7 +156,7 @@ public class TableStub {
         }
         com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
-        return (inMessage.getMsgType() == MessageType.FIRSTCOURSE);
+        return inMessage.getBoolVal();
     }
 
     public void addUpOnesChoice() {
@@ -309,6 +309,37 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     } 
 
+    public boolean hasEverybodyFinished() {
+        // communication channel
+        ClientCom com = new ClientCom (serverHostName, serverPortNumb);
+        Message outMessage,        // outgoing message
+        inMessage;                 // incoming message
+        while (!com.open ())                                           // waits for a connection to be established
+        { try
+            { Thread.currentThread ().sleep ((long) (10));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.EVBDFINISHREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.EVBDFINISH)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        if ((inMessage.getStudentState () != StudentStates.CHTWC))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        return inMessage.getBoolVal();
+    }
+
     public void waitForEverybodyToFinish() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -329,7 +360,7 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        if ((inMessage.getStudentState () != StudentStates.OGODR))
+        if ((inMessage.getStudentState () != StudentStates.CHTWC))
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state!");
             GenericIO.writelnString (inMessage.toString ());
@@ -636,7 +667,7 @@ public class TableStub {
         com.close ();
     }
 
-    public int takeASeat(int studentID, int studentState) 
+    public void takeASeat(int studentID, int studentState) 
     {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -666,10 +697,9 @@ public class TableStub {
         }
         com.close ();
         //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
-        return inMessage.getStudentState ();
     }
 
-    public void waitForPad() 
+    public void waitForPad(int studentID, int studentState) 
     {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -681,7 +711,7 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.WAITPAD, ((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.WAITPAD, studentID,studentState);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.WAITPADDONE)
@@ -697,6 +727,8 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
+
+    
 }

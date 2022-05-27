@@ -1,5 +1,5 @@
 echo "Compiling source code."
-javac -cp genclass.jar */*.java */*/*.java
+javac -cp genclass.jar -target 8 */*.java */*/*.java
 echo "Distributing intermediate code to the different execution environments."
 echo "  General Repository of Information"
 rm -rf dirGeneralRepos

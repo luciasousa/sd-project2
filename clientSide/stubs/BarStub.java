@@ -121,6 +121,7 @@ public class BarStub {
 
     public void callWaiter() {
         // communication channel
+        System.out.println("Bar -> Call Waiter");
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message

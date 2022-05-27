@@ -99,13 +99,13 @@ public class Student extends Thread
         table.readMenu();
         if (orderOfArrival[0] != studentID){
             table.informCompanion();
-            //System.out.printf("student %d inform companion left the talk\n",studentID);
+            System.out.printf("student %d inform companion left the talk\n",studentID);
         } 
         else
         {
             table.prepareTheOrder();
             while(!table.hasEverybodyChosen()) table.addUpOnesChoice();
-            //System.out.println("student is going to call the waiter");
+            System.out.println("student is going to call the waiter");
             bar.callWaiter();
             table.describeTheOrder();
             table.joinTheTalk();
@@ -116,7 +116,7 @@ public class Student extends Thread
             table.startEating();
             table.endEating();
             //wait for everyone to finish
-            if(!table.hasEverybodyChosen())
+            if(!table.hasEverybodyFinished())
                 table.waitForEverybodyToFinish();
             
             table.waitForCourseToBeReady();
@@ -126,7 +126,7 @@ public class Student extends Thread
         
         if(orderOfArrival[Constants.N-1] == studentID) 
         {
-            //System.out.println("last student is paying the bill");
+            System.out.println("last student is paying the bill");
             bar.signalTheWaiter();
             table.shouldHaveArrivedEarlier();
             table.honourTheBill();

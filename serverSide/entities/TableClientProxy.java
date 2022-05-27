@@ -110,7 +110,7 @@ public class TableClientProxy extends Thread implements ChefCloning, WaiterCloni
     /**
      *   Get student id.
      *  
-     *   @return stduent id
+     *   @return student id
      */
     public int getStudentID(){
         return studentID;
