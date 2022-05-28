@@ -54,9 +54,9 @@ public class KitchenStub {
         
         outMessage = new Message (MessageType.WAFOR, ((Chef) Thread.currentThread()).getChefState());
         com.writeObject (outMessage);
-        System.out.printf("out message type: %d\n",outMessage.getMsgType());
+        //System.out.printf("out message type: %d\n",outMessage.getMsgType());
         inMessage = (Message) com.readObject ();
-        System.out.printf("in message type: %d\n",inMessage.getMsgType());
+        //System.out.printf("in message type: %d\n",inMessage.getMsgType());
         if (inMessage.getMsgType () != MessageType.ORDERDONE)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 18!");

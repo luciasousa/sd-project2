@@ -45,7 +45,7 @@ public class GeneralReposInterface
         Message outMessage = null;                                     // mensagem de resposta
 
         /* validation of the incoming message */
-        System.out.printf("Message type: %d\n",inMessage.getMsgType());
+        //System.out.printf("Message type: %d\n",inMessage.getMsgType());
         switch (inMessage.getMsgType ())
         { 
         

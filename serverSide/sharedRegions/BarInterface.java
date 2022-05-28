@@ -50,10 +50,10 @@ public class BarInterface
         Message outMessage = null;                                     // outgoing message
 
         /* validation of the incoming message */
-        //System.out.println(inMessage.getMsgType());
+        ////System.out.println(inMessage.getMsgType());
         switch(inMessage.getMsgType())
         {
-            case MessageType.ALERTWAITER:   //System.out.printf("Chef state= %d\n", inMessage.getChefState ());
+            case MessageType.ALERTWAITER:   ////System.out.printf("Chef state= %d\n", inMessage.getChefState ());
                                             if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
                                               throw new MessageException ("Invalid chef state 12!", inMessage);
                                             break;
@@ -98,7 +98,7 @@ public class BarInterface
                                               throw new MessageException ("Invalid waiter state 15", inMessage);
                                             break;                                                
 
-            case MessageType.SAYGOODBYE:    //System.out.printf("state16: %d\n",inMessage.getWaiterState());
+            case MessageType.SAYGOODBYE:    ////System.out.printf("state16: %d\n",inMessage.getWaiterState());
                                             if(inMessage.getWaiterState() != WaiterStates.APPST)
                                               throw new MessageException ("Invalid waiter state 16", inMessage);
                                             break;   
@@ -119,13 +119,13 @@ public class BarInterface
                                                     ((BarClientProxy) Thread.currentThread ()).getChefState ());
                                             break;
 
-            case MessageType.ENTERSTUDENT:  //System.out.printf("message: ");
+            case MessageType.ENTERSTUDENT:  ////System.out.printf("message: ");
                                             ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             int[] orderOfArrival = bar.enter();
                                             outMessage = new Message (MessageType.STUDENTENTERED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState (), orderOfArrival);
-                                                    //System.out.printf("message: %s\n",outMessage);
+                                                    ////System.out.printf("message: %s\n",outMessage);
                                             
                                             break;
                             

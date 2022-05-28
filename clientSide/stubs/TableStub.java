@@ -55,7 +55,7 @@ public class TableStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
 
-        //System.out.printf("in mes st state: %d\n",inMessage.getStudentState ());
+        ////System.out.printf("in mes st state: %d\n",inMessage.getStudentState ());
 
         if (inMessage.getMsgType () != MessageType.READMENU)
         { 
@@ -312,7 +312,7 @@ public class TableStub {
         outMessage = new Message (MessageType.STARTEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        //System.out.printf("student start eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
+        ////System.out.printf("student start eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
         if (inMessage.getMsgType () != MessageType.STARTEAT)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 38!");
@@ -349,7 +349,7 @@ public class TableStub {
         outMessage = new Message (MessageType.ENDEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        //System.out.printf("student end eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
+        ////System.out.printf("student end eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
         if (inMessage.getMsgType () != MessageType.ENDEAT)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 39!");
@@ -821,7 +821,7 @@ public class TableStub {
             catch (InterruptedException e) {}
         }
         outMessage = new Message (MessageType.TAKESEAT,studentID, studentState);
-        //System.out.printf("state: %d \n", studentState);
+        ////System.out.printf("state: %d \n", studentState);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.TAKESEATDONE)

@@ -61,7 +61,7 @@ public class BarStub {
         com.writeObject (outMessage);
 
         inMessage = (Message) com.readObject ();
-        //System.out.printf("Chef state= %d\n",inMessage.getChefState());
+        ////System.out.printf("Chef state= %d\n",inMessage.getChefState());
         if (inMessage.getMsgType () != MessageType.WAITERALERTED)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 1!");
             GenericIO.writelnString (inMessage.toString ());
@@ -90,10 +90,10 @@ public class BarStub {
         
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
-        //System.out.println("try to establish connection");
+        ////System.out.println("try to establish connection");
         while (!com.open ())                                           // waits for a connection to be established
         { 
-            //System.out.println("wait to establish connection");
+            ////System.out.println("wait to establish connection");
             try
             { Thread.currentThread ().sleep ((long) (10));
             }
@@ -127,7 +127,7 @@ public class BarStub {
    */
     public void callWaiter() {
         // communication channel
-        //System.out.println("Bar -> Call Waiter");
+        ////System.out.println("Bar -> Call Waiter");
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
@@ -163,7 +163,7 @@ public class BarStub {
    */
     public void signalTheWaiter() {
         // communication channel
-        //System.out.println("signal the waiter bar stub");
+        ////System.out.println("signal the waiter bar stub");
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
@@ -260,7 +260,7 @@ public class BarStub {
             }
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
         com.close ();
-        //System.out.printf("Request from message: id %d type %c\n",(inMessage.getRequest()).getRequestID(),(inMessage.getRequest()).getRequestType());
+        ////System.out.printf("Request from message: id %d type %c\n",(inMessage.getRequest()).getRequestID(),(inMessage.getRequest()).getRequestType());
         return inMessage.getRequest();
     }
 

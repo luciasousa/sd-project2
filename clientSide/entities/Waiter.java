@@ -75,55 +75,55 @@ public class Waiter extends Thread
      */
     public void run() 
     {
-        //System.out.println("waiter thread");
+        ////System.out.println("waiter thread");
         while(true)
         {
             Request r = barStub.lookAround();
             switch(r.getRequestType()) 
             {
                 case 'c': //client arriving
-                    System.out.println("client arriving - 'c'");
-                    System.out.printf("salute client %d\n",r.getRequestID());
+                    //System.out.println("client arriving - 'c'");
+                    //System.out.printf("salute client %d\n",r.getRequestID());
                     tableStub.saluteTheClient(r);
-                    System.out.println("return to bar");
+                    //System.out.println("return to bar");
                     barStub.returnToBar();
                     break;
                 
                 case 'o': //order ready to be collected
-                    System.out.println("order ready to be collected - 'o'");
-                    System.out.println("get the pad");
+                    //System.out.println("order ready to be collected - 'o'");
+                    //System.out.println("get the pad");
                     tableStub.getThePad();
-                    System.out.println("hand note to chef");
+                    //System.out.println("hand note to chef");
                     kitchenStub.handTheNoteToChef();
-                    System.out.println("return to bar");
+                    //System.out.println("return to bar");
                     barStub.returnToBar();
                     break;
                 
                 case 'p': //portion ready to be collected
-                    System.out.println("portion ready to be collected - 'p'");
+                    //System.out.println("portion ready to be collected - 'p'");
                     if(!tableStub.haveAllClientsBeenServed())
                     {
-                        System.out.println("collect portion");
+                        //System.out.println("collect portion");
                         barStub.collectPortion();
-                        System.out.println("deliver portion");
+                        //System.out.println("deliver portion");
                         tableStub.deliverPortion();
-                        System.out.println("return to bar");
+                        //System.out.println("return to bar");
                         barStub.returnToBar();
                     }
                     break;
 
                 case 'b': //bill presentation
-                    System.out.println("bill presentation - 'b'");
-                    System.out.println("prepare bill");
+                    //System.out.println("bill presentation - 'b'");
+                    //System.out.println("prepare bill");
                     barStub.prepareTheBill();
-                    System.out.println("present bill");
+                    //System.out.println("present bill");
                     tableStub.presentTheBill();
-                    System.out.println("return to bar");
+                    //System.out.println("return to bar");
                     barStub.returnToBar();
                     break;
                     
                 case 'g': //say goodbye to students
-                    System.out.println("say goodbye to students - 'g'");
+                    //System.out.println("say goodbye to students - 'g'");
                     int numberOfStudentsInRestaurant = barStub.sayGoodbye(r);
                     if(numberOfStudentsInRestaurant == 0) return;
             }

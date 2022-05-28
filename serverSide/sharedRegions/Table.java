@@ -137,7 +137,7 @@ public class Table
     {
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
         studentProxy[studentID] = (TableClientProxy) Thread.currentThread();
-        System.out.printf("student %d take a seat\n", studentID);
+        //System.out.printf("student %d take a seat\n", studentID);
         while(!clientsSaluted[studentID]) 
         {
             try {
@@ -164,7 +164,7 @@ public class Table
         reposStub.setWaiterState(state);
         //}
         
-        System.out.printf("waiter salute the client %d, state: %d\n", studentID, waiterProxy.getWaiterState());
+        //System.out.printf("waiter salute the client %d, state: %d\n", studentID, waiterProxy.getWaiterState());
         clientsSaluted[studentID] = true;
         notifyAll();
         while(!menuRead[studentID])
@@ -191,7 +191,7 @@ public class Table
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
         reposStub.setStudentState(studentID, state);
         
-        System.out.printf("student %d read menu\n", studentID);
+        //System.out.printf("student %d read menu\n", studentID);
         menuRead[studentID] = true;
         //signal waiter that menu was read
         notifyAll();
@@ -214,7 +214,7 @@ public class Table
         reposStub.setStudentState(studentID, state);
         //}
         
-        System.out.printf("student %d prepare the order\n", studentID);
+        //System.out.printf("student %d prepare the order\n", studentID);
         while (!wasInformed) 
         {    
             try {
@@ -241,7 +241,7 @@ public class Table
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
         reposStub.setStudentState(studentID, state);
         
-        System.out.printf("student %d inform companion\n", studentID);
+        //System.out.printf("student %d inform companion\n", studentID);
         wasInformed = true;
         numberOfStudentsRequests += 1;
         notifyAll();
@@ -265,7 +265,7 @@ public class Table
     public synchronized void addUpOnesChoice() 
     {
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
-        System.out.printf("student %d has been informed\n", studentID);
+        //System.out.printf("student %d has been informed\n", studentID);
         while(!wasInformed)
         {
             try {
@@ -293,7 +293,7 @@ public class Table
                 e.printStackTrace();
             }
         }
-        System.out.println("waiter has the pad");
+        //System.out.println("waiter has the pad");
     }
 
     /**
@@ -310,7 +310,7 @@ public class Table
         int state = waiterProxy.getWaiterState();
         reposStub.setWaiterState(state);
         
-        System.out.printf("waiter get the pad, state: %d\n", waiterProxy.getWaiterState());
+        //System.out.printf("waiter get the pad, state: %d\n", waiterProxy.getWaiterState());
         waiterHasThePad = true;
         notifyAll(); 
         while(!orderDescribed)
@@ -332,7 +332,7 @@ public class Table
      */
     public synchronized void describeTheOrder() 
     {
-        System.out.println("order is described");
+        //System.out.println("order is described");
         orderDescribed = true;
         notifyAll();
     }
@@ -346,7 +346,7 @@ public class Table
      */
     public synchronized boolean hasEverybodyChosen() 
     {
-        System.out.printf("pedidos dos estudantes = %d\n", numberOfStudentsRequests);
+        //System.out.printf("pedidos dos estudantes = %d\n", numberOfStudentsRequests);
         if (numberOfStudentsRequests == Constants.N) return true; else return false;
     }
 
@@ -367,7 +367,7 @@ public class Table
         reposStub.setStudentState(studentID, state);
         //}
         
-        System.out.println("first student has joined the talk");
+        //System.out.println("first student has joined the talk");
         while(!courseReady[numberOfCoursesDelivered])
         {
             try {
@@ -391,10 +391,10 @@ public class Table
         numberOfPortionsEaten = 0;
         numberOfPortionsDelivered += 1;
         hasEndedEating = false;
-        System.out.printf("waiter is delivering the portion %d\n", numberOfPortionsDelivered);
+        //System.out.printf("waiter is delivering the portion %d\n", numberOfPortionsDelivered);
         if(numberOfPortionsDelivered == Constants.N)
         {
-            System.out.printf("course nº %d finished\n", numberOfCoursesDelivered);
+            //System.out.printf("course nº %d finished\n", numberOfCoursesDelivered);
             courseReady[numberOfCoursesDelivered] = true;
             notifyAll();
             if(numberOfCoursesDelivered == Constants.M - 1) coursesCompleted = true;
@@ -439,7 +439,7 @@ public class Table
         reposStub.setStudentState(studentID, state);
         //}
         
-        System.out.printf("student %d has started eating, course: %d\n", studentID, numberOfCoursesDelivered);
+        //System.out.printf("student %d has started eating, course: %d\n", studentID, numberOfCoursesDelivered);
         try {
             wait((long) (1 + 500 * Math.random ()));
         } catch (InterruptedException e) {
@@ -464,7 +464,7 @@ public class Table
         reposStub.setStudentState(studentID, state);
         //}
         
-        System.out.printf("student %d has finished eating\n", ((TableClientProxy) Thread.currentThread()).getStudentID());
+        //System.out.printf("student %d has finished eating\n", ((TableClientProxy) Thread.currentThread()).getStudentID());
     }
 
     /**
@@ -514,7 +514,7 @@ public class Table
         while(!(courseReady[numberOfCoursesDelivered] || coursesCompleted))
         {
             try {
-                System.out.printf("student %d waiting for course ...\n", studentID);
+                //System.out.printf("student %d waiting for course ...\n", studentID);
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -532,7 +532,7 @@ public class Table
     public synchronized void waitForPayment()
     {
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
-        System.out.printf("Student %d is waiting for payment\n", studentID);
+        //System.out.printf("Student %d is waiting for payment\n", studentID);
         while(!studentHasPaid)
         {
             try {
@@ -560,7 +560,7 @@ public class Table
         reposStub.setWaiterState(state);
         //}
         
-        System.out.println("presenting the bill");
+        //System.out.println("presenting the bill");
         billReady = true;
         notifyAll();
         while(!studentHasPaid)
@@ -590,7 +590,7 @@ public class Table
         reposStub.setStudentState(studentID, state);
         //}
         
-        System.out.printf("student %d should have arrived earlier, pay the bill\n",studentID);
+        //System.out.printf("student %d should have arrived earlier, pay the bill\n",studentID);
         while(!billReady)
         {
             try {
@@ -610,7 +610,7 @@ public class Table
      */
     public synchronized void honourTheBill() 
     {
-        System.out.println("bill has been honoured");
+        //System.out.println("bill has been honoured");
         studentHasPaid = true;
         notifyAll();
     }

@@ -49,12 +49,12 @@ public class KitchenInterface {
 
         switch(inMessage.getMsgType())
         {
-            case MessageType.WAFOR:     System.out.println("here");
+            case MessageType.WAFOR:     //System.out.println("here");
                                         if (inMessage.getChefState () != ChefStates.WAFOR)
                                           throw new MessageException ("Invalid chef state 15!", inMessage);
                                         break;
 
-            case MessageType.PRPCS: //System.out.printf("chef state = %d\n",inMessage.getChefState ());
+            case MessageType.PRPCS: ////System.out.printf("chef state = %d\n",inMessage.getChefState ());
                                     if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
                                         throw new MessageException ("Invalid chef state 16!", inMessage);
                                     break;

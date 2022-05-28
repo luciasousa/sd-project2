@@ -100,7 +100,7 @@ public class TableInterface {
                                                 throw new MessageException ("Invalid student state 36", inMessage);
                                             break;
 
-            case MessageType.EVBDFINISHREQ: //System.out.printf("state37: %d\n", inMessage.getStudentState());
+            case MessageType.EVBDFINISHREQ: ////System.out.printf("state37: %d\n", inMessage.getStudentState());
                                             if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState () != StudentStates.CHTWC))
@@ -113,7 +113,7 @@ public class TableInterface {
                                                     throw new MessageException ("Invalid student state 37", inMessage);
                                                 break;
 
-            case MessageType.CSREADYREQ:    //System.out.printf("state38: %d\n", inMessage.getStudentState());
+            case MessageType.CSREADYREQ:    ////System.out.printf("state38: %d\n", inMessage.getStudentState());
                                             if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
                                             else if((inMessage.getStudentState () != StudentStates.CHTWC))
@@ -146,7 +146,7 @@ public class TableInterface {
                                                 throw new MessageException ("Invalid waiter state 22", inMessage);
                                             break;   
 
-            case MessageType.HVCLIENTSBEENSRVREQ:   //System.out.printf("Waiter state= %d \n", inMessage.getWaiterState());
+            case MessageType.HVCLIENTSBEENSRVREQ:   ////System.out.printf("Waiter state= %d \n", inMessage.getWaiterState());
                                                     if(inMessage.getWaiterState () != WaiterStates.APPST)
                                                         throw new MessageException ("Invalid waiter state 23", inMessage);
                                                     break; 
@@ -181,7 +181,7 @@ public class TableInterface {
             case MessageType.READMENUREQ:   ((TableClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             table.readMenu();
-                                            //System.out.printf("Table interface -> student id: %d\n",(inMessage.getStudentID ()));
+                                            ////System.out.printf("Table interface -> student id: %d\n",(inMessage.getStudentID ()));
                                             outMessage = new Message (MessageType.READMENU,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((TableClientProxy) Thread.currentThread ()).getStudentState ());
                                             break;
@@ -286,7 +286,7 @@ public class TableInterface {
 
             case MessageType.SALUTECLIENTREQ:   ((TableClientProxy) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
                                                 //salute the client needs student ID ???
-                                                //System.out.printf("Request id: %d \n",(inMessage.getRequest()).getRequestID());
+                                                ////System.out.printf("Request id: %d \n",(inMessage.getRequest()).getRequestID());
                                                 table.saluteTheClient((inMessage.getRequest()).getRequestID());
                                                 outMessage = new Message (MessageType.SALUTECLIENT,
                                                         ((TableClientProxy) Thread.currentThread ()).getWaiterState ());
