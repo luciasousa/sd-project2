@@ -37,6 +37,9 @@ public class GeneralReposStub {
      */
     private int[] seatOrder;
 
+    /**
+     *  Seat number.
+     */
     private int seatNumber = 0;
  
    /**
@@ -182,7 +185,6 @@ public class GeneralReposStub {
    *     @param studentID student id
    *     @param studentState student state
    */
-
    public void setChefWaiterStudentState (int chefState, int waiterState, int studentID, int studentState)
    {
       ClientCom com;                                                 // communication channel
@@ -233,7 +235,6 @@ public class GeneralReposStub {
    *     @param nPortions integer
    *     @param nCourses integer
    */
-
    public synchronized void setNumberOfPortionsAndCourses(int nPortions, int nCourses)
    {
       numberOfPortion = nPortions;
@@ -245,7 +246,6 @@ public class GeneralReposStub {
    *
    *     @param id integer
    */
-
    public synchronized void setSeatOrder(int id)
    {
       seatOrder[seatNumber] = id;
@@ -258,7 +258,6 @@ public class GeneralReposStub {
    *
    *   New operation.
    */
-
    public void shutdown ()
    {
       ClientCom com;                                                 // communication channel

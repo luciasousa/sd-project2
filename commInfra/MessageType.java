@@ -2,7 +2,7 @@ package commInfra;
 
 /**
  *   Type of the exchanged messages.
- *the
+ *
  *   Implementation of a client-server model of type 2 (server replication).
  *   Communication is based on a communication channel under the TCP protocol.
  */
@@ -410,8 +410,6 @@ public class MessageType
   public static final int SAYGOODBYEDONE = 80;
 
 
-
-
   /**
    *  Server shutdown (service request).
    */
@@ -488,6 +486,16 @@ public class MessageType
    *  Wait for pad (reply).
    */
   public static final int WAITPADDONE = 95;
+
+  /**
+   *  End operation (request).
+   */
+  public static final int ENDOP = 96;
+
+  /**
+   *  End operation (reply).
+   */
+  public static final int EOPDONE = 97;
 
 
 }

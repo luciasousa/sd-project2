@@ -3,10 +3,11 @@ import commInfra.Request;
 import clientSide.stubs.*;
 
 /**
- *   Waiter thread.
+ *    Waiter thread.
  *
- *   Used to simulate the Waiter life cycle.
- *   Static solution.
+ *      It simulates the waiter life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  */
 public class Waiter extends Thread 
 {
@@ -18,32 +19,32 @@ public class Waiter extends Thread
     /**
      *  Reference to the bar.
      */
-    private BarStub bar;
+    private BarStub barStub;
 
     /**
      *  Reference to the kitchen.
      */
-    private KitchenStub kitchen;
+    private KitchenStub kitchenStub;
 
     /**
      *  Reference to the table.
      */
-    private TableStub table;
+    private TableStub tableStub;
 
     /**
      *   Instantiation of a Waiter thread.
      *
      *     @param waiterState waiter state
-     *     @param bar reference to the bar
-     *     @param kitchen reference to the kicthen
-     *     @param table reference to the table
+     *     @param barStub reference to the barStub
+     *     @param kitchenStub reference to the kicthenStub
+     *     @param tableStub reference to the tableStub
      */
-    public Waiter(int waiterState, BarStub bar, KitchenStub kitchen, TableStub table)
+    public Waiter(int waiterState, BarStub barStub, KitchenStub kitchenStub, TableStub tableStub)
     {
         this.waiterState = waiterState;
-        this.bar = bar;
-        this.kitchen = kitchen;
-        this.table = table;
+        this.barStub = barStub;
+        this.kitchenStub = kitchenStub;
+        this.tableStub = tableStub;
     }
 
     /**
@@ -77,42 +78,42 @@ public class Waiter extends Thread
         //System.out.println("waiter thread");
         while(true)
         {
-            Request r = bar.lookAround();
+            Request r = barStub.lookAround();
             switch(r.getRequestType()) 
             {
                 case 'c': //client arriving
-                    System.out.println("client arriving - 'c'");
-                    table.saluteTheClient(r);
-                    bar.returnToBar();
+                    //System.out.println("client arriving - 'c'");
+                    tableStub.saluteTheClient(r);
+                    barStub.returnToBar();
                     break;
                 
                 case 'o': //order ready to be collected
-                    System.out.println("order ready to be collected - 'o'");
-                    table.getThePad();
-                    kitchen.handTheNoteToChef();
-                    bar.returnToBar();
+                    //System.out.println("order ready to be collected - 'o'");
+                    tableStub.getThePad();
+                    kitchenStub.handTheNoteToChef();
+                    barStub.returnToBar();
                     break;
                 
                 case 'p': //portion ready to be collected
-                    System.out.println("portion ready to be collected - 'p'");
-                    if(!table.haveAllClientsBeenServed())
+                    //System.out.println("portion ready to be collected - 'p'");
+                    if(!tableStub.haveAllClientsBeenServed())
                     {
-                        bar.collectPortion();
-                        table.deliverPortion();
-                        bar.returnToBar();
+                        barStub.collectPortion();
+                        tableStub.deliverPortion();
+                        barStub.returnToBar();
                     }
                     break;
 
                 case 'b': //bill presentation
-                    System.out.println("bill presentation - 'b'");
-                    bar.prepareTheBill();
-                    table.presentTheBill();
-                    bar.returnToBar();
+                    //System.out.println("bill presentation - 'b'");
+                    barStub.prepareTheBill();
+                    tableStub.presentTheBill();
+                    barStub.returnToBar();
                     break;
                     
                 case 'g': //say goodbye to students
-                    System.out.println("say goodbye to students - 'g'");
-                    int numberOfStudentsInRestaurant = bar.sayGoodbye(r);
+                    //System.out.println("say goodbye to students - 'g'");
+                    int numberOfStudentsInRestaurant = barStub.sayGoodbye(r);
                     if(numberOfStudentsInRestaurant == 0) return;
             }
         }

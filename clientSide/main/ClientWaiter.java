@@ -11,10 +11,18 @@ import genclass.GenericIO;
  */
 public class ClientWaiter {
     /**
-     *    Main method.
-     *
-     *    @param args runtime arguments
-     */
+   *  Main method.
+   *
+   *    @param args runtime arguments
+   *        args[0] - name of the platform where is located the general repository server
+   *        args[1] - port number for listening to service requests
+   *        args[2] - name of the platform where is located the kitchen server
+   *        args[3] - port number for listening to service requests
+   *        args[4] - name of the platform where is located the table server
+   *        args[5] - port number for listening to service requests
+   * 		args[6] - name of the platform where is located the bar server
+   *        args[7] - port number for listening to service requests	
+   */
     public static void main(String[] args) {
         Waiter waiter;
         KitchenStub kitchen;
@@ -98,6 +106,7 @@ public class ClientWaiter {
             waiter.join();	
         } catch (InterruptedException e) {}
         System.out.println("The Waiter just terminated");
+		System.out.println("End of Simulation");
 		table.shutdown ();
         bar.shutdown();
 		kitchen.shutdown();

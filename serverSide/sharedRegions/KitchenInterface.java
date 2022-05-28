@@ -6,6 +6,14 @@ import commInfra.MessageType;
 import serverSide.entities.KitchenClientProxy;
 import clientSide.entities.*;
 
+/**
+ *  Interface to the Kitchen.
+ *
+ *    It is responsible to validate and process the incoming message, execute the corresponding method on the
+ *    Kitchen and generate the outgoing message.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
 public class KitchenInterface {
 
     /**
@@ -14,10 +22,25 @@ public class KitchenInterface {
 
     private final Kitchen kitchen;
 
+    /**
+   *  Instantiation of an interface to the kitchen.
+   *
+   *    @param kitchen reference to the kitchen
+   */
     public KitchenInterface(Kitchen kitchen)
     {
         this.kitchen = kitchen;
     }
+
+    /**
+   *  Processing of the incoming messages.
+   *
+   *  Validation, execution of the corresponding method and generation of the outgoing message.
+   *
+   *    @param inMessage service request
+   *    @return service reply
+   *    @throws MessageException if the incoming message is not valid
+   */
 
     public Message processAndReply(Message inMessage) throws MessageException {
         Message outMessage = null;                                     // outgoing message
@@ -30,7 +53,7 @@ public class KitchenInterface {
                                           throw new MessageException ("Invalid chef state 15!", inMessage);
                                         break;
 
-            case MessageType.PRPCS: System.out.printf("chef state = %d\n",inMessage.getChefState ());
+            case MessageType.PRPCS: //System.out.printf("chef state = %d\n",inMessage.getChefState ());
                                     if ((inMessage.getChefState () < ChefStates.WAFOR) || (inMessage.getChefState () > ChefStates.DLVPT))
                                         throw new MessageException ("Invalid chef state 16!", inMessage);
                                     break;
@@ -158,6 +181,10 @@ public class KitchenInterface {
                                                 outMessage = new Message (MessageType.PORTIONCOLLECTDONE,
                                                         ((KitchenClientProxy) Thread.currentThread ()).getWaiterState ());
                                                 break;  
+
+            case MessageType.ENDOP:     kitchen.endOperation();
+                                                outMessage = new Message (MessageType.EOPDONE, inMessage.getChefState());
+                                                break;
 
             case MessageType.SHUT:      kitchen.shutdown();
                                         outMessage = new Message (MessageType.SHUTDONE); 

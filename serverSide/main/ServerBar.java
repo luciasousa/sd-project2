@@ -23,6 +23,13 @@ public class ServerBar {
      *    Main method.
      *
      *    @param args runtime arguments
+     *      args[0] - port number for listening to service requests
+     *      args[1] - name of the platform where is located the server for the general repository
+     *      args[2] - port number where the server for the general repository is listening to service requests
+     *      args[3] - name of the platform where is located the server for the table
+     *      args[4] - port number where the server for the table is listening to service requests
+     *      args[5] - name of the platform where is located the server for the kicthen
+     *      args[6] - port number where the server for the kitchen is listening to service requests
      */
 
     public static void main (String[] args)
@@ -124,6 +131,7 @@ public class ServerBar {
         } 
         catch(SocketTimeoutException ste) {}
         }
+        serverCom.end();
         
         GenericIO.writelnString ("Service is closed!");
     }

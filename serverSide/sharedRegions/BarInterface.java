@@ -4,11 +4,18 @@ import commInfra.Message;
 import commInfra.MessageException;
 import commInfra.MessageType;
 import commInfra.Request;
-import genclass.GenericIO;
 import serverSide.entities.BarClientProxy;
 import clientSide.entities.*;
 import serverSide.main.Constants;
 
+/**
+ *  Interface to the Bar.
+ *
+ *    It is responsible to validate and process the incoming message, execute the corresponding method on the
+ *    Bar and generate the outgoing message.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
 public class BarInterface
 {
     /**
@@ -17,21 +24,36 @@ public class BarInterface
 
     private final Bar bar;
 
+    /**
+   *  Instantiation of an interface to the bar.
+   *
+   *    @param bar reference to the bar
+   */
     public BarInterface(Bar bar)
     {
         this.bar = bar;
         
     }
 
+    /**
+   *  Processing of the incoming messages.
+   *
+   *  Validation, execution of the corresponding method and generation of the outgoing message.
+   *
+   *    @param inMessage service request
+   *    @return service reply
+   *    @throws MessageException if the incoming message is not valid
+   */
+
     public Message processAndReply(Message inMessage) throws MessageException
     {
         Message outMessage = null;                                     // outgoing message
 
         /* validation of the incoming message */
-        System.out.println(inMessage.getMsgType());
+        //System.out.println(inMessage.getMsgType());
         switch(inMessage.getMsgType())
         {
-            case MessageType.ALERTWAITER:   System.out.printf("Chef state= %d\n", inMessage.getChefState ());
+            case MessageType.ALERTWAITER:   //System.out.printf("Chef state= %d\n", inMessage.getChefState ());
                                             if ((inMessage.getChefState () < ChefStates.DSHPT) || (inMessage.getChefState () > ChefStates.DLVPT))
                                               throw new MessageException ("Invalid chef state 12!", inMessage);
                                             break;
@@ -76,11 +98,10 @@ public class BarInterface
                                               throw new MessageException ("Invalid waiter state 15", inMessage);
                                             break;                                                
 
-            case MessageType.SAYGOODBYE:    System.out.printf("state16: %d\n",inMessage.getWaiterState());
+            case MessageType.SAYGOODBYE:    //System.out.printf("state16: %d\n",inMessage.getWaiterState());
                                             if(inMessage.getWaiterState() != WaiterStates.APPST)
                                               throw new MessageException ("Invalid waiter state 16", inMessage);
                                             break;   
-
 
             case MessageType.SHUT:          // check nothing
                                             break;
@@ -98,13 +119,13 @@ public class BarInterface
                                                     ((BarClientProxy) Thread.currentThread ()).getChefState ());
                                             break;
 
-            case MessageType.ENTERSTUDENT:  System.out.printf("message: ");
+            case MessageType.ENTERSTUDENT:  //System.out.printf("message: ");
                                             ((BarClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((BarClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
                                             int[] orderOfArrival = bar.enter();
                                             outMessage = new Message (MessageType.STUDENTENTERED,((BarClientProxy) Thread.currentThread ()).getStudentID (),
                                                     ((BarClientProxy) Thread.currentThread ()).getStudentState (), orderOfArrival);
-                                                    System.out.printf("message: %s\n",outMessage);
+                                                    //System.out.printf("message: %s\n",outMessage);
                                             
                                             break;
                             
@@ -130,7 +151,7 @@ public class BarInterface
                                             break;
 
             case MessageType.LOOKWAITER:    ((BarClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
-                                            GenericIO.writeString("Look around request\n");
+                                            //GenericIO.writeString("Look around request\n");
                                             Request r = bar.lookAround();
                                             outMessage = new Message (MessageType.WAITERLOOKED,
                                                     ((BarClientProxy) Thread.currentThread ()).getWaiterState (), r);
@@ -155,13 +176,17 @@ public class BarInterface
                                             break;                                             
 
             case MessageType.SAYGOODBYE:  ((BarClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
-                                          int studentID = inMessage.getStudentID();
-                                          System.out.printf("student id = %d\n", studentID);
+                                          int studentID = inMessage.getRequest().getRequestID();
+                                          //System.out.printf("student id = %d\n", studentID);
                                           int numberOfStudentsInRest = bar.sayGoodbye(studentID);
-                                          System.out.printf("number of students in restaurant = %d \n", numberOfStudentsInRest);
+                                          //System.out.printf("number of students in restaurant = %d \n", numberOfStudentsInRest);
                                           outMessage = new Message (MessageType.SAYGOODBYEDONE,
                                                   ((BarClientProxy) Thread.currentThread ()).getWaiterState (), numberOfStudentsInRest, "number of students in restaurant");
-                                          break;  
+                                          break; 
+                                          
+            case MessageType.ENDOP:     bar.endOperation();
+                                          outMessage = new Message (MessageType.EOPDONE, inMessage.getWaiterState());
+                                          break;
 
             case MessageType.SHUT:        bar.shutdown();
                                           outMessage = new Message (MessageType.SHUTDONE); 

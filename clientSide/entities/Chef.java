@@ -3,10 +3,11 @@ import clientSide.stubs.*;
 
 
 /**
- *   Chef thread.
+ *    Chef thread.
  *
- *   Used to simulate the Chef life cycle.
- *   Static solution.
+ *      It simulates the chef life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  */
 public class Chef extends Thread 
 {
@@ -18,25 +19,25 @@ public class Chef extends Thread
     /**
      *  Reference to the kitchen.
      */
-    private KitchenStub kitchen;
+    private KitchenStub kitchenStub;
 
     /**
      *  Reference to the bar.
      */
-    private BarStub bar;
+    private BarStub barStub;
 
      /**
      *   Instantiation of a Chef thread.
      *
      *     @param chefState state of the chef
-     *     @param kitchen reference to the kitchen
-     *     @param ber reference to the bar
+     *     @param kitchenStub reference to the kitchenStub
+     *     @param barStub reference to the barStub
      */
-    public Chef(int chefState, KitchenStub kitchen, BarStub bar)
+    public Chef(int chefState, KitchenStub kitchenStub, BarStub barStub)
     {
         this.chefState = chefState;
-        this.kitchen = kitchen;
-        this.bar = bar;
+        this.kitchenStub = kitchenStub;
+        this.barStub = barStub;
     }
 
     /**
@@ -68,21 +69,21 @@ public class Chef extends Thread
     public void run() 
     {
         //System.out.println("chef thread");
-        kitchen.watchTheNews();
-        kitchen.startPreparation();
+        kitchenStub.watchTheNews();
+        kitchenStub.startPreparation();
         do 
         {
-            if(!kitchen.getFirstCourse()) kitchen.startPreparation(); else kitchen.setFirstCourse(false);
-            kitchen.proceedToPresentation();
-            bar.alertTheWaiter();
+            if(!kitchenStub.getFirstCourse()) kitchenStub.startPreparation(); else kitchenStub.setFirstCourse(false);
+            kitchenStub.proceedToPresentation();
+            barStub.alertTheWaiter();
 
-            while(!kitchen.haveAllPortionsBeenDelivered()) {
-                kitchen.haveNextPortionReady();
-                bar.alertTheWaiter();
+            while(!kitchenStub.haveAllPortionsBeenDelivered()) {
+                kitchenStub.haveNextPortionReady();
+                barStub.alertTheWaiter();
             }
 
-        } while(!kitchen.hasTheOrderBeenCompleted());
+        } while(!kitchenStub.hasTheOrderBeenCompleted());
 
-        kitchen.cleanUp();
+        kitchenStub.cleanUp();
     }
 }

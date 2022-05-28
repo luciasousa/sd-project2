@@ -16,7 +16,6 @@ import genclass.GenericIO;
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
  */
-
 public class BarStub {
     /**
     *  Name of the computational system where the server is located.
@@ -28,8 +27,15 @@ public class BarStub {
     */
     private int serverPortNumb;
 
-    int [] students;
-    int i = 0;
+    /**
+    *  Array of students by order of arrival.
+    */
+    private int [] students;
+
+    /**
+    *  Counter of the students arriving to the restaurant.
+    */
+    private int studentsCounter = 0;
 
     /**
     *  Instantiation of a remote reference
@@ -44,6 +50,12 @@ public class BarStub {
        students = new int[Constants.N];
     }
 
+    /**
+     *  Operation alert the waiter.
+     *
+     *  It is called by the chef when a portion is ready to deliver.
+     * 
+     */
     public void alertTheWaiter() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -60,7 +72,7 @@ public class BarStub {
         com.writeObject (outMessage);
 
         inMessage = (Message) com.readObject ();
-        System.out.printf("Chef state= %d\n",inMessage.getChefState());
+        //System.out.printf("Chef state= %d\n",inMessage.getChefState());
         if (inMessage.getMsgType () != MessageType.WAITERALERTED)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 1!");
             GenericIO.writelnString (inMessage.toString ());
@@ -75,50 +87,63 @@ public class BarStub {
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
+    /**
+   *  Operation enter.
+   *
+   *  It is called by a student when he enters to the restaurant.
+   *
+   *    @return array of students by order of arrival
+   * 
+   */
     public int[] enter() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
-        System.out.println("try to establish connection");
+        //System.out.println("try to establish connection");
         while (!com.open ())                                           // waits for a connection to be established
         { 
-            System.out.println("wait to establish connection");
+            //System.out.println("wait to establish connection");
             try
             { Thread.currentThread ().sleep ((long) (10));
             }
             catch (InterruptedException e) {}
         }
-
         outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(), 'c');
-        System.out.println("out message");
-        System.out.printf("id student: %d\n",outMessage.getStudentID());
+        //System.out.println("out message");
+        //System.out.printf("id student: %d\n",outMessage.getStudentID());
         com.writeObject (outMessage);
-        students[i] = ((Student) Thread.currentThread()).getStudentID();
-        i++;
+        students[studentsCounter] = ((Student) Thread.currentThread()).getStudentID();
+        studentsCounter++;
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STUDENTENTERED)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 2!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        System.out.printf("state student in: %d\n",inMessage.getStudentState());
+        //System.out.printf("state student in: %d\n",inMessage.getStudentState());
         if ((inMessage.getStudentState () < StudentStates.GGTRT) || (inMessage.getStudentState () > StudentStates.TKSTT))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 1!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
 
         return students;
     }
 
+    /**
+   *  Operation call waiter.
+   *
+   *  It is called by the first student when the order is ready.
+   *
+   */
     public void callWaiter() {
         // communication channel
-        System.out.println("Bar -> Call Waiter");
+        //System.out.println("Bar -> Call Waiter");
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
@@ -146,12 +171,18 @@ public class BarStub {
             System.exit (1);
             }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation signal the waiter
+   *
+   *  It is called by a student when everybody finished eating.
+   *
+   */
     public void signalTheWaiter() {
         // communication channel
-        System.out.println("signal the waiter bar stub");
+        //System.out.println("signal the waiter bar stub");
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
         Message outMessage,        // outgoing message
         inMessage;                 // incoming message
@@ -162,26 +193,29 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        //criar message type
         outMessage = new Message (MessageType.SIGNALWAITER,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(),'b');
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        //criar message type
         if (inMessage.getMsgType () != MessageType.WAITERSIGNALED)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 4!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        //TODO: ver este if
         if (inMessage.getStudentState () != StudentStates.CHTWC)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 3!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation exit.
+   *
+   *  It is called by a student when he goes home.
+   *
+   */
     public void exit() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -211,6 +245,13 @@ public class BarStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation look around.
+   *
+   *  It is called by the waiter to check if he has requests.
+   *
+   *    @return request
+   */
     public Request lookAround() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -237,11 +278,17 @@ public class BarStub {
             System.exit (1);
             }
         com.close ();
-        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
-        System.out.printf("Request from message: id %d type %c\n",(inMessage.getRequest()).getRequestID(),(inMessage.getRequest()).getRequestType());
+        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        //System.out.printf("Request from message: id %d type %c\n",(inMessage.getRequest()).getRequestID(),(inMessage.getRequest()).getRequestType());
         return inMessage.getRequest();
     }
 
+    /**
+   *  Operation return to bar.
+   *
+   *  It is called by the waiter to return to bar.
+   *
+   */
     public void returnToBar() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -262,17 +309,16 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-            //TODO: ver return to bar
-            //if (false)
-            //{ 
-            //GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid waiter state!");
-            //GenericIO.writelnString (inMessage.toString ());
-            //System.exit (1);
-            //}
         com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *  Operation collect portion.
+   *
+   *  It is called by the waiter to collect portion.
+   *
+   */
     public void collectPortion() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -302,6 +348,12 @@ public class BarStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *  Operation prepare the bill.
+   *
+   *  It is called by the waiter to prepare the bill.
+   *
+   */
     public void prepareTheBill() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -331,6 +383,14 @@ public class BarStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *  Operation say goodbye.
+   *
+   *  It is called by the waiter to say goodbye to the student leaving.
+   *
+   *    @param req request
+   *    @return number of students in restaurant
+   */
     public int sayGoodbye(Request req) {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -356,11 +416,46 @@ public class BarStub {
             System.exit (1);
             }
         com.close ();
-        ((Waiter) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
+        //((Waiter) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
 
         return inMessage.getNumberOfStudentsInRestaurant();
     }
 
+    /**
+   *  Operation end of work.
+   *
+   *   New operation.
+   *
+   */
+   public void endOperation ()
+   {
+      ClientCom com;                                                 // communication channel
+      Message outMessage,                                            // outgoing message
+              inMessage;                                             // incoming message
+
+      com = new ClientCom (serverHostName, serverPortNumb);
+      while (!com.open ())
+      { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+      }
+      outMessage = new Message (MessageType.ENDOP, ((Waiter) Thread.currentThread()).getWaiterState());
+      com.writeObject (outMessage);
+      inMessage = (Message) com.readObject ();
+      if (inMessage.getMsgType() != MessageType.EOPDONE)
+         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+           GenericIO.writelnString (inMessage.toString ());
+           System.exit (1);
+         }
+      com.close ();
+   }
+
+   /**
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
     public void shutdown() {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message

@@ -1,4 +1,5 @@
 package clientSide.main;
+
 /**
  *    Definition of the simulation parameters.
  */

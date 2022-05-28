@@ -34,6 +34,12 @@ public class TableStub {
        serverPortNumb = port;
     }
 
+    /**
+   *  Operation read menu.
+   *
+   *  It is called by the student to read the menu.
+   *
+   */
     public void readMenu() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -49,7 +55,7 @@ public class TableStub {
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
 
-        System.out.printf("in mes st state: %d\n",inMessage.getStudentState ());
+        //System.out.printf("in mes st state: %d\n",inMessage.getStudentState ());
 
         if (inMessage.getMsgType () != MessageType.READMENU)
         { 
@@ -68,6 +74,12 @@ public class TableStub {
         com.close ();
     }
 
+    /**
+   *  Operation inform companion.
+   *
+   *  It is called by a student to inform the first student about the order.
+   *
+   */
     public void informCompanion() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -98,6 +110,12 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation prepare the order.
+   *
+   *  It is called by the first student to prepare the order.
+   *
+   */
     public void prepareTheOrder() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -128,6 +146,14 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation has everybody chosen.
+   *
+   *  It is called by the first student to check if everybody chose.
+   *
+   *    @return true, if everybody chose -
+   *            false, otherwise
+   */
     public boolean hasEverybodyChosen() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -155,10 +181,16 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         return inMessage.getBoolVal();
     }
 
+    /**
+   *  Operation add up ones choice.
+   *
+   *  It is called by the frist student to add up the choices.
+   *
+   */
     public void addUpOnesChoice() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -186,9 +218,15 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation describe the order.
+   *
+   *  It is called by the first student to describe the order to the waiter.
+   *
+   */
     public void describeTheOrder() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -216,9 +254,15 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation join the talk.
+   *
+   *  It is called by the student to join the talk.
+   *
+   */
     public void joinTheTalk() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -249,6 +293,11 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation start eating.
+   *
+   *  It is called by the student to start eating.
+   */
     public void startEating() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -263,7 +312,7 @@ public class TableStub {
         outMessage = new Message (MessageType.STARTEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        System.out.printf("student start eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
+        //System.out.printf("student start eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
         if (inMessage.getMsgType () != MessageType.STARTEAT)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 38!");
@@ -280,6 +329,12 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     } 
     
+    /**
+   *  Operation end eating.
+   *
+   *  It is called by the student to finish eating.
+   *
+   */
     public void endEating() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -294,7 +349,7 @@ public class TableStub {
         outMessage = new Message (MessageType.ENDEATREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        System.out.printf("student end eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
+        //System.out.printf("student end eating state: %d, id: %d\n", inMessage.getStudentState(), inMessage.getStudentID());
         if (inMessage.getMsgType () != MessageType.ENDEAT)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 39!");
@@ -311,6 +366,14 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     } 
 
+    /**
+   *  Operation has everybody finished.
+   *
+   *  It is called by the student to check if everybody finished.
+   *
+   *    @return true, if everybody finish -
+   *            false, otherwise
+   */
     public boolean hasEverybodyFinished() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -338,10 +401,16 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         return inMessage.getBoolVal();
     }
 
+    /**
+   *  Operation wait for everybody to finish.
+   *
+   *  It is called by the student to wait until everybody finished.
+   *
+   */
     public void waitForEverybodyToFinish() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -369,9 +438,15 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation wait for course to be ready.
+   *
+   *  It is called by the student to wait for course to be ready.
+   *
+   */
     public void waitForCourseToBeReady() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -399,9 +474,15 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation wait for payment.
+   *
+   *  It is called by the student to wait for the last student to pay.
+   *
+   */
     public void waitForPayment() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -429,9 +510,15 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation should have arrived earlier.
+   *
+   *  It is called by the last student to pay the bill.
+   *
+   */
     public void shouldHaveArrivedEarlier() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -462,6 +549,12 @@ public class TableStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation has honour the bill.
+   *
+   *  It is called by the last student to honour the bill.
+   *
+   */
     public void honourTheBill() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -489,9 +582,16 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation salute the client.
+   *
+   *  It is called by the waiter to salute the client that arrived to the restaurant.
+   *
+   *    @param req request
+   */
     public void saluteTheClient(Request req) {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -522,6 +622,12 @@ public class TableStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *  Operation get the pad.
+   *
+   *  It is called by the waiter to get the pad.
+   *
+   */
     public void getThePad() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -552,6 +658,14 @@ public class TableStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *  Operation have all clients been served.
+   *
+   *  It is called by the waiter to check if all clients have been served.
+   *
+   *    @return true, if everybody was served -
+   *            false, otherwise
+   */
     public boolean haveAllClientsBeenServed() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -579,11 +693,17 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     
         return (inMessage.getBoolVal());
     }
 
+    /**
+   *  Operation deliver portion.
+   *
+   *  It is called by the waiter to deliver portion to the table.
+   *
+   */
     public void deliverPortion() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -611,9 +731,15 @@ public class TableStub {
             System.exit (1);
         }
         com.close ();
-        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *  Operation present the bill.
+   *
+   *  It is called by the waiter to present the bill.
+   *
+   */
     public void presentTheBill() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -644,6 +770,11 @@ public class TableStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
     public void shutdown ()
     {
         ClientCom com;                                                 // communication channel
@@ -669,6 +800,14 @@ public class TableStub {
         com.close ();
     }
 
+    /**
+   *  Operation take a seat.
+   *
+   *  It is called by the student to take a seat at the table.
+   *
+   *    @param studentID student id
+   *    @param studentState student state
+   */
     public void takeASeat(int studentID, int studentState) 
     {
         // communication channel
@@ -682,7 +821,7 @@ public class TableStub {
             catch (InterruptedException e) {}
         }
         outMessage = new Message (MessageType.TAKESEAT,studentID, studentState);
-        System.out.printf("state: %d \n", studentState);
+        //System.out.printf("state: %d \n", studentState);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.TAKESEATDONE)
@@ -701,6 +840,14 @@ public class TableStub {
         //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
+    /**
+   *  Operation wait for pad.
+   *
+   *  It is called by the student to wait for waiter to get the pad.
+   *
+   *    @param studentID student id
+   *    @param studentState student state
+   */
     public void waitForPad(int studentID, int studentState) 
     {
         // communication channel

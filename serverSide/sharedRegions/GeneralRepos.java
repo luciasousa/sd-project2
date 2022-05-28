@@ -59,10 +59,13 @@ public class GeneralRepos {
     private int numberOfPortion;    
 
     /**
-     *  Array with the order that students sat down
+     *  Array with the order that students sat down.
      */
     private int[] seatOrder;
 
+    /**
+     *  Seat number.
+     */
     private int seatNumber = 0;
 
 

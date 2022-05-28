@@ -22,7 +22,14 @@ public class Kitchen
      */
     private int nEntities;
 
+    /**
+   *  Reference to chef thread.
+   */
     private KitchenClientProxy chefProxy;
+
+    /**
+   *  Reference to waiter thread.
+   */
     private KitchenClientProxy waiterProxy;
 
     /**
@@ -102,8 +109,7 @@ public class Kitchen
     public synchronized void watchTheNews() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.WAFOR) 
-        {
+        if(chefProxy.getChefState() != ChefStates.WAFOR) {
             chefProxy.setChefState(ChefStates.WAFOR);
             int state = chefProxy.getChefState();
             reposStub.setChefState(state);
@@ -131,9 +137,11 @@ public class Kitchen
     public synchronized void handTheNoteToChef() 
     {
         waiterProxy = (KitchenClientProxy) Thread.currentThread();
-        waiterProxy.setWaiterState(WaiterStates.PCODR);
-        int state = waiterProxy.getWaiterState();
-        reposStub.setWaiterState(state);
+        if(waiterProxy.getWaiterState() != WaiterStates.PCODR) {
+            waiterProxy.setWaiterState(WaiterStates.PCODR);
+            int state = waiterProxy.getWaiterState();
+            reposStub.setWaiterState(state);
+        }
         System.out.println("waiter hands the note to chef");
         this.numberOfCoursesToDeliver = Constants.M;
         this.numberOfPortionsToDeliver = Constants.N;
@@ -158,9 +166,12 @@ public class Kitchen
     public synchronized void chefWaitForCollection() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        chefProxy.setChefState(ChefStates.DLVPT);
-        int state = chefProxy.getChefState();
-        reposStub.setChefState(state);
+        if(chefProxy.getChefState() != ChefStates.DLVPT) {
+            chefProxy.setChefState(ChefStates.DLVPT);
+            int state = chefProxy.getChefState();
+            reposStub.setChefState(state);
+        }
+        
         System.out.println("chef waits for waiter to collect portion");
         while(!portionCollected)
         {
@@ -196,9 +207,12 @@ public class Kitchen
     public synchronized void startPreparation() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        chefProxy.setChefState(ChefStates.PRPCS);
-        int state = chefProxy.getChefState();
-        reposStub.setChefState(state);
+        if(chefProxy.getChefState() != ChefStates.PRPCS) {
+            chefProxy.setChefState(ChefStates.PRPCS);
+            int state = chefProxy.getChefState();
+            reposStub.setChefState(state);
+        }
+        
         numberOfCoursesToDeliver--;
         System.out.printf("chef starts preparation\n");
         preparationStarted = true;
@@ -214,9 +228,12 @@ public class Kitchen
     public synchronized void proceedToPresentation() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        chefProxy.setChefState(ChefStates.DSHPT);
-        int state = chefProxy.getChefState();
-        reposStub.setChefState(state);
+        if(chefProxy.getChefState() != ChefStates.DSHPT) {
+            chefProxy.setChefState(ChefStates.DSHPT);
+            int state = chefProxy.getChefState();
+            reposStub.setChefState(state);
+        }
+        
         if(numberOfPortionsToDeliver!=0) numberOfPortionsToDeliver--;
         else numberOfPortionsToDeliver=Constants.N-1;
         System.out.printf("chef proceeds to presentation, course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
@@ -255,9 +272,12 @@ public class Kitchen
     public synchronized void haveNextPortionReady() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        chefProxy.setChefState(ChefStates.DSHPT);
-        int state = chefProxy.getChefState();
-        reposStub.setChefState(state);
+        if(chefProxy.getChefState() != ChefStates.DSHPT) {
+            chefProxy.setChefState(ChefStates.DSHPT);
+            int state = chefProxy.getChefState();
+            reposStub.setChefState(state);
+        }
+        
         numberOfPortionsToDeliver--;
         System.out.printf("chef have next portion ready course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
     }
@@ -271,9 +291,12 @@ public class Kitchen
     public synchronized void continuePreparation() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        chefProxy.setChefState(ChefStates.PRPCS);
-        int state = chefProxy.getChefState();
-        reposStub.setChefState(state);
+        if(chefProxy.getChefState() != ChefStates.PRPCS) {
+            chefProxy.setChefState(ChefStates.PRPCS);
+            int state = chefProxy.getChefState();
+            reposStub.setChefState(state);
+        }
+        
         numberOfCoursesToDeliver--;
         numberOfPortionsToDeliver = Constants.N;
         System.out.printf("chef continues preparation course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
@@ -289,10 +312,32 @@ public class Kitchen
     {
         System.out.println("chef cleans up");
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        chefProxy.setChefState(ChefStates.CLSSV);
-        int state = chefProxy.getChefState();
-        reposStub.setChefState(state);
+        if(chefProxy.getChefState() != ChefStates.CLSSV) {
+            chefProxy.setChefState(ChefStates.CLSSV);
+            int state = chefProxy.getChefState();
+            reposStub.setChefState(state);
+        }
+        
     }
+
+    /**
+   *  Operation end of work.
+   *
+   *   New operation.
+   *
+   */
+
+   public synchronized void endOperation ()
+   {
+      while (nEntities == 0)
+      { 
+        try
+        { wait ();
+        }
+        catch (InterruptedException e) {}
+      }
+        chefProxy.interrupt ();
+   }
 
     /**
      *   Operation server shutdown.
@@ -303,7 +348,7 @@ public class Kitchen
     public synchronized void shutdown ()
     {
         nEntities += 1;
-        if (nEntities >= Constants.E)
+        if (nEntities >= 1)
             ServerKitchen.waitConnection = false;
         notifyAll ();                                        // the kitchen may now terminate
     }

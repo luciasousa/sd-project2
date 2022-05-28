@@ -11,9 +11,15 @@ import genclass.GenericIO;
  */
 public class ClientStudent {
      /**
-     *    Main method.
+     *  Main method.
      *
      *    @param args runtime arguments
+     *        args[0] - name of the platform where is located the general repository server
+     *        args[1] - port number for listening to service requests
+     *        args[2] - name of the platform where is located the table server
+     *        args[3] - port number for listening to service requests
+     *        args[4] - name of the platform where is located the bar server
+     *        args[5] - port number for listening to service requests
      */
     public static void main(String[] args) {
         Student[] student = new Student[Constants.N];
@@ -87,7 +93,7 @@ public class ClientStudent {
             catch (InterruptedException e) {}
             System.out.println("The Student "+(i)+" just terminated");
         }
-        GenericIO.writelnString ();
+        System.out.println("End of Simulation");
         table.shutdown ();
         bar.shutdown();
         generalRepos.shutdown ();

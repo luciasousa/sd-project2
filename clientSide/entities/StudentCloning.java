@@ -1,10 +1,11 @@
 package clientSide.entities;
 
 /**
- *   Student thread.
+ *    Student cloning.
  *
- *   Used to simulate the student life cycle.
- *   Static solution.
+ *      It specifies his own attributes.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  */
 public interface StudentCloning
 {
@@ -21,6 +22,7 @@ public interface StudentCloning
      *   @return stduent id
      */
     public int getStudentID();
+
     /**
      *   Set student state.
      *

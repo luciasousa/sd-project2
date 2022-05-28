@@ -5,6 +5,13 @@ import commInfra.*;
 import genclass.GenericIO;
 import serverSide.sharedRegions.*;
 
+/**
+ *  Service provider agent for access to the Bar.
+ *
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class BarClientProxy extends Thread implements ChefCloning, WaiterCloning, StudentCloning{
      /**
    *  Number of instantiayed threads.
@@ -43,6 +50,12 @@ public class BarClientProxy extends Thread implements ChefCloning, WaiterCloning
      */
     private int waiterState;
 
+    /**
+   *  Instantiation of a bar client proxy.
+   *
+   *     @param sconi communication channel
+   *     @param barInter interface to the bar
+   */
     public BarClientProxy(ServerCom sconi, BarInterface barInter){
         super ("BarProxy_" + BarClientProxy.getProxyId());
         this.sconi = sconi;

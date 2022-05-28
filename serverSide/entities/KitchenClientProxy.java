@@ -4,6 +4,12 @@ import commInfra.*;
 import genclass.GenericIO;
 import serverSide.sharedRegions.*;
 
+/**
+ *  Service provider agent for access to the Kitchen.
+ *
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
 public class KitchenClientProxy extends Thread implements ChefCloning, WaiterCloning, StudentCloning{
      /**
    *  Number of instantiayed threads.
@@ -42,6 +48,12 @@ public class KitchenClientProxy extends Thread implements ChefCloning, WaiterClo
      */
     private int waiterState;
 
+    /**
+   *  Instantiation of a bar client proxy.
+   *
+   *     @param sconi communication channel
+   *     @param kitInter interface to the bar
+   */
     public KitchenClientProxy(ServerCom sconi, KitchenInterface kitInter){
         super ("KitchenProxy_" + KitchenClientProxy.getProxyId());
         this.sconi = sconi;

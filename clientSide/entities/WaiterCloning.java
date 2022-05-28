@@ -1,10 +1,11 @@
 package clientSide.entities;
 
 /**
- *   Waiter thread.
+ *    Waiter cloning.
  *
- *   Used to simulate the Waiter life cycle.
- *   Static solution.
+ *      It specifies his own attributes.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  */
 public interface WaiterCloning
 {
@@ -14,6 +15,7 @@ public interface WaiterCloning
      *     @param state waiter state
      */
     public void setWaiterState(int state);
+
     /**
      *   Get waiter state.
      *

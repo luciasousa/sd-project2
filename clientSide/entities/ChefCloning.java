@@ -1,19 +1,20 @@
 package clientSide.entities;
 
 /**
- *   Chef thread.
+ *    Chef cloning.
  *
- *   Used to simulate the Chef life cycle.
- *   Static solution.
+ *      It specifies his own attributes.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
  */
 public interface ChefCloning
 {
-
     /**
      *   Set chef state.
      *
      *     @param state chef state
      */
+
     public void setChefState(int state);
     /**
      *   Get chef state.

@@ -10,7 +10,6 @@ import genclass.GenericIO;
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
  */
-
 public class KitchenStub {
     /**
     *  Name of the computational system where the server is located.
@@ -34,6 +33,12 @@ public class KitchenStub {
        serverPortNumb = port;
     }
 
+    /**
+   *  Operation watch the news.
+   *
+   *  It is called by the chef that is watching the news waiting for the order.
+   *
+   */
     public void watchTheNews() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -63,9 +68,15 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
+    /**
+   *  Operation start preparation.
+   *
+   *  It is called by the chef to start preparation.
+   *
+   */
     public void startPreparation() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -96,6 +107,14 @@ public class KitchenStub {
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
+    /**
+   *  Operation get first course.
+   *
+   *  It is called by the chef to check if he is preparing the first course or not.
+   *
+   *    @return true, if chef is preparing the first course -
+   *            false, otherwise
+   */
     public boolean getFirstCourse() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -124,11 +143,17 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
         return (inMessage.getBoolVal());
     }
 
+    /**
+   *  Operation proceed to presentation.
+   *
+   *  It is called by the chef to proceed to the presentation of the dish.
+   *
+   */
     public void proceedToPresentation() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -161,6 +186,14 @@ public class KitchenStub {
 
     }
 
+    /**
+   *  Operation have all portions been delivered.
+   *
+   *  It is called by the chef to check if all portions have been delivered.
+   *
+   *    @return true, if all portions have been delivered -
+   *            false, otherwise
+   */
     public boolean haveAllPortionsBeenDelivered() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -188,11 +221,17 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
         return (inMessage.getBoolVal());
     }
 
+    /**
+   *  Operation have next portion ready.
+   *
+   *  It is called by the chef to start preparing the next portion.
+   *
+   */
     public void haveNextPortionReady() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -224,7 +263,14 @@ public class KitchenStub {
 
     }
 
-    //O QUE FAZER COM O BOOLEAN
+    /**
+   *  Operation set first course
+   *
+   *  It is called by the chef to set the first course.
+   *
+   *    @param b true, if the chef is preparing the first course -
+   *            false, otherwise
+   */
     public void setFirstCourse(boolean b) {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -252,10 +298,18 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
     }
 
+    /**
+   *  Operation has the order been completed.
+   *
+   *  It is called by the chef to check if the order has been completed.
+   *
+   *    @return true, if the order is complete -
+   *            false, otherwise
+   */
     public boolean hasTheOrderBeenCompleted() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -283,11 +337,17 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
         return (inMessage.getBoolVal());
     }
 
+    /**
+   *  Operation clean up.
+   *
+   *  It is called by the chef when the order is complete to clean up.
+   *
+   */
     public void cleanUp() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -318,6 +378,12 @@ public class KitchenStub {
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
+    /**
+   *  Operation hand note to the chef.
+   *
+   *  It is called by the waiter to hand the note to the chef.
+   *
+   */
     public void handTheNoteToChef() {
         // communication channel
         ClientCom com = new ClientCom (serverHostName, serverPortNumb);
@@ -348,6 +414,11 @@ public class KitchenStub {
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
+    /**
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
     public void shutdown ()
     {
         ClientCom com;                                                 // communication channel
@@ -373,6 +444,14 @@ public class KitchenStub {
         com.close ();
     }
 
+    /**
+   *  Operation chef wait for collection.
+   *
+   *  It is called by the chef to wait for waiter to collect the portion.
+   * 
+   *  @param chefState chef state
+   *
+   */
     public void chefWaitForCollection(int chefState) 
     {
         // communication channel
@@ -404,6 +483,14 @@ public class KitchenStub {
         //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
+    /**
+   *  Operation portion has been collected.
+   *
+   *  It is called by the waiter when he collect the portion.
+   * 
+   *  @param waiterState waiter state
+   *
+   */
     public void portionHasBeenCollected(int waiterState) 
     {
         // communication channel

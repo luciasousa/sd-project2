@@ -5,6 +5,12 @@ import commInfra.*;
 import genclass.GenericIO;
 import serverSide.sharedRegions.*;
 
+/**
+ *  Service provider agent for access to the Table.
+ *
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
 public class TableClientProxy extends Thread implements ChefCloning, WaiterCloning, StudentCloning {
      /**
    *  Number of instantiayed threads.
@@ -43,6 +49,12 @@ public class TableClientProxy extends Thread implements ChefCloning, WaiterCloni
      */
     private int waiterState;
 
+    /**
+   *  Instantiation of a table client proxy.
+   *
+   *     @param sconi communication channel
+   *     @param kitInter interface to the bar
+   */
     public TableClientProxy(ServerCom sconi, TableInterface tableInter){
         super ("TableProxy_" + TableClientProxy.getProxyId());
         this.sconi = sconi;
