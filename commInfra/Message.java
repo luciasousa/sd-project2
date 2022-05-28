@@ -137,20 +137,32 @@ public class Message implements Serializable
    *  Message instantiation (form 2).
    *
    *     @param type message type
-   *     @param id_state student identification or waiter state
-   *     @param state_numberstudents student state or number of students in restaurant
+   *     @param firstInt student identification, waiter state or nPortions
+   *     @param secondInt student state, number of students in restaurant or nCourses
    */
 
-   public Message (int type, int id_state, int state_numberstudents)
+   public Message (int type, int firstInt, int secondInt)
    {
-      this.msgType=type;
-      if(msgType==MessageType.SAYGOODBYEDONE) {
-         this.waiterState= id_state;
-         this.numberOfStudentsInRest = state_numberstudents;
+      this.msgType = type;
+      if(msgType == MessageType.SAYGOODBYEDONE) 
+      {
+         this.waiterState = firstInt;
+         this.numberOfStudentsInRest = secondInt;
       }
-      else{
-         this.studentID= id_state;
-         this.studentState = state_numberstudents;
+      else if(msgType == MessageType.SETCOURSESPORTIONS)
+      {
+         this.nPortions = firstInt;
+         this.nCourses = secondInt;
+      }
+      else if(msgType == MessageType.SETSTATEPORTION)
+      {
+         this.chefState = firstInt;
+         this.nPortions = secondInt;
+      }
+      else
+      {
+         this.studentID = firstInt;
+         this.studentState = secondInt;
       }
    }
 
@@ -274,7 +286,7 @@ public class Message implements Serializable
       || (type == MessageType.GETFIRSTCOURSE) || (type == MessageType.FIRSTCOURSE) || (type == MessageType.PRCPRES) || (type == MessageType.PRESDONE)
       || (type == MessageType.PORDELIV) || (type == MessageType.PORDELIVDONE) || (type == MessageType.POREADY) || (type == MessageType.POREADYDONE)
       || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
-      || (type == MessageType.CLEANREQ) || (type == MessageType.CHEFWAIT) || (type == MessageType.CHEFWAITDONE) || (type == MessageType.ENDOP) || (type == MessageType.EOPDONE) || (type == MessageType.CLEAN))
+      || (type == MessageType.CLEANREQ) || (type == MessageType.CHEFWAIT) || (type == MessageType.CHEFWAITDONE) || (type == MessageType.ENDOP) || (type == MessageType.EOPDONE) || (type == MessageType.CLEAN) || (type == MessageType.CONTINUEPREP) || (type == MessageType.CONTINUEPREPDONE))
      { 
          this.chefState = state;
      }
@@ -340,6 +352,22 @@ public class Message implements Serializable
      this.studentState=state;
      this.requestType= type_req;
   }
+
+   /**
+   *  Message instantiation (form 11).
+   *     @param type message type
+   *     @param state chef state
+   *     @param nPortions portion number
+   *     @param nCourses course number
+   */
+   public Message (int type, int state, int nPortions, int nCourses)
+   {
+     this.msgType=type;
+     this.chefState = state;
+     this.nPortions = nPortions;
+     this.nCourses = nCourses;
+   }
+
 
   /**
    *  Getting message type.

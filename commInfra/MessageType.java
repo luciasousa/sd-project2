@@ -522,5 +522,34 @@ public class MessageType
   */
   public static final int SETSEAT = 102;
 
+  /**
+   *  Sets the number of courses and portions(request).
+   */
+  public static final int SETCOURSESPORTIONS = 103;
+
+  /**
+   *  Chef continues preparation (request).
+  */
+  public static final int CONTINUEPREP = 104;
+
+  /**
+   *  Chef continues preparation (reply).
+  */
+  public static final int CONTINUEPREPDONE = 105;
+
+  /**
+   *  Set chef state, course and portion
+  */
+  public static final int SETSTATECOURSEPORT = 106;
+
+  /**
+   *  Set student state and seat when leaving the restaurant
+  */
+  public static final int SETSTATELEAVE = 107;
+
+  /**
+   *  Set chef state and portion
+  */
+  public static final int SETSTATEPORTION = 108;
 
 }

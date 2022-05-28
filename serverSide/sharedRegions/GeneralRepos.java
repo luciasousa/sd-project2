@@ -125,8 +125,8 @@ public class GeneralRepos {
         if(chefState!=state){
             chefState = state;
             reportStatus();
+            System.out.printf("Set Chef: %d; %d\n", numberOfCourse, numberOfPortion);
         }
-        
    }
 
    /**
@@ -139,6 +139,7 @@ public class GeneralRepos {
         if(waiterState!=state){
             waiterState = state;
             reportStatus();
+            System.out.printf("Set Waiter: %d; %d\n", numberOfCourse, numberOfPortion);
         }
     }
 
@@ -149,17 +150,31 @@ public class GeneralRepos {
     */
     public synchronized void setStudentState (int studentID, int state)
     {
-        if(studentState[studentID]!=state){
+        if(studentState[studentID]!=state)
+        {
             studentState[studentID] = state;
             reportStatus();
+            System.out.printf("Set Student: %d; %d\n", numberOfCourse, numberOfPortion);
         }
     }
 
-    public synchronized void setChefWaiterStudentState (int cState, int wState, int sID, int sState){
-        if(studentState[sID]!=sState || waiterState!=wState || chefState!=cState){
+    /**
+    *   Set student, chef and waiter states.
+    *
+    *     @param cstate chef state
+    *     @param wstate waiter state
+    *     @param sID student id
+    *     @param sstate student state
+    */
+
+    public synchronized void setChefWaiterStudentState (int cState, int wState, int sID, int sState)
+    {
+        if(studentState[sID]!=sState || waiterState!=wState || chefState!=cState)
+        {
             studentState[sID] = sState;
             waiterState = wState;
             chefState = cState;
+            System.out.printf("Set All: %d; %d\n", numberOfCourse, numberOfPortion);
             reportStatus();
         }
     }
@@ -195,6 +210,55 @@ public class GeneralRepos {
     {
         numberOfPortion = nPortions;
         numberOfCourse = nCourses;
+    }
+
+    /**
+    *   Update chef state, numberOfPortions and numberOfCourses
+    *
+    *     @param state chef state
+    *     @param nPortions portion number
+    *     @param nCourses course number
+    */
+
+    public synchronized void setStatePortionsCourses(int state, int nPortions, int nCourses)
+    {
+        chefState = state;
+        numberOfPortion = nPortions;
+        numberOfCourse = nCourses;
+        reportStatus();
+        System.out.printf("Set Chef port course: %d; %d\n", numberOfCourse, numberOfPortion);
+    }
+
+    /**
+    *   Update chef state and numberOfPortions
+    *
+    *     @param state chef state
+    *     @param nPortions portion number
+    */
+
+    public synchronized void setStatePortions(int state, int nPortions)
+    {
+        chefState = state;
+        numberOfPortion = nPortions;
+        reportStatus();
+        System.out.printf("Set chef port: %d; %d\n", numberOfCourse, numberOfPortion);
+    }
+
+    /**
+    *   Update student state and seat
+    *
+    *     @param state chef state
+    *     @param id
+    */
+
+    public synchronized void setStudentStateAndLeave(int state, int id)
+    {
+        studentState[id] = state;
+        for(int i = 0; i < Constants.N; i++)
+        {
+            if(id == seatOrder[i]) seatOrder[i] = -1;
+        }
+        System.out.printf("Set student leave: %d; %d\n", numberOfCourse, numberOfPortion);
         reportStatus();
     }
 
@@ -317,8 +381,12 @@ public class GeneralRepos {
 
         for(int i = 0; i < seatNumber; i++)
         {
-            seats += String.format("\t%4d ", seatOrder[i]);
+            if(seatOrder[i] != -1)
+                seats += String.format("\t%4d ", seatOrder[i]);
+            else
+                seats += String.format("\t");
         }
+
         lineStatus += seats;
         log.writelnString (lineStatus);
         if (!log.close ())

@@ -250,6 +250,7 @@ public class Bar {
             chefProxy = (BarClientProxy) Thread.currentThread();
             chefProxy.setChefState(ChefStates.DLVPT);
             chefState = ((BarClientProxy) Thread.currentThread()).getChefState();
+            reposStub.setChefState(chefState);
             Request r = new Request(Constants.N, 'p');
             numberOfPendingServiceRequests += 1;
             try {
@@ -352,7 +353,7 @@ public class Bar {
             studentProxy[studentID] = (BarClientProxy) Thread.currentThread();
             studentProxy[studentID].setStudentState(StudentStates.GGHOM);
             int state = ((BarClientProxy) Thread.currentThread()).getStudentState();
-            reposStub.setStudentState(studentID, state);
+            reposStub.setStudentStateAndLeave(studentID, state);
             while(!clientsGoodbye[studentID])
             {
                 try {

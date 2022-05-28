@@ -91,13 +91,17 @@ public class KitchenInterface {
                                             throw new MessageException ("Invalid waiter state 20!", inMessage);
                                         break;
 
-            case MessageType.CHEFWAIT:    if(inMessage.getChefState() != ChefStates.DLVPT)
-                                        throw new MessageException ("Invalid chef state 24", inMessage);
-                                      break;   
+            case MessageType.CHEFWAIT:      if(inMessage.getChefState() != ChefStates.DLVPT)
+                                                throw new MessageException ("Invalid chef state 24", inMessage);
+                                            break;   
 
             case MessageType.PORTIONCOLLECT:    if((inMessage.getWaiterState () < WaiterStates.APPST) || (inMessage.getWaiterState () > WaiterStates.WTFPT))
-                                            throw new MessageException ("Invalid waiter state 19", inMessage);
-                                            break;  
+                                                    throw new MessageException ("Invalid waiter state 19", inMessage);
+                                                break;  
+
+            case MessageType.CONTINUEPREP:      if((inMessage.getChefState () < ChefStates.PRPCS) || (inMessage.getChefState () > ChefStates.DLVPT))
+                                                    throw new MessageException ("Invalid chef state 25", inMessage);
+                                                break;  
 
             case MessageType.SHUT:      // check nothing
                                         break;
@@ -121,6 +125,12 @@ public class KitchenInterface {
                                     outMessage = new Message (MessageType.CSPREP,
                                         ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
                                     break;
+
+            case MessageType.CONTINUEPREP:  ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+                                            kitchen.continuePreparation();
+                                            outMessage = new Message (MessageType.CONTINUEPREPDONE,
+                                                ((KitchenClientProxy) Thread.currentThread ()).getChefState ());
+                                            break;
 
             case MessageType.GETFIRSTCOURSE:    ((KitchenClientProxy) Thread.currentThread ()).setChefState (inMessage.getChefState ());
                                                 boolean firstCourse = kitchen.getFirstCourse();

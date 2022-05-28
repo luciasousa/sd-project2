@@ -237,11 +237,9 @@ public class Table
         wasInformed = false;
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
         studentProxy[studentID] = (TableClientProxy) Thread.currentThread();
-        //if(studentProxy[studentID].getStudentState() != StudentStates.CHTWC) {
         studentProxy[studentID].setStudentState(StudentStates.CHTWC);
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
         reposStub.setStudentState(studentID, state);
-        //}
         
         System.out.printf("student %d inform companion\n", studentID);
         wasInformed = true;
@@ -267,7 +265,6 @@ public class Table
     public synchronized void addUpOnesChoice() 
     {
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
-        int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
         System.out.printf("student %d has been informed\n", studentID);
         while(!wasInformed)
         {
@@ -309,11 +306,9 @@ public class Table
     public synchronized void getThePad() 
     { 
         waiterProxy = (TableClientProxy) Thread.currentThread();
-        //if(waiterProxy.getWaiterState() != WaiterStates.TKODR) {
         waiterProxy.setWaiterState(WaiterStates.TKODR);
         int state = waiterProxy.getWaiterState();
         reposStub.setWaiterState(state);
-        //}
         
         System.out.printf("waiter get the pad, state: %d\n", waiterProxy.getWaiterState());
         waiterHasThePad = true;
@@ -395,7 +390,6 @@ public class Table
     {
         numberOfPortionsEaten = 0;
         numberOfPortionsDelivered += 1;
-        reposStub.setNumberOfPortions(numberOfPortionsDelivered);
         hasEndedEating = false;
         System.out.printf("waiter is delivering the portion %d\n", numberOfPortionsDelivered);
         if(numberOfPortionsDelivered == Constants.N)
@@ -414,8 +408,6 @@ public class Table
             }
             numberOfPortionsDelivered = 0;
             if(numberOfCoursesDelivered < Constants.M - 1) numberOfCoursesDelivered += 1;
-            if(coursesCompleted) reposStub.setNumberOfPortionsAndCourses(numberOfPortionsDelivered, numberOfCoursesDelivered + 1);
-            else reposStub.setNumberOfPortionsAndCourses(numberOfPortionsDelivered, numberOfCoursesDelivered);
         }
     }
 

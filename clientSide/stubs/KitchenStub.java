@@ -482,7 +482,6 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
     /**
@@ -521,6 +520,36 @@ public class KitchenStub {
             System.exit (1);
         }
         com.close ();
-        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+    }
+
+    public void continuePreparation() 
+    {
+        // communication channel
+        ClientCom com = new ClientCom (serverHostName, serverPortNumb);
+        Message outMessage,        // outgoing message
+        inMessage;                 // incoming message
+        while (!com.open ())                                           // waits for a connection to be established
+        { try
+            { Thread.currentThread ().sleep ((long) (10));
+            }
+            catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.CONTINUEPREP, ((Chef) Thread.currentThread()).getChefState());
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType () != MessageType.CONTINUEPREPDONE)
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 19!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        if ((inMessage.getChefState () < ChefStates.PRPCS) || (inMessage.getChefState () > ChefStates.DLVPT))
+        { 
+            GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid chef state 3!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        com.close ();
     }
 }

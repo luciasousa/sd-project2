@@ -74,7 +74,7 @@ public class Chef extends Thread
         kitchenStub.startPreparation();
         do 
         {
-            if(!kitchenStub.getFirstCourse()) kitchenStub.startPreparation(); else kitchenStub.setFirstCourse(false);
+            if(!kitchenStub.getFirstCourse()) kitchenStub.continuePreparation(); else kitchenStub.setFirstCourse(false);
             System.out.println("proceed to presentation");
             kitchenStub.proceedToPresentation();
             System.out.println("alert waiter");

@@ -45,7 +45,7 @@ public class GeneralReposInterface
         Message outMessage = null;                                     // mensagem de resposta
 
         /* validation of the incoming message */
-
+        System.out.printf("Message type: %d\n",inMessage.getMsgType());
         switch (inMessage.getMsgType ())
         { 
         
@@ -89,9 +89,35 @@ public class GeneralReposInterface
                                                     throw new MessageException ("Invalid portion number!", inMessage);
                                                 break;
 
-            case MessageType.SETSEAT:  if ((inMessage.getSeatNumber() < 0 || inMessage.getSeatNumber() > Constants.N))
+            case MessageType.SETSEAT:   if ((inMessage.getSeatNumber() < 0 || inMessage.getSeatNumber() > Constants.N))
                                             throw new MessageException ("Invalid seat number!", inMessage);
                                         break;
+
+            case MessageType.SETCOURSESPORTIONS:    if ((inMessage.getNumberOfCourses() < 0 || inMessage.getNumberOfCourses() > Constants.M))
+                                                        throw new MessageException ("Invalid number of courses!", inMessage);
+                                                    else if((inMessage.getNumberOfPortions() < 0 || inMessage.getNumberOfPortions() > Constants.N))
+                                                        throw new MessageException ("Invalid number of portions!", inMessage);
+                                                    break;
+
+            case MessageType.SETSTATECOURSEPORT:    if(inMessage.getChefState() < ChefStates.PRPCS || inMessage.getChefState() > ChefStates.DLVPT)
+                                                        throw new MessageException ("Invalid chef state!", inMessage);
+                                                    else if ((inMessage.getNumberOfCourses() < 0 || inMessage.getNumberOfCourses() > Constants.M))
+                                                        throw new MessageException ("Invalid number of courses!", inMessage);
+                                                    else if((inMessage.getNumberOfPortions() < 0 || inMessage.getNumberOfPortions() > Constants.N))
+                                                        throw new MessageException ("Invalid number of portions!", inMessage);
+                                                    break;
+
+            case MessageType.SETSTATEPORTION:   if(inMessage.getChefState() < ChefStates.PRPCS || inMessage.getChefState() > ChefStates.DLVPT)
+                                                    throw new MessageException ("Invalid chef state!", inMessage);
+                                                else if((inMessage.getNumberOfPortions() < 0 || inMessage.getNumberOfPortions() > Constants.N))
+                                                    throw new MessageException ("Invalid number of portions!", inMessage);
+                                                break;
+
+            case MessageType.SETSTATELEAVE:     if(inMessage.getStudentState() < StudentStates.CHTWC || inMessage.getStudentState() > StudentStates.GGHOM)
+                                                    throw new MessageException ("Invalid student state 30!", inMessage);
+                                                else if ((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
+                                                    throw new MessageException ("Invalid student id!", inMessage);
+                                                break;
 
             case MessageType.SHUT:     // check nothing
                                         break;
@@ -135,6 +161,23 @@ public class GeneralReposInterface
             case MessageType.SETSEAT: repos.setSeatOrder(inMessage.getSeatNumber());
                                                 outMessage = new Message (MessageType.SACK);
                                                 break;
+
+            case MessageType.SETCOURSESPORTIONS:    repos.setNumberOfPortionsAndCourses(inMessage.getNumberOfPortions(), inMessage.getNumberOfCourses());
+                                                    outMessage = new Message (MessageType.SACK);
+                                                    break;
+
+            case MessageType.SETSTATECOURSEPORT:    repos.setStatePortionsCourses(inMessage.getChefState(), inMessage.getNumberOfPortions(), inMessage.getNumberOfCourses());
+                                                    outMessage = new Message (MessageType.SACK);
+                                                    break;
+
+            case MessageType.SETSTATEPORTION:   repos.setStatePortions(inMessage.getChefState(), inMessage.getNumberOfPortions());
+                                                outMessage = new Message (MessageType.SACK);
+                                                break;
+
+            case MessageType.SETSTATELEAVE:    repos.setStudentStateAndLeave(inMessage.getStudentState(), inMessage.getStudentID());
+                                                    outMessage = new Message (MessageType.SACK);
+                                                    break;
+                        
 
             case MessageType.SHUT:  repos.shutdown();
                                     outMessage = new Message (MessageType.SHUTDONE);
