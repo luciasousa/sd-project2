@@ -23,9 +23,9 @@ public class ClientChef {
 	 */
     public static void main(String[] args) {
         Chef chef;
-        KitchenStub kitchen;
-        BarStub bar;
-        GeneralReposStub generalRepos;
+        KitchenStub kitchenStub;
+        BarStub barStub;
+        GeneralReposStub generalReposStub;
         String kitchenServerName = "";
         String barServerName = "";
         String generalRepoServerName = "";
@@ -75,10 +75,10 @@ public class ClientChef {
 	        }
 
         
-        kitchen = new KitchenStub(kitchenServerName, kitchenServerPort);
-        bar = new BarStub(barServerName, barServerPort);
-        generalRepos = new GeneralReposStub(generalRepoServerName,generalRepoServerPort);
-        chef = new Chef(ChefStates.WAFOR, kitchen, bar);
+        kitchenStub = new KitchenStub(kitchenServerName, kitchenServerPort);
+        barStub = new BarStub(barServerName, barServerPort);
+        generalReposStub = new GeneralReposStub(generalRepoServerName,generalRepoServerPort);
+        chef = new Chef(ChefStates.WAFOR, kitchenStub, barStub);
 
         /*start thread*/
         chef.start();
@@ -90,8 +90,8 @@ public class ClientChef {
         catch (InterruptedException e) {}
         System.out.println("The Chef just terminated");
         System.out.println("End of the Simulation");
-		kitchen.shutdown ();
-        bar.shutdown();
-        generalRepos.shutdown ();
+		kitchenStub.shutdown ();
+        barStub.shutdown();
+        generalReposStub.shutdown ();
 	}
 }

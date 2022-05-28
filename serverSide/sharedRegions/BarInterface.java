@@ -177,11 +177,9 @@ public class BarInterface
 
             case MessageType.SAYGOODBYE:  ((BarClientProxy) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
                                           int studentID = inMessage.getRequest().getRequestID();
-                                          //System.out.printf("student id = %d\n", studentID);
                                           int numberOfStudentsInRest = bar.sayGoodbye(studentID);
-                                          //System.out.printf("number of students in restaurant = %d \n", numberOfStudentsInRest);
                                           outMessage = new Message (MessageType.SAYGOODBYEDONE,
-                                                  ((BarClientProxy) Thread.currentThread ()).getWaiterState (), numberOfStudentsInRest, "number of students in restaurant");
+                                                  ((BarClientProxy) Thread.currentThread ()).getWaiterState (), numberOfStudentsInRest);
                                           break; 
                                           
             case MessageType.ENDOP:     bar.endOperation();

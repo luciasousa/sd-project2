@@ -2,7 +2,6 @@ package commInfra;
 
 import java.io.*;
 
-import javax.xml.ws.AsyncHandler;
 
 import genclass.GenericIO;
 
@@ -70,7 +69,7 @@ public class Message implements Serializable
    private int seatNumber = -1;
 
    /**
-   *  Value of boolean
+   *  Boolean return value
    */
 
    private boolean boolVal = false;
@@ -79,7 +78,7 @@ public class Message implements Serializable
    *  Array of students order.
    */
 
-   private int[] arr = null;
+   private int[] arr_students = null;
 
 
   /**
@@ -138,19 +137,21 @@ public class Message implements Serializable
    *  Message instantiation (form 2).
    *
    *     @param type message type
-   *     @param id student identification
-   *     @param state student state
+   *     @param id_state student identification or waiter state
+   *     @param state_numberstudents student state or number of students in restaurant
    */
 
-   public Message (int type, int id, int state)
+   public Message (int type, int id_state, int state_numberstudents)
    {
-      //System.out.printf("ids: %d\n",id);
-      
       this.msgType=type;
-      this.studentID= id;
-      //System.out.printf("ids: %d\n",this.studentID);
-      this.studentState = state;
-      //System.out.printf("state: %d\n",this.studentState);
+      if(msgType==MessageType.SAYGOODBYEDONE) {
+         this.waiterState= id_state;
+         this.numberOfStudentsInRest = state_numberstudents;
+      }
+      else{
+         this.studentID= id_state;
+         this.studentState = state_numberstudents;
+      }
    }
 
    /**
@@ -161,14 +162,10 @@ public class Message implements Serializable
    *     @param state student state
    *     @param bool_val value of boolean
    */
-
   public Message (int type, int id, int state, boolean boolVal)
   {
-     //System.out.printf("ids: %d\n",id);
-     
      this.msgType=type;
      this.studentID= id;
-     //System.out.printf("ids: %d\n",this.studentID);
      this.studentState = state;
      this.boolVal = boolVal;
   }
@@ -179,44 +176,23 @@ public class Message implements Serializable
    *     @param type message type
    *     @param id student identification
    *     @param state student state
-   *     @param arr array of students by order of arrival
+   *     @param arr_students array of students by order of arrival
    */
-
-  public Message (int type, int id, int state, int[] arr)
+  public Message (int type, int id, int state, int[] arr_students)
   {
-     //System.out.printf("ids: %d\n",id);
-     
      this.msgType=type;
      this.studentID= id;
-     //System.out.printf("ids: %d\n",this.studentID);
      this.studentState = state;
-     this.arr = arr;
+     this.arr_students = arr_students;
   }
 
   /**
    *  Message instantiation (form 5).
    *
    *     @param type message type
-   *     @param state waiter state
-   *     @param numberOfStudentsInRest number of students in restaurant
-   *     @param c string to distingish message
-   */
-  public Message (int type,int state, int numberOfStudentsInRest, String c){
-      this.msgType=type;
-      this.waiterState= state;
-      //System.out.printf("ids: %d\n",this.studentID);
-      this.numberOfStudentsInRest = numberOfStudentsInRest;
-      this.c = c;
-  }
-
-  /**
-   *  Message instantiation (form 6).
-   *
-   *     @param type message type
-   *     @param state waiter state
+   *     @param state waiter state or chef state
    *     @param request request
    */
-
   public Message (int type, int state, Request request)
   {
      this.msgType=type;
@@ -244,19 +220,15 @@ public class Message implements Serializable
   }
 
   /**
-   *  Message instantiation (form 7).
+   *  Message instantiation (form 6).
    *
    *     @param type message type
-   *     @param state chef state
-   *     @param boolVal boolean value
+   *     @param state chef state or waiter state
+   *     @param boolVal boolean return value
    */
-
   public Message (int type, int state, Boolean boolVal)
   {
-     //System.out.printf("ids: %d\n",id);
-     
      this.msgType=type;
-     //System.out.printf("ids: %d\n",this.studentID);
      if ((type == MessageType.SETWAITERSTATE) || (type == MessageType.SALUTECLIENTREQ) || (type == MessageType.SALUTECLIENT) 
       || (type == MessageType.GETPADREQ) || (type == MessageType.GETPAD) || (type == MessageType.HVCLIENTSBEENSRVREQ) || (type == MessageType.HVCLIENTSBEENSRV)
       || (type == MessageType.DELVPTREQ) || (type == MessageType.DELVPT) || (type == MessageType.PRESBILLREQ) || (type == MessageType.PRESBILL)
@@ -279,10 +251,10 @@ public class Message implements Serializable
   }
 
    /**
-   *  Message instantiation (form 8).
+   *  Message instantiation (form 7).
    *
    *     @param type message type
-   *     @param state chef/waiter state
+   *     @param state chef state or waiter state
    */
   public Message (int type, int state)
   {
@@ -320,10 +292,8 @@ public class Message implements Serializable
      }
   }
 
-
-
   /**
-   *  Message instantiation (form 9).
+   *  Message instantiation (form 8).
    *
    *     @param type message type
    *     @param studentID student identification
@@ -342,13 +312,12 @@ public class Message implements Serializable
    }
 
   /**
-   *  Message instantiation (form 10).
+   *  Message instantiation (form 9).
    *
    *     @param type message type
    *     @param name name of the logging file
    *     @param nIter number of iterations of the student life cycle
    */
-
    public Message (int type, String name, int nIter)
    {
       this.msgType = type;
@@ -357,13 +326,12 @@ public class Message implements Serializable
    }
 
    /**
-   *  Message instantiation (form 11).
+   *  Message instantiation (form 10).
    *     @param type message type
    *     @param id request id
    *     @param state student state
    *     @param type_req request type 
    */
-
   public Message (int type,int id,int state, char type_req)
   {
      this.msgType=type;
@@ -440,20 +408,20 @@ public class Message implements Serializable
    }
 
    /**
-   *  Getting array flag.
+   *  Getting array of students by order of arrival.
    *
-   *     @return end of operations flag
+   *     @return array of students by order of arrival
    */
 
-  public int[] getArr ()
+  public int[] getArrStudents ()
   {
-     return (this.arr);
+     return (this.arr_students);
   }
 
    /**
-   *  Getting boolean value flag.
+   *  Getting boolean return value.
    *
-   *     @return boolean value flag
+   *     @return boolean return value
    */
    public boolean getBoolVal()
    {

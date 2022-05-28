@@ -24,8 +24,8 @@ public class ClientStudent {
     public static void main(String[] args) {
         Student[] student = new Student[Constants.N];
         
-        TableStub table;
-        BarStub bar;
+        TableStub tableStub;
+        BarStub barStub;
         GeneralReposStub generalRepos;
         String tableServerName = "";
         String barServerName = "";
@@ -75,11 +75,11 @@ public class ClientStudent {
 	          System.exit (1);
 	        }
 
-        table = new TableStub(tableServerName, tableServerPort);
-        bar = new BarStub(barServerName, barServerPort);
+        tableStub = new TableStub(tableServerName, tableServerPort);
+        barStub = new BarStub(barServerName, barServerPort);
         generalRepos = new GeneralReposStub(generalRepoServerName,generalRepoServerPort);
         for (int i = 0; i < Constants.N; i++)
-            student[i] = new Student(i,StudentStates.GGTRT, table, bar);
+            student[i] = new Student(i,StudentStates.GGTRT, tableStub, barStub);
 
         /*start thread*/
         for (int i = 0; i < Constants.N; i++) student[i].start();
@@ -94,8 +94,8 @@ public class ClientStudent {
             System.out.println("The Student "+(i)+" just terminated");
         }
         System.out.println("End of Simulation");
-        table.shutdown ();
-        bar.shutdown();
+        tableStub.shutdown ();
+        barStub.shutdown();
         generalRepos.shutdown ();
 	}
 }

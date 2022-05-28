@@ -28,16 +28,6 @@ public class BarStub {
     private int serverPortNumb;
 
     /**
-    *  Array of students by order of arrival.
-    */
-    private int [] students;
-
-    /**
-    *  Counter of the students arriving to the restaurant.
-    */
-    private int studentsCounter = 0;
-
-    /**
     *  Instantiation of a remote reference
     *
     *    @param hostName name of the computational system where the server is located
@@ -47,7 +37,6 @@ public class BarStub {
     {
        serverHostName = hostName;
        serverPortNumb = port;
-       students = new int[Constants.N];
     }
 
     /**
@@ -111,18 +100,13 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
         outMessage = new Message (MessageType.ENTERSTUDENT, ((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState(), 'c');
-        //System.out.println("out message");
-        //System.out.printf("id student: %d\n",outMessage.getStudentID());
         com.writeObject (outMessage);
-        students[studentsCounter] = ((Student) Thread.currentThread()).getStudentID();
-        studentsCounter++;
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType () != MessageType.STUDENTENTERED)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 2!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        //System.out.printf("state student in: %d\n",inMessage.getStudentState());
         if ((inMessage.getStudentState () < StudentStates.GGTRT) || (inMessage.getStudentState () > StudentStates.TKSTT))
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 1!");
             GenericIO.writelnString (inMessage.toString ());
@@ -132,7 +116,7 @@ public class BarStub {
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
 
-        return students;
+        return inMessage.getArrStudents();
     }
 
     /**
@@ -154,17 +138,14 @@ public class BarStub {
             catch (InterruptedException e) {}
         }
 
-        //criar message type
         outMessage = new Message(MessageType.CALLWAITER,((Student) Thread.currentThread()).getStudentID(),((Student) Thread.currentThread()).getStudentState(), 'o');
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        //criar message type
         if (inMessage.getMsgType () != MessageType.WAITERCALLED)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 3!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        //TODO: ver este if
         if (inMessage.getStudentState () != StudentStates.OGODR)
             { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid student state 2!");
             GenericIO.writelnString (inMessage.toString ());

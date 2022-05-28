@@ -162,7 +162,9 @@ public class Bar {
             studentID = (((BarClientProxy) Thread.currentThread()).getStudentID());
             studentProxy[studentID] = (BarClientProxy) Thread.currentThread();
             studentProxy[studentID].setStudentState(StudentStates.TKSTT);
+            reposStub.setSeatOrder(studentID);
             studentState = (((BarClientProxy) Thread.currentThread()).getStudentState());
+            reposStub.setStudentState(studentID, studentState);
             System.out.printf("student %d enters\n", studentID);
             try {
                 arrivalQueue.write(studentID);
@@ -170,6 +172,7 @@ public class Bar {
                 e1.printStackTrace();
             }
             studentsArrival[numberOfStudentsInRestaurant] = studentID;
+            System.out.printf("studentsArrival[%d] = %d\n", numberOfStudentsInRestaurant, studentsArrival[numberOfStudentsInRestaurant]);
             numberOfStudentsInRestaurant++;
             Request r = new Request(studentID, 'c');
             numberOfPendingServiceRequests++;
@@ -315,9 +318,9 @@ public class Bar {
      */
     public synchronized void prepareTheBill() 
     {
-        int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
         waiterProxy = (BarClientProxy) Thread.currentThread();
         waiterProxy.setWaiterState(WaiterStates.PRCBL);
+        int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
         reposStub.setWaiterState(state);
         System.out.println("waiter preparing the bill");
     }

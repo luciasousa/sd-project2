@@ -25,9 +25,9 @@ public class ClientWaiter {
    */
     public static void main(String[] args) {
         Waiter waiter;
-        KitchenStub kitchen;
-        TableStub table;
-        BarStub bar;
+        KitchenStub kitchenStub;
+        TableStub tableStub;
+        BarStub barStub;
         GeneralReposStub generalRepos;
         String kitchenServerName = "";
         String tableServerName = "";
@@ -92,11 +92,11 @@ public class ClientWaiter {
 	        }
 
         
-        kitchen = new KitchenStub(kitchenServerName, kitchenServerPort);
-        table = new TableStub(tableServerName, tableServerPort);
-        bar = new BarStub(barServerName, barServerPort);
+        kitchenStub = new KitchenStub(kitchenServerName, kitchenServerPort);
+        tableStub = new TableStub(tableServerName, tableServerPort);
+        barStub = new BarStub(barServerName, barServerPort);
         generalRepos = new GeneralReposStub(generalRepoServerName,generalRepoServerPort);
-        waiter = new Waiter(WaiterStates.APPST, bar, kitchen, table);
+        waiter = new Waiter(WaiterStates.APPST, barStub, kitchenStub, tableStub);
 
         /*start thread*/
         waiter.start();
@@ -107,9 +107,9 @@ public class ClientWaiter {
         } catch (InterruptedException e) {}
         System.out.println("The Waiter just terminated");
 		System.out.println("End of Simulation");
-		table.shutdown ();
-        bar.shutdown();
-		kitchen.shutdown();
+		tableStub.shutdown ();
+        barStub.shutdown();
+		kitchenStub.shutdown();
         generalRepos.shutdown ();
 	}
 }

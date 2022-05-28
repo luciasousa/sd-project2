@@ -122,8 +122,11 @@ public class GeneralRepos {
     */
     public synchronized void setChefState (int state)
     {
-        chefState = state;
-        reportStatus();
+        if(chefState!=state){
+            chefState = state;
+            reportStatus();
+        }
+        
    }
 
    /**
@@ -133,8 +136,10 @@ public class GeneralRepos {
     */
     public synchronized void setWaiterState (int state)
     {
-        waiterState = state;
-        reportStatus();
+        if(waiterState!=state){
+            waiterState = state;
+            reportStatus();
+        }
     }
 
    /**
@@ -144,15 +149,19 @@ public class GeneralRepos {
     */
     public synchronized void setStudentState (int studentID, int state)
     {
-        studentState[studentID] = state;
-        reportStatus();
+        if(studentState[studentID]!=state){
+            studentState[studentID] = state;
+            reportStatus();
+        }
     }
 
     public synchronized void setChefWaiterStudentState (int cState, int wState, int sID, int sState){
-        chefState = cState;
-        waiterState = wState;
-        studentState[sID] = sState;
-        reportStatus();
+        if(studentState[sID]!=sState || waiterState!=wState || chefState!=cState){
+            studentState[sID] = sState;
+            waiterState = wState;
+            chefState = cState;
+            reportStatus();
+        }
     }
 
    /**
