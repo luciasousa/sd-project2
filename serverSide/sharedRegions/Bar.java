@@ -51,12 +51,12 @@ public class Bar {
     /**
      *   Reference to the table.
      */
-    private TableStub table;
+    private TableStub tableStub;
 
     /**
      *   Reference to the kitchen.
      */
-    private KitchenStub kitchen;
+    private KitchenStub kitchenStub;
 
     /**
      *   Reference to the general repository.
@@ -79,7 +79,7 @@ public class Bar {
      *
      *    @param reposStub reference to the General Information Repository Stub
      */
-    public Bar(GeneralReposStub reposStub, TableStub table, KitchenStub kitchen)
+    public Bar(GeneralReposStub reposStub, TableStub tableStub, KitchenStub kitchenStub)
     {
         try {
             pendingServiceRequests = new MemFIFO(new Request[Constants.N+1]);
@@ -94,8 +94,8 @@ public class Bar {
             e.printStackTrace();
         }
         this.reposStub = reposStub;
-        this.table = table;
-        this.kitchen = kitchen;
+        this.tableStub = tableStub;
+        this.kitchenStub = kitchenStub;
         studentProxy = new BarClientProxy[Constants.N];
         for(int i = 0; i < Constants.N; i++){
             studentProxy[i] = null;
@@ -183,7 +183,7 @@ public class Bar {
             }
             notifyAll();
         }
-        table.takeASeat(studentID, studentState);
+        tableStub.takeASeat(studentID, studentState);
         return studentsArrival;
     }
 
@@ -229,7 +229,7 @@ public class Bar {
             }
             notifyAll();
         }
-        table.waitForPad(studentID, studentState);
+        tableStub.waitForPad(studentID, studentState);
     }
 
     /**
@@ -260,7 +260,7 @@ public class Bar {
             notifyAll();
             System.out.println("chef alerts the waiter");
         }
-        kitchen.chefWaitForCollection(chefState);
+        kitchenStub.chefWaitForCollection(chefState);
     }
 
     /**
@@ -281,7 +281,7 @@ public class Bar {
             state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
             reposStub.setWaiterState(state);
         }
-        kitchen.portionHasBeenCollected(state);
+        kitchenStub.portionHasBeenCollected(state);
     }
 
     /**
