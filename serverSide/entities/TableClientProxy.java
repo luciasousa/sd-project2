@@ -153,7 +153,7 @@ public class TableClientProxy extends Thread implements ChefCloning, WaiterCloni
      */
     public void setWaiterState(int state)
     {
-        waiterState = state;
+        this.waiterState = state;
     }
 
     /**
@@ -163,7 +163,7 @@ public class TableClientProxy extends Thread implements ChefCloning, WaiterCloni
      */
     public int getWaiterState()
     {
-        return waiterState;
+        return this.waiterState;
     }
 
     /**

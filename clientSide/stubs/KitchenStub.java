@@ -51,10 +51,12 @@ public class KitchenStub {
             }
             catch (InterruptedException e) {}
         }
-
+        
         outMessage = new Message (MessageType.WAFOR, ((Chef) Thread.currentThread()).getChefState());
         com.writeObject (outMessage);
+        System.out.printf("out message type: %d\n",outMessage.getMsgType());
         inMessage = (Message) com.readObject ();
+        System.out.printf("in message type: %d\n",inMessage.getMsgType());
         if (inMessage.getMsgType () != MessageType.ORDERDONE)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 18!");
@@ -67,8 +69,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
         com.close ();
-        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
     }
 
     /**
@@ -103,8 +105,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        com.close ();
     }
 
     /**
@@ -142,8 +144,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
         com.close ();
-        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
         return (inMessage.getBoolVal());
     }
@@ -181,8 +183,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        com.close ();
 
     }
 
@@ -220,8 +222,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
         com.close ();
-        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
         return (inMessage.getBoolVal());
     }
@@ -258,8 +260,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        com.close ();
 
     }
 
@@ -297,8 +299,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
         com.close ();
-        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
     }
 
@@ -336,8 +338,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
         com.close ();
-        //((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
 
         return (inMessage.getBoolVal());
     }
@@ -374,8 +376,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Chef) Thread.currentThread ()).setChefState (inMessage.getChefState ());
+        com.close ();
     }
 
     /**
@@ -410,8 +412,8 @@ public class KitchenStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**

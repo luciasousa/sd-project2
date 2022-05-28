@@ -92,47 +92,63 @@ public class Student extends Thread
      */
     public void run() 
     {
-        //System.out.println("student walk a bit");
+        System.out.println("student walk a bit");
         walkABit();
-        //System.out.println("student enter");
+        System.out.println("student enter");
         int[] orderOfArrival = barStub.enter();
-        //System.out.println("student read menu");
+        System.out.println("student read menu");
         tableStub.readMenu();
         if (orderOfArrival[0] != studentID){
             tableStub.informCompanion();
-            //System.out.printf("student %d inform companion left the talk\n",studentID);
+            System.out.printf("student %d inform companion left the talk\n",studentID);
         } 
         else
         {
+            System.out.printf("student %d prepare order\n", studentID);
             tableStub.prepareTheOrder();
-            while(!tableStub.hasEverybodyChosen()) 
+            while(!tableStub.hasEverybodyChosen()) {
+                System.out.printf("student %d add up ones choice\n", studentID);
                 tableStub.addUpOnesChoice();
-            //System.out.println("student is going to call the waiter");
+            }
+            System.out.println("student is going to call the waiter");
             barStub.callWaiter();
+            System.out.printf("student %d describe order\n", studentID);
             tableStub.describeTheOrder();
+            System.out.printf("student %d join talk\n", studentID);
             tableStub.joinTheTalk();
         }
         
         for(int i=0; i< Constants.M; i++)
         {
+            System.out.printf("student %d start eating\n", studentID);
             tableStub.startEating();
+            System.out.printf("student %d end eating\n", studentID);
             tableStub.endEating();
             //wait for everyone to finish
-            if(!tableStub.hasEverybodyFinished())
+            if(!tableStub.hasEverybodyFinished()){
+                System.out.printf("student %d wait for everyone to finish\n", studentID);
                 tableStub.waitForEverybodyToFinish();
-            
+            }
+            System.out.printf("student %d wait for course\n", studentID);
             tableStub.waitForCourseToBeReady();
         }
 
-        if(orderOfArrival[Constants.N-1] != studentID) tableStub.waitForPayment();
+        if(orderOfArrival[Constants.N-1] != studentID){
+            System.out.printf("student %d wait for payment\n", studentID);
+            tableStub.waitForPayment();
+        }
+            
         
         if(orderOfArrival[Constants.N-1] == studentID) 
         {
-            //System.out.println("last student is paying the bill");
+            System.out.printf("last student %d signal waiter\n", studentID);
             barStub.signalTheWaiter();
+            System.out.printf("last student %d should have arrived earlier\n", studentID);
             tableStub.shouldHaveArrivedEarlier();
+            System.out.printf("last student %d honour the bill\n", studentID);
             tableStub.honourTheBill();
         }
+        System.out.printf("student %d exit\n", studentID);
         barStub.exit();
     }
 

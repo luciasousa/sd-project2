@@ -154,7 +154,7 @@ public class BarClientProxy extends Thread implements ChefCloning, WaiterCloning
      */
     public void setWaiterState(int state)
     {
-        waiterState = state;
+        this.waiterState = state;
     }
 
     /**
@@ -164,7 +164,7 @@ public class BarClientProxy extends Thread implements ChefCloning, WaiterCloning
      */
     public int getWaiterState()
     {
-        return waiterState;
+        return this.waiterState;
     }
 
     /**

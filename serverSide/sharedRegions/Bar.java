@@ -129,11 +129,11 @@ public class Bar {
     public synchronized Request lookAround() 
     {
         waiterProxy = (BarClientProxy) Thread.currentThread();
-        if(waiterProxy.getWaiterState() != WaiterStates.APPST) {
-            waiterProxy.setWaiterState(WaiterStates.APPST);
-            int state = waiterProxy.getWaiterState();
-            reposStub.setWaiterState(state);
-        }
+        //if(waiterProxy.getWaiterState() != WaiterStates.APPST) {
+        waiterProxy.setWaiterState(WaiterStates.APPST);
+        int state = waiterProxy.getWaiterState();
+        reposStub.setWaiterState(state);
+        //}
         System.out.println("waiter looking");
         while(numberOfPendingServiceRequests == 0) {
             try {
@@ -173,12 +173,12 @@ public class Bar {
             
             studentID = (((BarClientProxy) Thread.currentThread()).getStudentID());
             studentProxy[studentID] = (BarClientProxy) Thread.currentThread();
-            if(studentProxy[studentID].getStudentState() != StudentStates.TKSTT) {
-                studentProxy[studentID].setStudentState(StudentStates.TKSTT);
-                studentState = (((BarClientProxy) Thread.currentThread()).getStudentState());
-                reposStub.setStudentState(studentID,studentState);
-            }
+            //if(studentProxy[studentID].getStudentState() != StudentStates.TKSTT) {
+            studentProxy[studentID].setStudentState(StudentStates.TKSTT);
             studentState = (((BarClientProxy) Thread.currentThread()).getStudentState());
+            reposStub.setStudentState(studentID,studentState);
+            //}
+            //studentState = (((BarClientProxy) Thread.currentThread()).getStudentState());
             System.out.printf("student %d enters\n", studentID);
             try {
                 arrivalQueue.write(studentID);
@@ -211,11 +211,11 @@ public class Bar {
         System.out.println("waiter is returning to bar");
         waiterProxy = (BarClientProxy) Thread.currentThread();
         
-        if(waiterProxy.getWaiterState() != WaiterStates.APPST) {
-            waiterProxy.setWaiterState(WaiterStates.APPST);
-            int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
-            reposStub.setWaiterState(state);
-        }
+        //if(waiterProxy.getWaiterState() != WaiterStates.APPST) {
+        waiterProxy.setWaiterState(WaiterStates.APPST);
+        int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
+        reposStub.setWaiterState(state);
+        //}
     }
 
     /**
@@ -264,12 +264,12 @@ public class Bar {
         {
             //chef's ID is equal to the number of students
             chefProxy = (BarClientProxy) Thread.currentThread();
-            if(chefProxy.getChefState() != ChefStates.DLVPT) {
-                chefProxy.setChefState(ChefStates.DLVPT);
-                chefState = ((BarClientProxy) Thread.currentThread()).getChefState();
-                reposStub.setChefState(chefState);
-            }
+            //if(chefProxy.getChefState() != ChefStates.DLVPT) {
+            chefProxy.setChefState(ChefStates.DLVPT);
             chefState = ((BarClientProxy) Thread.currentThread()).getChefState();
+            reposStub.setChefState(chefState);
+            //}
+            //chefState = ((BarClientProxy) Thread.currentThread()).getChefState();
             Request r = new Request(Constants.N, 'p');
             numberOfPendingServiceRequests += 1;
             try {
@@ -298,10 +298,10 @@ public class Bar {
         {
             state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
             waiterProxy = (BarClientProxy) Thread.currentThread();
-            if(waiterProxy.getWaiterState() != WaiterStates.WTFPT) {
-                waiterProxy.setWaiterState(WaiterStates.WTFPT);
-                reposStub.setWaiterState(state);
-            }
+            //if(waiterProxy.getWaiterState() != WaiterStates.WTFPT) {
+            waiterProxy.setWaiterState(WaiterStates.WTFPT);
+            reposStub.setWaiterState(state);
+            //}
         }
         kitchen.portionHasBeenCollected(state);
     }
@@ -342,10 +342,10 @@ public class Bar {
     {
         int state = ((BarClientProxy) Thread.currentThread()).getWaiterState();
         waiterProxy = (BarClientProxy) Thread.currentThread();
-        if(waiterProxy.getWaiterState() != WaiterStates.PRCBL) {
-            waiterProxy.setWaiterState(WaiterStates.PRCBL);
-            reposStub.setWaiterState(state);
-        }
+        //if(waiterProxy.getWaiterState() != WaiterStates.PRCBL) {
+        waiterProxy.setWaiterState(WaiterStates.PRCBL);
+        reposStub.setWaiterState(state);
+        //}
         System.out.println("waiter preparing the bill");
     }
 
@@ -375,11 +375,11 @@ public class Bar {
             }
             notifyAll();
             studentProxy[studentID] = (BarClientProxy) Thread.currentThread();
-            if(studentProxy[studentID].getStudentState() != StudentStates.GGHOM) {
-                studentProxy[studentID].setStudentState(StudentStates.GGHOM);
-                studentState = ((BarClientProxy) Thread.currentThread()).getStudentState();
-                reposStub.setStudentState(studentID,studentState);
-            }
+            //if(studentProxy[studentID].getStudentState() != StudentStates.GGHOM) {
+            studentProxy[studentID].setStudentState(StudentStates.GGHOM);
+            studentState = ((BarClientProxy) Thread.currentThread()).getStudentState();
+            reposStub.setStudentState(studentID,studentState);
+            //}
             while(!clientsGoodbye[studentID])
             {
                 try {
@@ -439,7 +439,7 @@ public class Bar {
     public synchronized void shutdown ()
     {
         nEntities += 1;
-        if (nEntities >= Constants.N + 1)
+        if (nEntities >= Constants.EB)
             ServerBar.waitConnection = false;
         notifyAll ();                                        // the bar may now terminate
     }

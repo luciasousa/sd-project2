@@ -14,7 +14,22 @@ public class Constants {
     public static final int M = 3;
 
     /**
-     *   Number of entities requesting shutdown.
+     *   Number of entities requesting shutdown of bar.
      */
-    public static final int E = 7;
+    public static final int EB = 3;
+
+    /**
+     *   Number of entities requesting shutdown of table.
+     */
+    public static final int ET = 1;
+
+    /**
+     *   Number of entities requesting shutdown of kitchen.
+     */
+    public static final int EK = 2;
+
+    /**
+     *   Number of entities requesting shutdown of general repository.
+     */
+    public static final int EGR = 3;
 }

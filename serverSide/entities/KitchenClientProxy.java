@@ -152,7 +152,7 @@ public class KitchenClientProxy extends Thread implements ChefCloning, WaiterClo
      */
     public void setWaiterState(int state)
     {
-        waiterState = state;
+        this.waiterState = state;
     }
 
     /**
@@ -162,7 +162,7 @@ public class KitchenClientProxy extends Thread implements ChefCloning, WaiterClo
      */
     public int getWaiterState()
     {
-        return waiterState;
+        return this.waiterState;
     }
 
     /**

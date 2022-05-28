@@ -109,11 +109,11 @@ public class Kitchen
     public synchronized void watchTheNews() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.WAFOR) {
-            chefProxy.setChefState(ChefStates.WAFOR);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.WAFOR) {
+        chefProxy.setChefState(ChefStates.WAFOR);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         System.out.println("chef watches the news");
         while(!isNoteAvailable)
         {
@@ -136,13 +136,14 @@ public class Kitchen
      */
     public synchronized void handTheNoteToChef() 
     {
-        waiterProxy = (KitchenClientProxy) Thread.currentThread();
-        if(waiterProxy.getWaiterState() != WaiterStates.PCODR) {
-            waiterProxy.setWaiterState(WaiterStates.PCODR);
-            int state = waiterProxy.getWaiterState();
-            reposStub.setWaiterState(state);
-        }
         System.out.println("waiter hands the note to chef");
+        waiterProxy = (KitchenClientProxy) Thread.currentThread();
+        //if(waiterProxy.getWaiterState() != WaiterStates.PCODR) {
+        waiterProxy.setWaiterState(WaiterStates.PCODR);
+        int state = waiterProxy.getWaiterState();
+        reposStub.setWaiterState(state);
+        //}
+        
         this.numberOfCoursesToDeliver = Constants.M;
         this.numberOfPortionsToDeliver = Constants.N;
         isNoteAvailable = true;
@@ -166,11 +167,11 @@ public class Kitchen
     public synchronized void chefWaitForCollection() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.DLVPT) {
-            chefProxy.setChefState(ChefStates.DLVPT);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.DLVPT) {
+        chefProxy.setChefState(ChefStates.DLVPT);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         
         System.out.println("chef waits for waiter to collect portion");
         while(!portionCollected)
@@ -207,11 +208,11 @@ public class Kitchen
     public synchronized void startPreparation() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.PRPCS) {
-            chefProxy.setChefState(ChefStates.PRPCS);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.PRPCS) {
+        chefProxy.setChefState(ChefStates.PRPCS);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         
         numberOfCoursesToDeliver--;
         System.out.printf("chef starts preparation\n");
@@ -228,11 +229,11 @@ public class Kitchen
     public synchronized void proceedToPresentation() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.DSHPT) {
-            chefProxy.setChefState(ChefStates.DSHPT);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.DSHPT) {
+        chefProxy.setChefState(ChefStates.DSHPT);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         
         if(numberOfPortionsToDeliver!=0) numberOfPortionsToDeliver--;
         else numberOfPortionsToDeliver=Constants.N-1;
@@ -272,11 +273,11 @@ public class Kitchen
     public synchronized void haveNextPortionReady() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.DSHPT) {
-            chefProxy.setChefState(ChefStates.DSHPT);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.DSHPT) {
+        chefProxy.setChefState(ChefStates.DSHPT);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         
         numberOfPortionsToDeliver--;
         System.out.printf("chef have next portion ready course %d, portion %d\n",numberOfCoursesToDeliver,numberOfPortionsToDeliver);
@@ -291,11 +292,11 @@ public class Kitchen
     public synchronized void continuePreparation() 
     {
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.PRPCS) {
-            chefProxy.setChefState(ChefStates.PRPCS);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.PRPCS) {
+        chefProxy.setChefState(ChefStates.PRPCS);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         
         numberOfCoursesToDeliver--;
         numberOfPortionsToDeliver = Constants.N;
@@ -312,11 +313,11 @@ public class Kitchen
     {
         System.out.println("chef cleans up");
         chefProxy = (KitchenClientProxy) Thread.currentThread();
-        if(chefProxy.getChefState() != ChefStates.CLSSV) {
-            chefProxy.setChefState(ChefStates.CLSSV);
-            int state = chefProxy.getChefState();
-            reposStub.setChefState(state);
-        }
+        //if(chefProxy.getChefState() != ChefStates.CLSSV) {
+        chefProxy.setChefState(ChefStates.CLSSV);
+        int state = chefProxy.getChefState();
+        reposStub.setChefState(state);
+        //}
         
     }
 
@@ -348,7 +349,7 @@ public class Kitchen
     public synchronized void shutdown ()
     {
         nEntities += 1;
-        if (nEntities >= 1)
+        if (nEntities >= Constants.EK)
             ServerKitchen.waitConnection = false;
         notifyAll ();                                        // the kitchen may now terminate
     }

@@ -129,8 +129,8 @@ public class BarStub {
             System.exit (1);
             }
         
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
 
         return students;
     }
@@ -170,8 +170,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -206,8 +206,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -241,8 +241,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     }
 
     /**
@@ -277,8 +277,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
         com.close ();
-        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
         //System.out.printf("Request from message: id %d type %c\n",(inMessage.getRequest()).getRequestID(),(inMessage.getRequest()).getRequestType());
         return inMessage.getRequest();
     }
@@ -309,8 +309,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**
@@ -344,8 +344,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**
@@ -379,8 +379,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**
@@ -415,8 +415,8 @@ public class BarStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
             }
+        ((Waiter) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
         com.close ();
-        //((Waiter) Thread.currentThread ()).setWaiterState(inMessage.getWaiterState ());
 
         return inMessage.getNumberOfStudentsInRestaurant();
     }

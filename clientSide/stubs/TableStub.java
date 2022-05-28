@@ -106,8 +106,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     }
 
     /**
@@ -142,8 +142,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     }
 
     /**
@@ -180,8 +180,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         return inMessage.getBoolVal();
     }
 
@@ -217,8 +217,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -253,8 +253,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -289,8 +289,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     }
 
     /**
@@ -325,8 +325,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     } 
     
     /**
@@ -362,8 +362,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     } 
 
     /**
@@ -400,8 +400,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         return inMessage.getBoolVal();
     }
 
@@ -422,10 +422,10 @@ public class TableStub {
             }
             catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.EVBDFINISHREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
+        outMessage = new Message (MessageType.WAITEVBDFINISHREQ,((Student) Thread.currentThread()).getStudentID(), ((Student) Thread.currentThread()).getStudentState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        if (inMessage.getMsgType () != MessageType.EVBDFINISH)
+        if (inMessage.getMsgType () != MessageType.WAITEVBDFINISH)
         { 
             GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 41!");
             GenericIO.writelnString (inMessage.toString ());
@@ -437,8 +437,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -473,8 +473,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -509,8 +509,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -545,8 +545,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+        com.close ();
     }
 
     /**
@@ -581,8 +581,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
         com.close ();
-        //((Student) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
     }
 
     /**
@@ -618,8 +618,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**
@@ -654,8 +654,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**
@@ -692,8 +692,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
         com.close ();
-        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     
         return (inMessage.getBoolVal());
     }
@@ -730,8 +730,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
+        ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
         com.close ();
-        //((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
     }
 
     /**
@@ -766,8 +766,8 @@ public class TableStub {
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
         }
-        com.close ();
         ((Waiter) Thread.currentThread ()).setWaiterState (inMessage.getWaiterState ());
+        com.close ();
     }
 
     /**

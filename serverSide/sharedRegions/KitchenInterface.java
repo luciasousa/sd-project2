@@ -49,7 +49,8 @@ public class KitchenInterface {
 
         switch(inMessage.getMsgType())
         {
-            case MessageType.WAFOR:     if (inMessage.getChefState () != ChefStates.WAFOR)
+            case MessageType.WAFOR:     System.out.println("here");
+                                        if (inMessage.getChefState () != ChefStates.WAFOR)
                                           throw new MessageException ("Invalid chef state 15!", inMessage);
                                         break;
 

@@ -497,5 +497,15 @@ public class MessageType
    */
   public static final int EOPDONE = 97;
 
+  /**
+   *  Wait everybody to finish (request).
+   */
+  public static final int WAITEVBDFINISHREQ = 98;
+
+  /**
+   *  Wait everybody to finish (reply).
+   */
+  public static final int WAITEVBDFINISH = 99;
+
 
 }

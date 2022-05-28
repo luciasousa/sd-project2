@@ -107,6 +107,12 @@ public class TableInterface {
                                                 throw new MessageException ("Invalid student state 37", inMessage);
                                             break;
 
+            case MessageType.WAITEVBDFINISHREQ: if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
+                                                    throw new MessageException ("Invalid student id", inMessage);
+                                                else if((inMessage.getStudentState () != StudentStates.CHTWC))
+                                                    throw new MessageException ("Invalid student state 37", inMessage);
+                                                break;
+
             case MessageType.CSREADYREQ:    //System.out.printf("state38: %d\n", inMessage.getStudentState());
                                             if((inMessage.getStudentID() < 0) || (inMessage.getStudentID() >= Constants.N))
                                                 throw new MessageException ("Invalid student id", inMessage);
@@ -242,6 +248,13 @@ public class TableInterface {
                                             outMessage = new Message (MessageType.EVBDFINISH,((TableClientProxy) Thread.currentThread ()).getStudentID (),
                                                         ((TableClientProxy) Thread.currentThread ()).getStudentState (), everybodyFinish);
                                            break;
+
+            case MessageType.WAITEVBDFINISHREQ: ((TableClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
+                                                ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
+                                                table.waitForEverybodyToFinish();
+                                                outMessage = new Message (MessageType.WAITEVBDFINISH,((TableClientProxy) Thread.currentThread ()).getStudentID (),
+                                                        ((TableClientProxy) Thread.currentThread ()).getStudentState ());
+                                                break;
 
             case MessageType.CSREADYREQ:    ((TableClientProxy) Thread.currentThread ()).setStudentID (inMessage.getStudentID ());
                                             ((TableClientProxy) Thread.currentThread ()).setStudentState (inMessage.getStudentState ());
