@@ -1,6 +1,9 @@
 package commInfra;
 
 import java.io.*;
+
+import javax.xml.ws.AsyncHandler;
+
 import genclass.GenericIO;
 
 /**
@@ -49,16 +52,34 @@ public class Message implements Serializable
    private int studentState = -1;
 
    /**
+   *  Current course number.
+   */
+
+   private int nCourses = 0;
+
+   /**
+   *  Current portion number.
+   */
+
+   private int nPortions = 0;
+
+   /**
+   *  Current seat number.
+   */
+
+   private int seatNumber = -1;
+
+   /**
    *  Value of boolean
    */
 
-  private boolean boolVal = false;
+   private boolean boolVal = false;
 
-  /**
+   /**
    *  Array of students order.
    */
 
-  private int[] arr = null;
+   private int[] arr = null;
 
 
   /**
@@ -274,7 +295,7 @@ public class Message implements Serializable
       || (type == MessageType.RETURNWAITER) || (type == MessageType.WAITERRETURNED) || (type == MessageType.COLLECTWAITER) || (type == MessageType.WAITERCOLLECTED)
       || (type == MessageType.PORTIONCOLLECT) || (type == MessageType.PORTIONCOLLECTDONE)|| (type == MessageType.ENDOP) || (type == MessageType.EOPDONE) || (type == MessageType.PREPAREWAITER) || (type == MessageType.WAITERPREPARED) || (type == MessageType.SAYGOODBYE) || (type == MessageType.SAYGOODBYEDONE))
      { 
-        this.waiterState = state;
+         this.waiterState = state;
      }
      else if ((type == MessageType.SETCHEFSTATE) || (type == MessageType.ALERTWAITER) || (type == MessageType.WAITERALERTED)
       || (type == MessageType.WAFOR) || (type == MessageType.ORDERDONE) || (type == MessageType.PRPCS) || (type == MessageType.CSPREP)
@@ -283,10 +304,19 @@ public class Message implements Serializable
       || (type == MessageType.SETFIRSTCS) || (type == MessageType.SETFIRSTCSDONE) || (type == MessageType.ORDERCOMPREQ) || (type == MessageType.ORDERCOMP)
       || (type == MessageType.CLEANREQ) || (type == MessageType.CHEFWAIT) || (type == MessageType.CHEFWAITDONE) || (type == MessageType.ENDOP) || (type == MessageType.EOPDONE) || (type == MessageType.CLEAN))
      { 
-        this.chefState = state;
+         this.chefState = state;
      }
+     else if(type == MessageType.SETNUMBERCOURSES) {
+         this.nCourses = state;
+     }
+     else if(type == MessageType.SETNUMBERPORTIONS) {
+         this.nPortions = state;
+     }
+     else if(type == MessageType.SETSEAT) {
+         this.seatNumber = state;
+  }
      else { GenericIO.writelnString ("Message type = " + type + ": non-implemented instantiation!");
-              System.exit (1);
+         System.exit (1);
      }
   }
 
@@ -327,7 +357,7 @@ public class Message implements Serializable
    }
 
    /**
-   *  Message instantiation (form 6).
+   *  Message instantiation (form 11).
    *     @param type message type
    *     @param id request id
    *     @param state student state
@@ -492,5 +522,34 @@ public class Message implements Serializable
               "\nNumber of iterations = " + nIter);
    }
 
+   /**
+   *  Getting the current course number.
+   *
+   *     @return current course number
+   */
+
+   public int getNumberOfCourses() {
+      return (this.nCourses);
+   }
+
+   /**
+   *  Getting the current portion number.
+   *
+   *     @return current portion number
+   */
+
+   public int getNumberOfPortions() {
+      return (this.nPortions);
+   }
+
+   /**
+   *  Getting the current seat number.
+   *
+   *     @return current seat number
+   */
+
+   public int getSeatNumber() {
+      return (this.seatNumber);
+   }
 
 }

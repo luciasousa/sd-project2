@@ -81,6 +81,18 @@ public class GeneralReposInterface
                                             throw new MessageException ("Invalid student state 27!", inMessage);
                                         break;
 
+            case MessageType.SETNUMBERCOURSES:    if ((inMessage.getNumberOfCourses() < 0 || inMessage.getNumberOfCourses() > Constants.M))
+                                                    throw new MessageException ("Invalid course number!", inMessage);
+                                                  break;
+
+            case MessageType.SETNUMBERPORTIONS:  if ((inMessage.getNumberOfPortions() < 0 || inMessage.getNumberOfPortions() > Constants.N))
+                                                    throw new MessageException ("Invalid portion number!", inMessage);
+                                                break;
+
+            case MessageType.SETSEAT:  if ((inMessage.getSeatNumber() < 0 || inMessage.getSeatNumber() > Constants.N))
+                                            throw new MessageException ("Invalid seat number!", inMessage);
+                                        break;
+
             case MessageType.SHUT:     // check nothing
                                         break;
 
@@ -111,6 +123,18 @@ public class GeneralReposInterface
             case MessageType.SETSTATES: repos.setChefWaiterStudentState (inMessage.getChefState(), inMessage.getWaiterState(), inMessage.getStudentID(), inMessage.getStudentState());
                                         outMessage = new Message (MessageType.SACK);
                                         break;
+
+            case MessageType.SETNUMBERCOURSES:  repos.setNumberOfCourses(inMessage.getNumberOfCourses());
+                                                outMessage = new Message (MessageType.SACK);
+                                                break;
+
+            case MessageType.SETNUMBERPORTIONS: repos.setNumberOfPortions(inMessage.getNumberOfPortions());
+                                                outMessage = new Message (MessageType.SACK);
+                                                break;
+
+            case MessageType.SETSEAT: repos.setSeatOrder(inMessage.getSeatNumber());
+                                                outMessage = new Message (MessageType.SACK);
+                                                break;
 
             case MessageType.SHUT:  repos.shutdown();
                                     outMessage = new Message (MessageType.SHUTDONE);

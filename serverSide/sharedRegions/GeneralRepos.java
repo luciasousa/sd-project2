@@ -163,7 +163,6 @@ public class GeneralRepos {
     public synchronized void setNumberOfPortions(int nPortions)
     {
         numberOfPortion = nPortions;
-        reportStatus();
     }
 
     /**
@@ -174,7 +173,6 @@ public class GeneralRepos {
     public synchronized void setNumberOfCourses(int nCourses)
     {
         numberOfCourse = nCourses;
-        reportStatus();
     }
 
     /**

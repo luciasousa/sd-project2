@@ -43,6 +43,16 @@ public class Kitchen
     private int numberOfPortionsToDeliver;
 
     /**
+     *   Counter of the current course number
+     */
+    private int nCourses;
+
+    /**
+     *   Counter of the current portion number
+     */
+    private int nPortions;
+
+    /**
      *   Reference to the general repository
      */
     private final GeneralReposStub reposStub;
@@ -79,6 +89,8 @@ public class Kitchen
         nEntities=0;
         chefProxy = null;
         waiterProxy = null;
+        nCourses = 0;
+        nPortions = 0;
     }
 
     /**
@@ -211,8 +223,11 @@ public class Kitchen
         //if(chefProxy.getChefState() != ChefStates.PRPCS) {
         chefProxy.setChefState(ChefStates.PRPCS);
         int state = chefProxy.getChefState();
+        nCourses += 1;
+        nPortions = 0;
+        reposStub.setNumberOfPortions(nPortions);
+        reposStub.setNumberOfCourses(nCourses);
         reposStub.setChefState(state);
-        //}
         
         numberOfCoursesToDeliver--;
         System.out.printf("chef starts preparation\n");
@@ -232,6 +247,8 @@ public class Kitchen
         //if(chefProxy.getChefState() != ChefStates.DSHPT) {
         chefProxy.setChefState(ChefStates.DSHPT);
         int state = chefProxy.getChefState();
+        nPortions += 1;
+        reposStub.setNumberOfPortions(nPortions);
         reposStub.setChefState(state);
         //}
         
@@ -276,6 +293,8 @@ public class Kitchen
         //if(chefProxy.getChefState() != ChefStates.DSHPT) {
         chefProxy.setChefState(ChefStates.DSHPT);
         int state = chefProxy.getChefState();
+        nPortions += 1;
+        reposStub.setNumberOfPortions(nPortions);
         reposStub.setChefState(state);
         //}
         
@@ -295,8 +314,11 @@ public class Kitchen
         //if(chefProxy.getChefState() != ChefStates.PRPCS) {
         chefProxy.setChefState(ChefStates.PRPCS);
         int state = chefProxy.getChefState();
+        nCourses += 1;
+        nPortions = 0;
+        reposStub.setNumberOfPortions(nPortions);
+        reposStub.setNumberOfCourses(nCourses);
         reposStub.setChefState(state);
-        //}
         
         numberOfCoursesToDeliver--;
         numberOfPortionsToDeliver = Constants.N;

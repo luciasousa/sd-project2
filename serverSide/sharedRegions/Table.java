@@ -140,6 +140,7 @@ public class Table
         //if(studentProxy[studentID].getStudentState() != StudentStates.TKSTT) {
         studentProxy[studentID].setStudentState(StudentStates.TKSTT);
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
+        reposStub.setSeatOrder(studentID);
         reposStub.setStudentState(studentID, state);
         //reposStub.setSeatOrder(studentID);
         //}
@@ -195,11 +196,9 @@ public class Table
     {
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
         studentProxy[studentID] = (TableClientProxy) Thread.currentThread();
-        //if(studentProxy[studentID].getStudentState() != StudentStates.SELCS) {
         studentProxy[studentID].setStudentState(StudentStates.SELCS);
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
         reposStub.setStudentState(studentID, state);
-        //}
         
         System.out.printf("student %d read menu\n", studentID);
         menuRead[studentID] = true;
@@ -278,7 +277,6 @@ public class Table
     {
         int studentID = ((TableClientProxy) Thread.currentThread()).getStudentID();
         int state = ((TableClientProxy) Thread.currentThread()).getStudentState();
-        //reposStub.setStudentState(studentID, state);
         System.out.printf("student %d has been informed\n", studentID);
         while(!wasInformed)
         {

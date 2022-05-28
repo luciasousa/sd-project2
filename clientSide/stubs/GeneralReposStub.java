@@ -216,7 +216,26 @@ public class GeneralReposStub {
     */
    public synchronized void setNumberOfPortions(int nPortions)
    {
-      numberOfPortion = nPortions;
+      ClientCom com;                                                 // communication channel
+      Message outMessage,                                            // outgoing message
+              inMessage;                                             // incoming message
+
+      com = new ClientCom (serverHostName, serverPortNumb);
+      while (!com.open ())
+      { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+      }
+      outMessage = new Message (MessageType.SETNUMBERPORTIONS, nPortions);
+      com.writeObject (outMessage);
+      inMessage = (Message) com.readObject ();
+      if (inMessage.getMsgType() != MessageType.SACK)
+         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type 16!");
+           GenericIO.writelnString (inMessage.toString ());
+           System.exit (1);
+         }
+      com.close ();
    }
 
    /**
@@ -226,7 +245,26 @@ public class GeneralReposStub {
     */
    public synchronized void setNumberOfCourses(int nCourses)
    {
-      numberOfCourse = nCourses;
+      ClientCom com;                                                 // communication channel
+      Message outMessage,                                            // outgoing message
+              inMessage;                                             // incoming message
+
+      com = new ClientCom (serverHostName, serverPortNumb);
+      while (!com.open ())
+      { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+      }
+      outMessage = new Message (MessageType.SETNUMBERCOURSES, nCourses);
+      com.writeObject (outMessage);
+      inMessage = (Message) com.readObject ();
+      if (inMessage.getMsgType() != MessageType.SACK)
+         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+           GenericIO.writelnString (inMessage.toString ());
+           System.exit (1);
+         }
+      com.close ();
    }
 
    /**
@@ -242,14 +280,32 @@ public class GeneralReposStub {
    }
 
    /**
-   *   Update Array seatOrder
+   *   Update seatOrder
    *
    *     @param id integer
    */
    public synchronized void setSeatOrder(int id)
    {
-      seatOrder[seatNumber] = id;
-      seatNumber += 1;
+      ClientCom com;                                                 // communication channel
+      Message outMessage,                                            // outgoing message
+              inMessage;                                             // incoming message
+
+      com = new ClientCom (serverHostName, serverPortNumb);
+      while (!com.open ())
+      { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+      }
+      outMessage = new Message (MessageType.SETSEAT, id);
+      com.writeObject (outMessage);
+      inMessage = (Message) com.readObject ();
+      if (inMessage.getMsgType() != MessageType.SACK)
+         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+           GenericIO.writelnString (inMessage.toString ());
+           System.exit (1);
+         }
+      com.close ();
    }   
 
 

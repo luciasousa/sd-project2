@@ -507,5 +507,20 @@ public class MessageType
    */
   public static final int WAITEVBDFINISH = 99;
 
+  /**
+   *  Sets the number of portions (request).
+   */
+  public static final int SETNUMBERPORTIONS = 100;
+
+   /**
+   *  Sets the number of courses (request).
+   */
+  public static final int SETNUMBERCOURSES = 101;
+
+  /**
+   *  Sets the seat number (request).
+  */
+  public static final int SETSEAT = 102;
+
 
 }
